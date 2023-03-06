@@ -1,140 +1,148 @@
-/*var icone
-var jour = document.getElementById("jour")
-var date = document.getElementById("date")
-var tempAjourdhui = document.getElementById("temps")
-var tempMin = document.getElementById("tempsMin")
-var tempMax = document.getElementById("tempsMax")
-let jourSemaine
-let moisChoisi
-*/
+//Prise en mémoire de la date d'aujourd'hui
 var today = new Date();
 today.setHours(0, 0, 0, 0);
 
+//Prise en mémoire de la div avec l'id days-countainer
 const daysContainer = document.getElementById("days-container");
+
+//Prise en mémoire du carousel
 const carousel = document.getElementById("carousel")
 
+//Récupération de l'URL en string
 const currentUrl = window.location.href;
+
+//Nombre de répétition (1 pour les normaux, 2 pour le carroussel)
 let numCount = 1
+
+//Nombre de jours
 let numDays = 1
+
+//Comparaison du URL pour déterminer les variables numDays et numCount
 if (currentUrl.includes('3jours')) {
     numDays = 3;
 }
-if (currentUrl.includes('7jours')) {
+else if (currentUrl.includes('7jours')) {
     numDays = 7;
 }
 else if (currentUrl.includes('14jours')) {
     numDays = 7;
-    numCount = 2
+    numCount = 2;
 }
-console.log(numDays)
+
+//Création du Array 
 const days = [];
 
+//Remplissage du Array avec le nombre de jours nécéssaires
 for (let i = 1; i <= numDays; i++) {
     days.push(i);
 }
 
-let nombreJour = document.getElementById("jour1")
+//Récupération du fichier JSON et exécution de la fonction
 fetch('temperatures_2023.json')
     .then(response => { return response.json() })
     .then(data => {
-        
-        /* unJour(data.temperatures) */
-
         let newDate = today
-        troisJour(data.temperatures, newDate)
-        
-        /* let newDate2 = new Date()
-        Septjour1(data.temperatures, newDate2)
-        
-        let newDate3 = new Date()
-        QuatJour(data.temperatures, newDate3) */
+        afficherJours(data.temperatures, newDate)
     })
 
-function troisJour(liste, newDate)
+//Fonction Principale
+function afficherJours(liste, newDate)
 {
+    //Répète une fois pour normal, 2 fois pour carroussel
     for(let count = 0; count < numCount; count++)
     {
+        //Création du container (pour carroussel)
         const container = document.createElement("div")
-        container.classList.add("container")
+        container.classList.add("container") //Contenir les éléments
 
+        //Création de la classe qui centre les éléments
         const center = document.createElement("div")
-        center.classList.add("row")
-        center.classList.add("text-center")
-        container.appendChild(center)
+        center.classList.add("row") //Row du grid layout bootstrap
+        center.classList.add("text-center") //centrer
+        container.appendChild(center) //ajouter center à container
 
-        if(count == 0)
+        if(count == 0) //première partie du carroussel
         {
             daysContainer.appendChild(container)
         }
-        else if(count == 1)
+        else if(count == 1) //deuxième partie du carroussel
         {
             const daysContainer2 = document.createElement("div")
-            daysContainer2.classList.add("carousel-item")
+            daysContainer2.classList.add("carousel-item")//Objet du carroussel
             carousel.appendChild(daysContainer2)
             daysContainer2.appendChild(container)
         }
 
+        //Pour chaque jour
         days.forEach(day => {
+            //Création du div col
             const col = document.createElement("div");
-            col.classList.add("col");
+            col.classList.add("col"); //Col du grid layout bootstrap
 
+            //Création du div vertical
             const verticalElement = document.createElement("div");
-            verticalElement.classList.add("vertical-element");
+            verticalElement.classList.add("vertical-element"); //séparation en éléments individuels
 
+            //Jour de la semaine
             var jour = document.createElement("div");
             jour.id = `jour${day}`;
 
+            //Icone de météo
             var icone1 = document.createElement("img");
             icone1.id = `icone${day}`;
 
+            //Date du jour
             var date = document.createElement("div");
             date.id = `date${day}`;
 
+            //Température du jour
             const tempAjourdhui = document.createElement("div");
             tempAjourdhui.id = `temps${day}`;
 
+            //Température maximale
             const tempsMax = document.createElement("div");
             tempsMax.id = `tempsMax${day}`;
 
+            //Température minimale
             const tempsMin = document.createElement("div");
             tempsMin.id = `tempsMin${day}`;
 
-            verticalElement.appendChild(jour);
-            verticalElement.appendChild(icone1);
-            verticalElement.appendChild(date);
-            verticalElement.appendChild(tempAjourdhui);
-            verticalElement.appendChild(tempsMax);
-            verticalElement.appendChild(tempsMin);
+            verticalElement.appendChild(jour); //Ajouter jour à verticalElement
+            verticalElement.appendChild(icone1); //Ajouter icone1 à verticalElement
+            verticalElement.appendChild(date); //Ajouter date à verticalElement
+            verticalElement.appendChild(tempAjourdhui); //Ajouter tempAujourd'hui à verticalElement
+            verticalElement.appendChild(tempsMax); //Ajouter tempsMax à verticalElement
+            verticalElement.appendChild(tempsMin); //Ajouter tempsmin à verticalElement
             
-            center.appendChild(col)
-            col.appendChild(verticalElement);
+            center.appendChild(col) //Ajouter col au center
+            col.appendChild(verticalElement); //Ajouter verticalElement au col
 
+            for (let index = 0; index < liste.length; index++) {
+                let temp = liste[index] //Contient les données
+                var dateJSON = new Date(temp.DateDuJour) //Création d'un objet date avec la date d'aujourd'hui
+                dateJSON.setDate(dateJSON.getDate() + 1) //
+                dateJSON.setHours(0, 0, 0, 0)
+                newDate.setHours(0, 0, 0, 0)
+                if(dateJSON.getTime() === newDate.getTime())
+                {
+                    dayOfWeek(dateJSON) //Pour Lundi, Mardi, etc
+                    jour.innerHTML = jourSemaine
 
-            console.log(day)
-                    for (let index = 0; index < liste.length; index++) {
-                        let temp = liste[index]
-                        var dateJSON = new Date(temp.DateDuJour)
-                        dateJSON.setDate(dateJSON.getDate() + 1)
-                        dateJSON.setHours(0, 0, 0, 0)
-                        newDate.setHours(0, 0, 0, 0)
-                        if(dateJSON.getTime() === newDate.getTime())
-                        {
-                            dayOfWeek(dateJSON)
-                            jour.innerHTML = jourSemaine
-                            mois(dateJSON)
-                            date.innerHTML = moisChoisi
-                            tempAjourdhui.innerHTML = temp.TempDuJour + "&deg;C"
-                            tempsMin.innerHTML = "MIN\n" + temp.TempMin + "&deg;C"
-                            tempsMax.innerHTML = "MAX\n" + temp.TempMax + "&deg;C"
-                            chooseIcon(temp.TempDuJour)
-                            icone1.src = icone
-                            icone1.width = "100"
+                    mois(dateJSON) //Pour Janvier, Février, etc
+                    date.innerHTML = moisChoisi
 
-                            index = liste.length
-                            newDate.setDate(newDate.getDate() + 1)
-                        }
-                    }
-            
+                    tempAjourdhui.innerHTML = temp.TempDuJour + "&deg;C" //Formatter Température d'aujourd'hui
+                    tempsMin.innerHTML = "MIN\n" + temp.TempMin + "&deg;C" //Formatter Température minimale
+                    tempsMax.innerHTML = "MAX\n" + temp.TempMax + "&deg;C" //Formatter Température maximale
+
+                    chooseIcon(temp.TempDuJour) //Pour l'icône niege, pluie, etc
+                    icone1.src = icone
+                    icone1.width = "100" //Taille de l'icône
+
+                    index = liste.length //Fin
+                    newDate.setDate(newDate.getDate() + 1)
+                }
+            }
         })
     }
 }
@@ -166,6 +174,7 @@ window.onload = function() {
     loadFooter();
 };
 
+//Choix de la journée de la semaine
 function dayOfWeek(dateJSON)
 {
     if(dateJSON.getDay() == 0)
@@ -198,6 +207,7 @@ function dayOfWeek(dateJSON)
     }
 }
 
+//Choix du mois
 function mois(dateJSON)
 {
     if(dateJSON.getMonth() == 0)
@@ -250,6 +260,7 @@ function mois(dateJSON)
     }
 }
 
+//Choix de l'icône
 function chooseIcon(temperature)
 {
     if(temperature <= 0)
