@@ -139,14 +139,15 @@ function afficherJours(liste, newDate)
                     icone1.src = icone
                     icone1.width = "100" //Taille de l'icône
 
-                    index = liste.length //Fin
-                    newDate.setDate(newDate.getDate() + 1)
+                    index = liste.length //Fin de la boucle
+                    newDate.setDate(newDate.getDate() + 1) //Avancement de la date
                 }
             }
         })
     }
 }
 
+//Loader le footer dans la div
 function loadFooter() {
     var xhttp = new XMLHttpRequest();
     xhttp.onreadystatechange = function() {
@@ -158,6 +159,7 @@ function loadFooter() {
     xhttp.send();
   }
 
+//Loader le header dans le div
 function loadHeader() {
     var xhttp = new XMLHttpRequest();
     xhttp.onreadystatechange = function() {
@@ -169,6 +171,7 @@ function loadHeader() {
     xhttp.send();
   }
 
+//Load la fonction de header et footer quand ouvre la page
 window.onload = function() {
     loadHeader();
     loadFooter();
