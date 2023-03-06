@@ -11,7 +11,10 @@ var today = new Date();
 today.setHours(0, 0, 0, 0);
 
 const daysContainer = document.getElementById("days-container");
+const carousel = document.getElementById("carousel")
+
 const currentUrl = window.location.href;
+let numCount = 1
 let numDays = 1
 if (currentUrl.includes('3jours')) {
     numDays = 3;
@@ -20,7 +23,8 @@ if (currentUrl.includes('7jours')) {
     numDays = 7;
 }
 else if (currentUrl.includes('14jours')) {
-    numDays = 14;
+    numDays = 7;
+    numCount = 2
 }
 console.log(numDays)
 const days = [];
@@ -48,66 +52,119 @@ fetch('temperatures_2023.json')
 
 function troisJour(liste, newDate)
 {
-    days.forEach(day => {
-        const col = document.createElement("div");
-        col.classList.add("col");
+    for(let count = 0; count < numCount; count++)
+    {
+        const container = document.createElement("div")
+        container.classList.add("container")
 
-        const verticalElement = document.createElement("div");
-        verticalElement.classList.add("vertical-element");
+        const center = document.createElement("div")
+        center.classList.add("row")
+        center.classList.add("text-center")
+        container.appendChild(center)
 
-        var jour = document.createElement("div");
-        jour.id = `jour${day}`;
-        verticalElement.appendChild(jour);
+        if(count == 0)
+        {
+            daysContainer.appendChild(container)
+        }
+        else if(count == 1)
+        {
+            const daysContainer2 = document.createElement("div")
+            daysContainer2.classList.add("carousel-item")
+            carousel.appendChild(daysContainer2)
+            daysContainer2.appendChild(container)
+        }
 
-        var icone1 = document.createElement("img");
-        icone1.id = `icone${day}`;
-        verticalElement.appendChild(icone1);
+        days.forEach(day => {
+            const col = document.createElement("div");
+            col.classList.add("col");
 
-        var date = document.createElement("div");
-        date.id = `date${day}`;
-        verticalElement.appendChild(date);
+            const verticalElement = document.createElement("div");
+            verticalElement.classList.add("vertical-element");
 
-        const tempAjourdhui = document.createElement("div");
-        tempAjourdhui.id = `temps${day}`;
-        verticalElement.appendChild(tempAjourdhui);
+            var jour = document.createElement("div");
+            jour.id = `jour${day}`;
 
-        const tempsMax = document.createElement("div");
-        tempsMax.id = `tempsMax${day}`;
-        verticalElement.appendChild(tempsMax);
+            var icone1 = document.createElement("img");
+            icone1.id = `icone${day}`;
 
-        const tempsMin = document.createElement("div");
-        tempsMin.id = `tempsMin${day}`;
-        verticalElement.appendChild(tempsMin);
+            var date = document.createElement("div");
+            date.id = `date${day}`;
 
-        col.appendChild(verticalElement);
-        daysContainer.appendChild(col);
+            const tempAjourdhui = document.createElement("div");
+            tempAjourdhui.id = `temps${day}`;
 
-        console.log(day)
-                for (let index = 0; index < liste.length; index++) {
-                    let temp = liste[index]
-                    var dateJSON = new Date(temp.DateDuJour)
-                    dateJSON.setDate(dateJSON.getDate() + 1)
-                    dateJSON.setHours(0, 0, 0, 0)
-                    newDate.setHours(0, 0, 0, 0)
-                    if(dateJSON.getTime() === newDate.getTime())
-                    {
-                        dayOfWeek(dateJSON)
-                        jour.innerHTML = jourSemaine
-                        mois(dateJSON)
-                        date.innerHTML = moisChoisi
-                        tempAjourdhui.innerHTML = temp.TempDuJour + "&deg;C"
-                        tempsMin.innerHTML = "MIN\n" + temp.TempMin + "&deg;C"
-                        tempsMax.innerHTML = "MAX\n" + temp.TempMax + "&deg;C"
-                        chooseIcon(temp.TempDuJour)
-                        icone1.src = icone
-                        icone1.width = "100"
+            const tempsMax = document.createElement("div");
+            tempsMax.id = `tempsMax${day}`;
 
-                        index = liste.length
-                        newDate.setDate(newDate.getDate() + 1)
+            const tempsMin = document.createElement("div");
+            tempsMin.id = `tempsMin${day}`;
+
+            verticalElement.appendChild(jour);
+            verticalElement.appendChild(icone1);
+            verticalElement.appendChild(date);
+            verticalElement.appendChild(tempAjourdhui);
+            verticalElement.appendChild(tempsMax);
+            verticalElement.appendChild(tempsMin);
+            
+            center.appendChild(col)
+            col.appendChild(verticalElement);
+
+
+            console.log(day)
+                    for (let index = 0; index < liste.length; index++) {
+                        let temp = liste[index]
+                        var dateJSON = new Date(temp.DateDuJour)
+                        dateJSON.setDate(dateJSON.getDate() + 1)
+                        dateJSON.setHours(0, 0, 0, 0)
+                        newDate.setHours(0, 0, 0, 0)
+                        if(dateJSON.getTime() === newDate.getTime())
+                        {
+                            dayOfWeek(dateJSON)
+                            jour.innerHTML = jourSemaine
+                            mois(dateJSON)
+                            date.innerHTML = moisChoisi
+                            tempAjourdhui.innerHTML = temp.TempDuJour + "&deg;C"
+                            tempsMin.innerHTML = "MIN\n" + temp.TempMin + "&deg;C"
+                            tempsMax.innerHTML = "MAX\n" + temp.TempMax + "&deg;C"
+                            chooseIcon(temp.TempDuJour)
+                            icone1.src = icone
+                            icone1.width = "100"
+
+                            index = liste.length
+                            newDate.setDate(newDate.getDate() + 1)
+                        }
                     }
-                }
-    })
+            
+        })
+    }
 }
+
+function loadFooter() {
+    var xhttp = new XMLHttpRequest();
+    xhttp.onreadystatechange = function() {
+      if (this.readyState == 4 && this.status == 200) {
+        document.getElementById("footer").innerHTML = this.responseText;
+      }
+    };
+    xhttp.open("GET", "footer.html", true);
+    xhttp.send();
+  }
+
+function loadHeader() {
+    var xhttp = new XMLHttpRequest();
+    xhttp.onreadystatechange = function() {
+      if (this.readyState == 4 && this.status == 200) {
+        document.getElementById("header").innerHTML = this.responseText;
+      }
+    };
+    xhttp.open("GET", "header.html", true);
+    xhttp.send();
+  }
+
+window.onload = function() {
+    loadHeader();
+    loadFooter();
+};
 
 function dayOfWeek(dateJSON)
 {
