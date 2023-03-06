@@ -3,7 +3,9 @@ var today = new Date();
 today.setHours(0, 0, 0, 0);
 
 //Prise en mémoire de la div avec l'id days-countainer
-const daysContainer = document.getElementById("days-container");
+const display = document.getElementById("display")
+var daysContainer = document.createElement("div");
+display.appendChild(daysContainer)
 
 //Prise en mémoire du carousel
 const carousel = document.getElementById("carousel")
@@ -11,13 +13,8 @@ const carousel = document.getElementById("carousel")
 //Récupération de l'URL en string
 const currentUrl = window.location.href;
 
-//Nombre de répétition (1 pour les normaux, 2 pour le carroussel)
-let numCount = 1
-
-//Nombre de jours
-let numDays = 1
-
 //Comparaison du URL pour déterminer les variables numDays et numCount
+/*
 if (currentUrl.includes('3jours')) {
     numDays = 3;
 }
@@ -27,30 +24,43 @@ else if (currentUrl.includes('7jours')) {
 else if (currentUrl.includes('14jours')) {
     numDays = 7;
     numCount = 2;
-}
+}*/
 
-//Création du Array 
-const days = [];
 
-//Remplissage du Array avec le nombre de jours nécéssaires
-for (let i = 1; i <= numDays; i++) {
-    days.push(i);
-}
 
 //Récupération du fichier JSON et exécution de la fonction
-fetch('temperatures_2023.json')
-    .then(response => { return response.json() })
-    .then(data => {
-        let newDate = today
-        afficherJours(data.temperatures, newDate)
-    })
-
+function main(nbJour){
+    fetch('temperatures_2023.json')
+        .then(response => { return response.json() })
+        .then(data => {
+            let chat = data.temperatures
+            afficherJours(chat, nbJour)
+        })
+}
+    
 //Fonction Principale
-function afficherJours(liste, newDate)
+function afficherJours(liste, numDays)
 {
+    //Nombre de répétition (1 pour les normaux, 2 pour le carroussel)
+    let numCount = 1
+
+    //Création du Array 
+    var days = [];
+
+    //Remplissage du Array avec le nombre de jours nécéssaires
+    for (let i = 1; i <= numDays; i++) {
+        days.push(i);
+    }
+    let newDate = today
     //Répète une fois pour normal, 2 fois pour carroussel
+    if(numDays == 14)
+    {
+        numDays = 7
+        numCount = 2
+    }
     for(let count = 0; count < numCount; count++)
     {
+        console.log("allo")
         //Création du container (pour carroussel)
         const container = document.createElement("div")
         container.classList.add("container") //Contenir les éléments
@@ -63,6 +73,7 @@ function afficherJours(liste, newDate)
 
         if(count == 0) //première partie du carroussel
         {
+            console.log(daysContainer)
             daysContainer.appendChild(container)
         }
         else if(count == 1) //deuxième partie du carroussel
@@ -283,3 +294,26 @@ function chooseIcon(temperature)
         icone = "images/nuage.png"
     }
 }
+
+/*const navLinks = document.querySelectorAll('.dropdown-item');
+
+console.log(navLinks)
+
+navLinks.forEach(link => {
+    link.addEventListener('click', e => {
+        //e.preventDefault();
+        console.log("allolink")
+        const target = e.target.getAttribute('value')
+        main(target)
+    })
+})*/
+
+const dropdown = document.getElementsByName('choice');
+console.log(dropdown)
+
+// Add an event listener for the 'click' event
+dropdown.forEach((element, index) => {
+    element.addEventListener('click', function() {
+        console.log(index)
+    })
+})
