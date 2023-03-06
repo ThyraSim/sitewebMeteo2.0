@@ -1,13 +1,23 @@
-var icone
+/*var icone
 var jour = document.getElementById("jour")
 var date = document.getElementById("date")
 var tempAjourdhui = document.getElementById("temps")
 var tempMin = document.getElementById("tempsMin")
 var tempMax = document.getElementById("tempsMax")
 let jourSemaine
-let moisChoisi
+let moisChoisi*/
 var today = new Date();
 today.setHours(0, 0, 0, 0);
+
+const daysContainer = document.getElementById("days-container");
+const currentUrl = window.location.href;
+let numDays = 3;
+if (currentUrl.includes('7jours')) {
+    numDays = 7;
+}
+else if (currentUrl.includes('14jours')) {
+    numDays = 14;
+}
 
 let nombreJour = document.getElementById("jour1")
 fetch('temperatures_2023.json')
