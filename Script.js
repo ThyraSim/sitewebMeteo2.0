@@ -5,13 +5,17 @@ var tempAjourdhui = document.getElementById("temps")
 var tempMin = document.getElementById("tempsMin")
 var tempMax = document.getElementById("tempsMax")
 let jourSemaine
-let moisChoisi*/
+let moisChoisi
+*/
 var today = new Date();
 today.setHours(0, 0, 0, 0);
 
 const daysContainer = document.getElementById("days-container");
 const currentUrl = window.location.href;
-let numDays = 3;
+let numDays = 1
+if (currentUrl.includes('3jours')) {
+    numDays = 3;
+}
 if (currentUrl.includes('7jours')) {
     numDays = 7;
 }
@@ -77,7 +81,8 @@ function troisJour(liste, newDate)
 
         col.appendChild(verticalElement);
         daysContainer.appendChild(col);
-            for (var i = 1; i <= numDays; i++) {
+
+        console.log(day)
                 for (let index = 0; index < liste.length; index++) {
                     let temp = liste[index]
                     var dateJSON = new Date(temp.DateDuJour)
@@ -101,44 +106,7 @@ function troisJour(liste, newDate)
                         newDate.setDate(newDate.getDate() + 1)
                     }
                 }
-            }
     })
-}
-
-function afficherMeteo(liste, newDate, numDays) {
-    for (var i = 1; i <= numDays; i++) {
-        var icone1 = document.createElement("img");
-        var jour = document.getElementById("jour" + i);
-        var date = document.getElementById("date" + i);
-        var tempAjourdhui = document.getElementById("temps" + i);
-        var tempMin = document.getElementById("tempsMin" + i);
-        var tempMax = document.getElementById("tempsMax" + i);
-
-        for (let index = 0; index < liste.length; index++) {
-            let temp = liste[index]
-            var dateJSON = new Date(temp.DateDuJour)
-            dateJSON.setDate(dateJSON.getDate() + 1)
-            dateJSON.setHours(0, 0, 0, 0)
-            newDate.setHours(0, 0, 0, 0)
-
-            if(dateJSON.getTime() === newDate.getTime()) {
-                dayOfWeek(dateJSON)
-                jour.innerHTML = jourSemaine
-                mois(dateJSON)
-                date.innerHTML = moisChoisi
-                tempAjourdhui.innerHTML = "Temperature du jour : "+temp.TempDuJour
-                tempMin.innerHTML = "Temperature minimale : "+temp.TempMin
-                tempMax.innerHTML = "Temperature maximale : "+temp.TempMax
-                chooseIcon(temp.TempDuJour)
-                icone1 = document.getElementById("icone"+i)
-                icone1.src = icone
-                icone1.width = "100"
-
-                index = liste.length
-                newDate.setDate(newDate.getDate() + 1)
-            }
-        }
-    }
 }
 
 function dayOfWeek(dateJSON)

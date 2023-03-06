@@ -10,13 +10,24 @@ var today = new Date();
 today.setHours(0, 0, 0, 0);
 
 const daysContainer = document.getElementById("days-container");
+const carousel = document.getElementById("carousel")
+
 const currentUrl = window.location.href;
-let numDays = 3;
+let numDays = 1
+if (currentUrl.includes('3jours')) {
+    numDays = 3;
+}
 if (currentUrl.includes('7jours')) {
     numDays = 7;
 }
 else if (currentUrl.includes('14jours')) {
-    numDays = 14;
+    numDays = 7;
+}
+console.log(numDays)
+const days = [];
+
+for (let i = 1; i <= numDays; i++) {
+    days.push(i);
 }
 
 let nombreJour = document.getElementById("jour1")
@@ -24,89 +35,106 @@ fetch('temperatures_2023.json')
     .then(response => { return response.json() })
     .then(data => {
         
-        /* unJour(data.temperatures) 
-        let newDate2 = new Date()
-        Septjour1(data.temperatures, newDate2)
+        /* unJour(data.temperatures) */
+
         let newDate = today
-        troisJour(data.temperatures, newDate) */
+        troisJour(data.temperatures, newDate)
+        
+        /* let newDate2 = new Date()
+        Septjour1(data.temperatures, newDate2)
+        
         let newDate3 = new Date()
-        QuatJour(data.temperatures, newDate3)
+        QuatJour(data.temperatures, newDate3) */
     })
 
-
-
-    function QuatJour(liste, newDate)
+function troisJour(liste, newDate)
 {
-    for (var i = 1; i <= 14; i++) {
-        var Quaticone = document.createElement("img");
-        var Quatjour = document.getElementById("Quatjour" + i);
-        var Quatdate = document.getElementById("Quatdate" + i);
-        var QuattempAjourdhui = document.getElementById("Quattemps" + i);
-        var QuattempMin = document.getElementById("QuattempsMin" + i);
-        var QuattempMax = document.getElementById("QuattempsMax" + i);
+    for(let count = 0; count < 2; count++)
+    {
+        const container = document.createElement("div")
+        container.classList.add("container")
+
+        const center = document.createElement("div")
+        center.classList.add("row")
+        center.classList.add("text-center")
+        container.appendChild(center)
+
+        if(count == 0)
+        {
+            daysContainer.appendChild(container)
+        }
+        if(count == 1)
+        {
+            const daysContainer2 = document.createElement("div")
+            container.classList.add("carousel-item")
+            carousel.appendChild(daysContainer2)
+            daysContainer2.appendChild(container)
+        }
         
-        for (let index = 0; index < liste.length; index++) {
-            let temp = liste[index]
-            var dateJSON = new Date(temp.DateDuJour)
-            dateJSON.setDate(dateJSON.getDate() + 1)
-            dateJSON.setHours(0, 0, 0, 0)
-            newDate.setHours(0, 0, 0, 0)
-            if(dateJSON.getTime() === newDate.getTime())
-            {
-                dayOfWeek(dateJSON)
-                Quatjour.innerHTML = jourSemaine
-                mois(dateJSON)
-                Quatdate.innerHTML = moisChoisi
-                QuattempAjourdhui.innerHTML = temp.TempDuJour + "&deg;C"
-                QuattempMin.innerHTML       = "MIN\n" + temp.TempMin + "&deg;C"
-                QuattempMax.innerHTML       = "MAX\n" + temp.TempMax + "&deg;C"
-                chooseIcon(temp.TempDuJour)
-                Quaticone = document.getElementById("Quaticone"+i)
-                Quaticone.src = icone
-                Quaticone.width = "100"
+        
 
-                index = liste.length
-                newDate.setDate(newDate.getDate() + 1)
-            }
-        }
-    }
-}
+        days.forEach(day => {
+            const col = document.createElement("div");
+            col.classList.add("col");
+
+            const verticalElement = document.createElement("div");
+            verticalElement.classList.add("vertical-element");
+
+            var jour = document.createElement("div");
+            jour.id = `jour${day}`;
+
+            var icone1 = document.createElement("img");
+            icone1.id = `icone${day}`;
+
+            var date = document.createElement("div");
+            date.id = `date${day}`;
+
+            const tempAjourdhui = document.createElement("div");
+            tempAjourdhui.id = `temps${day}`;
+
+            const tempsMax = document.createElement("div");
+            tempsMax.id = `tempsMax${day}`;
+
+            const tempsMin = document.createElement("div");
+            tempsMin.id = `tempsMin${day}`;
+
+            verticalElement.appendChild(jour);
+            verticalElement.appendChild(icone1);
+            verticalElement.appendChild(date);
+            verticalElement.appendChild(tempAjourdhui);
+            verticalElement.appendChild(tempsMax);
+            verticalElement.appendChild(tempsMin);
+            
+            center.appendChild(col)
+            col.appendChild(verticalElement);
 
 
+            console.log(day)
+                    for (let index = 0; index < liste.length; index++) {
+                        let temp = liste[index]
+                        var dateJSON = new Date(temp.DateDuJour)
+                        dateJSON.setDate(dateJSON.getDate() + 1)
+                        dateJSON.setHours(0, 0, 0, 0)
+                        newDate.setHours(0, 0, 0, 0)
+                        if(dateJSON.getTime() === newDate.getTime())
+                        {
+                            dayOfWeek(dateJSON)
+                            jour.innerHTML = jourSemaine
+                            mois(dateJSON)
+                            date.innerHTML = moisChoisi
+                            tempAjourdhui.innerHTML = temp.TempDuJour + "&deg;C"
+                            tempsMin.innerHTML = "MIN\n" + temp.TempMin + "&deg;C"
+                            tempsMax.innerHTML = "MAX\n" + temp.TempMax + "&deg;C"
+                            chooseIcon(temp.TempDuJour)
+                            icone1.src = icone
+                            icone1.width = "100"
 
-function afficherMeteo(liste, newDate, numDays) {
-    for (var i = 1; i <= numDays; i++) {
-        var icone1 = document.createElement("img");
-        var jour = document.getElementById("jour" + i);
-        var date = document.getElementById("date" + i);
-        var tempAjourdhui = document.getElementById("temps" + i);
-        var tempMin = document.getElementById("tempsMin" + i);
-        var tempMax = document.getElementById("tempsMax" + i);
-
-        for (let index = 0; index < liste.length; index++) {
-            let temp = liste[index]
-            var dateJSON = new Date(temp.DateDuJour)
-            dateJSON.setDate(dateJSON.getDate() + 1)
-            dateJSON.setHours(0, 0, 0, 0)
-            newDate.setHours(0, 0, 0, 0)
-
-            if(dateJSON.getTime() === newDate.getTime()) {
-                dayOfWeek(dateJSON)
-                jour.innerHTML = jourSemaine
-                mois(dateJSON)
-                date.innerHTML = moisChoisi
-                tempAjourdhui.innerHTML = "Temperature du jour : "+temp.TempDuJour
-                tempMin.innerHTML = "Temperature minimale : "+temp.TempMin
-                tempMax.innerHTML = "Temperature maximale : "+temp.TempMax
-                chooseIcon(temp.TempDuJour)
-                icone1 = document.getElementById("icone"+i)
-                icone1.src = icone
-                icone1.width = "100"
-
-                index = liste.length
-                newDate.setDate(newDate.getDate() + 1)
-            }
-        }
+                            index = liste.length
+                            newDate.setDate(newDate.getDate() + 1)
+                        }
+                    }
+            
+        })
     }
 }
 
