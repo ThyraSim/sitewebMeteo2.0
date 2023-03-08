@@ -3,3 +3,7 @@
     background-color: rgb(88, 88, 88);
 
 }
+
+.container{
+    transition: height 0.3s ease-in-out;
+}
