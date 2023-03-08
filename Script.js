@@ -103,6 +103,7 @@ function afficherJours(numDays)
     }
     else
     {
+        daysContainer.setAttribute("class", "")
         display.appendChild(daysContainer)
     }
 
@@ -380,6 +381,7 @@ dropdown.forEach((element, index) => {
     element.addEventListener('click', function() {
         console.log(index)
         daysContainer.innerHTML = null
+        display.innerHTML = ``
         today = new Date();
         today.setHours(0, 0, 0, 0);
         if(index == 0)
