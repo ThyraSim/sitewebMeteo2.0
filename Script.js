@@ -66,7 +66,6 @@ function carou()
     </div>`
 }
 
-
 //Fonction Principale
 function afficherJours(numDays)
 {
@@ -431,7 +430,6 @@ function fetchDataForMonth(mois) {
   
         // CALCUL STATISTIQUE ET AFFICHAGE pour le mois en cours ( MIN, MAX , MOY)
         afficherStatistique(tabTempMois);
-        console.log(mois)
   
         // //GÉNÉRER CALENDRIER selon le mois choisi
         genereCalendrier(today.getFullYear(), mois, temp)
@@ -486,7 +484,10 @@ function afficherStatistique(tabTempMois) {
   // Get the first day of the month
   var firstDay = new Date(annee, mois, 1).getDay();
   // Get the number of days in the month
-  var lastDay = new Date(annee, mois + 1, 0).getDate();
+  var prochainMois = parseInt(mois)+1
+  console.log(prochainMois)
+  var tempDate = new Date(annee, prochainMois, 0)
+  var lastDay = tempDate.getDate()
 
   // Loop through each row of the calendar
   for (let i = 0; i < 6; i++) {
