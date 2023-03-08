@@ -2,8 +2,12 @@
 var today = new Date();
 today.setHours(0, 0, 0, 0);
 
-var tabCalendrier = document.getElementById("tabCalendrier");
-var ListeMois = document.getElementById("ListeMois");
+// cible dans le html
+
+var tabCalendrier = document.getElementById("tabCalendrier"); // table calendrier
+var ListeMois = document.getElementById("ListeMois"); //  dropdown menu
+
+//pour statistique
 var min = document.getElementById("min");
 var max = document.getElementById("max");
 var moy = document.getElementById("moy");
@@ -11,12 +15,15 @@ var moy = document.getElementById("moy");
 var moisEnCours = today.getMonth();
 ListeMois.value = moisEnCours;
 
-// Function to fetch and process data for a given month
+// Affiche le mois en cours avec la fonction fetch
+fetchDataForMonth(moisEnCours);
+
+// Fonction pour sortir exploiter les données JSON, calculer statistique et générer le calendrier
 function fetchDataForMonth(mois) {
   fetch("temperatures_2023.json")
     .then((response) => response.json())
     .then((data) => {
-      let temp = data.temperatures;
+       temp = data.temperatures;
 
       // récupère les données juste pour le mois
       var tabTempMois = [];
@@ -25,7 +32,7 @@ function fetchDataForMonth(mois) {
         dateJSON.setHours(0, 0, 0, 0);
         dateJSON.setDate(dateJSON.getDate() + 1);
 
-        if (dateJSON.getMonth() == mois) {
+        if (dateJSON.getMonth() == mois)  {  // si 
           // pour calculer statistique
           tabTempMois.push(jour.TempDuJour);
         }
@@ -71,9 +78,9 @@ function fetchDataForMonth(mois) {
               dateJSON.setDate(dateJSON.getDate() + 1);
 
               if (
-                dateJSON.getFullYear() === annee &&
-                dateJSON.getMonth() === mois &&
-                dateJSON.getDate() === day
+                dateJSON.getFullYear() == annee &&
+                dateJSON.getMonth() == mois &&
+                dateJSON.getDate() == day
               ) {
                 temperature = temp[k].TempDuJour;
                 break;
@@ -98,8 +105,7 @@ function fetchDataForMonth(mois) {
     });
 }
 
-// Affiche le mois en cours
-fetchDataForMonth(moisEnCours);
+
 
 // lorsque change de valeur dans le dropdown menu
 ListeMois.addEventListener("change", () => {
@@ -118,6 +124,13 @@ function CalcultempMoyenneMois(tabTempMois) {
   });
   return Math.round(sum / nb);
 }
+
+function afficherStatistique(liste){
+
+
+}
+
+
 
 //fonction reprise du code de simon
 
@@ -148,6 +161,8 @@ function mois(dateJSON) {
     moisChoisi = dateJSON.getDate() + " décembre";
   }
 }
+
+
 
 function dayOfWeek(dateJSON) {
   if (dateJSON.getDay() == 0) {
