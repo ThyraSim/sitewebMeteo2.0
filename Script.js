@@ -32,43 +32,46 @@ function carou()
     carouselMain.setAttribute("class", "carousel carousel-dark slide")
     carouselMain.innerHTML = `
     <div class="carousel-indicators">
-    <button
-        type="button"
-        data-bs-target="#carousel"
-        data-bs-slide-to="0"
-        class="active"
-        aria-current="true"
-        aria-label="Slide 1"
-    ></button>
-    <button
-        type="button"
-        data-bs-target="#carousel"
-        data-bs-slide-to="1"
-        aria-label="Slide 2"
-    ></button>
+        <button
+            type="button"
+            data-bs-target="#carouselMain"
+            data-bs-slide-to="0"
+            class="active"
+            aria-current="true"
+            aria-label="Slide 1"
+        ></button>
+        <button
+            type="button"
+            data-bs-target="#daysContainer2"
+            data-bs-slide-to="1"
+            aria-label="Slide 1"
+        ></button>
     </div>
 
-    <div class="carousel-inner mt-4" id="carousel"></div>
+    <div class="carousel-inner mt-4" id="carousel">
+        <div class="carousel-item active" id="daysContainer"></div>
+        <div class="carousel-item" id="daysContainer2"></div>
+    </div>
 
     <button
-    class="carousel-control-prev"
-    type="button"
-    data-bs-target="#carouselExampleIndicators"
-    data-bs-slide="prev"
+        class="carousel-control-prev"
+        type="button"
+        data-bs-target="#carouselMain"
+        data-bs-slide="prev"
     >
-    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-    <span class="visually-hidden">Previous</span>
+        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+        <span class="visually-hidden">Previous</span>
     </button>
     <button
-    class="carousel-control-next"
-    type="button"
-    data-bs-target="#carouselExampleIndicators"
-    data-bs-slide="next"
+        class="carousel-control-next"
+        type="button"
+        data-bs-target="#carouselMain"
+        data-bs-slide="next"
     >
-    <span class="carousel-control-next-icon" aria-hidden="true"></span>
-    <span class="visually-hidden">Next</span>
+        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+        <span class="visually-hidden">Next</span>
     </button>
-    </div>`
+    `;
     display.appendChild(carouselMain)
     carousel = document.getElementById('carousel')
 }
@@ -81,7 +84,6 @@ function afficherJours(numDays)
 
     //Création du Array 
     days = [];
-    daysContainer = document.createElement("div")
 
     //Répète une fois pour normal, 2 fois pour carroussel
     if(numDays == 14)
@@ -99,8 +101,6 @@ function afficherJours(numDays)
     reset()
     if(numCount == 2)
     {
-        daysContainer.classList.add("carousel-item")
-        daysContainer.classList.add("active")
         carousel.appendChild(daysContainer)
         carousel.appendChild(daysContainer2)
         display.appendChild(carouselMain)
@@ -128,12 +128,17 @@ function creerHTML()
 
         if(count == 0) //première partie du carroussel
         {
+            if(numCount == 1)
+            {
+            daysContainer = document.createElement("div")
+            }else{
+                daysContainer = document.getElementById("daysContainer")
+            }
             daysContainer.appendChild(container)
         }
         else if(count == 1) //deuxième partie du carroussel
         {
-            daysContainer2 = document.createElement("div")
-            daysContainer2.classList.add("carousel-item")//Objet du carroussel
+            daysContainer2 = document.getElementById("daysContainer2")
             daysContainer2.appendChild(container)
             console.log(daysContainer2)
         }
