@@ -4,10 +4,6 @@ var today
 //Prise en mémoire de la div avec l'id days-countainer
 const display = document.getElementById("display")
 var daysContainer = document.createElement("div");
-display.appendChild(daysContainer)
-
-//Prise en mémoire du carousel
-const carousel = document.getElementById("carousel")
 
 //Récupération de l'URL en string
 const currentUrl = window.location.href;
@@ -25,45 +21,101 @@ else if (currentUrl.includes('14jours')) {
     numCount = 2;
 }*/
 
-
+let liste
 
 //Récupération du fichier JSON et exécution de la fonction
 function main(nbJour){
     fetch('temperatures_2023.json')
         .then(response => { return response.json() })
         .then(data => {
-            let chat = data.temperatures
-            afficherJours(chat, nbJour)
+            liste = data.temperatures
+            afficherJours(nbJour)
         })
 }
 let numCount = 1
 var days = [];
 let newDate = today
 
+function carou()
+{
+    display.innerHTML = `<div id="carouselExampleIndicators" class="carousel carousel-dark slide">
+    <div class="carousel-indicators">
+    <button
+        type="button"
+        data-bs-target="#carouselExampleIndicators"
+        data-bs-slide-to="0"
+        class="active"
+        aria-current="true"
+        aria-label="Slide 1"
+    ></button>
+    <button
+        type="button"
+        data-bs-target="#carouselExampleIndicators"
+        data-bs-slide-to="1"
+        aria-label="Slide 2"
+    ></button>
+    </div>
+
+    <div class="carousel-inner mt-4" id="carousel"></div>
+
+    <button
+    class="carousel-control-prev"
+    type="button"
+    data-bs-target="#carouselExampleIndicators"
+    data-bs-slide="prev"
+    >
+    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+    <span class="visually-hidden">Previous</span>
+    </button>
+    <button
+    class="carousel-control-next"
+    type="button"
+    data-bs-target="#carouselExampleIndicators"
+    data-bs-slide="next"
+    >
+    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+    <span class="visually-hidden">Next</span>
+    </button>
+    </div>`
+}
+
+
 //Fonction Principale
-function afficherJours(liste, numDays)
+function afficherJours(numDays)
 {
     //Nombre de répétition (1 pour les normaux, 2 pour le carroussel)
     numCount = 1
 
     //Création du Array 
     days = [];
+    
+    //Répète une fois pour normal, 2 fois pour carroussel
+    if(numDays == 14)
+    {
+        numDays = 7
+        numCount = 2
+        carou()
+        var carousel = document.getElementById("carousel")
+        daysContainer.classList.add("carousel-item")
+        daysContainer.classList.add("active")
+        carousel.appendChild(daysContainer)
+        console.log(carousel)
+    }
+    else
+    {
+        display.appendChild(daysContainer)
+    }
 
     //Remplissage du Array avec le nombre de jours nécéssaires
     for (let i = 1; i <= numDays; i++) {
         days.push(i);
     }
     newDate = today
-    //Répète une fois pour normal, 2 fois pour carroussel
-    if(numDays == 14)
-    {
-        numDays = 7
-        numCount = 2
-    }
-    creerHTML(liste)
+    
+    creerHTML()
 }
 
-function creerHTML(liste)
+function creerHTML()
 {
     for(let count = 0; count < numCount; count++)
     {
@@ -79,7 +131,6 @@ function creerHTML(liste)
 
         if(count == 0) //première partie du carroussel
         {
-            console.log(daysContainer)
             daysContainer.appendChild(container)
         }
         else if(count == 1) //deuxième partie du carroussel
@@ -91,6 +142,7 @@ function creerHTML(liste)
         }
         //Pour chaque jour
         days.forEach(day => {
+            console.log(day)
             //Création du div col
             const col = document.createElement("div");
             col.classList.add("col"); //Col du grid layout bootstrap
@@ -133,12 +185,12 @@ function creerHTML(liste)
             center.appendChild(col) //Ajouter col au center
             col.appendChild(verticalElement); //Ajouter verticalElement au col
 
-            remplirDonnee(liste, jour, date, tempAjourdhui, tempsMin, tempsMax, icone1)
+            remplirDonnee(jour, date, tempAjourdhui, tempsMin, tempsMax, icone1)
         })
     }
 }
 
-function remplirDonnee(liste, jour, date, tempAjourdhui, tempsMin, tempsMax, icone1)
+function remplirDonnee(jour, date, tempAjourdhui, tempsMin, tempsMax, icone1)
 {
     for (let index = 0; index < liste.length; index++) {
         let temp = liste[index] //Contient les données
