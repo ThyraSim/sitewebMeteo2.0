@@ -3,7 +3,10 @@ var today
 
 //Prise en mémoire de la div avec l'id days-countainer
 const display = document.getElementById("display")
-var daysContainer = document.createElement("div");
+var daysContainer
+var daysContainer2
+var carousel
+var carouselMain
 
 let numCount = 1
 var days = [];
@@ -25,11 +28,13 @@ function main(nbJour){
 
 function carou()
 {
-    display.innerHTML = `<div id="carouselExampleIndicators" class="carousel carousel-dark slide">
+    carouselMain = document.createElement("div")
+    carouselMain.setAttribute("class", "carousel carousel-dark slide")
+    carouselMain.innerHTML = `
     <div class="carousel-indicators">
     <button
         type="button"
-        data-bs-target="#carouselExampleIndicators"
+        data-bs-target="#carousel"
         data-bs-slide-to="0"
         class="active"
         aria-current="true"
@@ -37,7 +42,7 @@ function carou()
     ></button>
     <button
         type="button"
-        data-bs-target="#carouselExampleIndicators"
+        data-bs-target="#carousel"
         data-bs-slide-to="1"
         aria-label="Slide 2"
     ></button>
@@ -64,6 +69,8 @@ function carou()
     <span class="visually-hidden">Next</span>
     </button>
     </div>`
+    display.appendChild(carouselMain)
+    carousel = document.getElementById('carousel')
 }
 
 //Fonction Principale
@@ -74,32 +81,35 @@ function afficherJours(numDays)
 
     //Création du Array 
     days = [];
-    
+    daysContainer = document.createElement("div")
+
     //Répète une fois pour normal, 2 fois pour carroussel
     if(numDays == 14)
     {
         numDays = 7
         numCount = 2
         carou()
-        var carousel = document.getElementById("carousel")
+    }
+    //Remplissage du Array avec le nombre de jours nécéssaires
+    for (let i = 1; i <= numDays; i++) {
+        days.push(i);
+    }
+    newDate = today
+    creerHTML()
+    reset()
+    if(numCount == 2)
+    {
         daysContainer.classList.add("carousel-item")
         daysContainer.classList.add("active")
         carousel.appendChild(daysContainer)
-        console.log(carousel)
+        carousel.appendChild(daysContainer2)
+        display.appendChild(carouselMain)
     }
     else
     {
         daysContainer.setAttribute("class", "")
         display.appendChild(daysContainer)
     }
-
-    //Remplissage du Array avec le nombre de jours nécéssaires
-    for (let i = 1; i <= numDays; i++) {
-        days.push(i);
-    }
-    newDate = today
-    
-    creerHTML()
 }
 
 function creerHTML()
@@ -122,10 +132,10 @@ function creerHTML()
         }
         else if(count == 1) //deuxième partie du carroussel
         {
-            const daysContainer2 = document.createElement("div")
+            daysContainer2 = document.createElement("div")
             daysContainer2.classList.add("carousel-item")//Objet du carroussel
-            carousel.appendChild(daysContainer2)
             daysContainer2.appendChild(container)
+            console.log(daysContainer2)
         }
         //Pour chaque jour
         days.forEach(day => {
@@ -312,27 +322,11 @@ function chooseIcon(temperature) {
     }
   }
 
-/*const navLinks = document.querySelectorAll('.dropdown-item');
-
-console.log(navLinks)
-
-navLinks.forEach(link => {
-    link.addEventListener('click', e => {
-        //e.preventDefault();
-        console.log("allolink")
-        const target = e.target.getAttribute('value')
-        main(target)
-    })
-})*/
-
 const dropdown = document.getElementsByName('choice');
-console.log(dropdown)
 
 // Add an event listener for the 'click' event
 dropdown.forEach((element, index) => {
     element.addEventListener('click', function() {
-        console.log(index)
-        reset()
         if(index == 0)
         {
             main(3)
@@ -351,7 +345,6 @@ dropdown.forEach((element, index) => {
 const aujLink = document.querySelector('#auj');
 
 aujLink.addEventListener('click', function(event) {
-    reset()
     main(1)
 })
 
@@ -405,7 +398,6 @@ mensuelLink.addEventListener('click', function() {
     setListener()
     ListeMois.value = moisEnCours;
     fetchDataForMonth(moisEnCours)
-    console.log(mensuelLink)
 })
 
 function setListener()
@@ -485,7 +477,6 @@ function afficherStatistique(tabTempMois) {
   var firstDay = new Date(annee, mois, 1).getDay();
   // Get the number of days in the month
   var prochainMois = parseInt(mois)+1
-  console.log(prochainMois)
   var tempDate = new Date(annee, prochainMois, 0)
   var lastDay = tempDate.getDate()
 
@@ -546,8 +537,7 @@ function afficherStatistique(tabTempMois) {
 //Vide les données affichées
 function reset()
 {
-    daysContainer.innerHTML = null
-    display.innerHTML = ``
+    display.innerHTML = null
     today = new Date();
     today.setHours(0, 0, 0, 0);
 }
