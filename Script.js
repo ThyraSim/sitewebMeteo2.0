@@ -29,12 +29,13 @@ function main(nbJour){
 function carou()
 {
     carouselMain = document.createElement("div")
+    carouselMain.setAttribute("id", "carouselExampleIndicators")
     carouselMain.setAttribute("class", "carousel carousel-dark slide")
     carouselMain.innerHTML = `
     <div class="carousel-indicators">
         <button
             type="button"
-            data-bs-target="#carouselMain"
+            data-bs-target="#carouselExampleIndicators"
             data-bs-slide-to="0"
             class="active"
             aria-current="true"
@@ -42,9 +43,9 @@ function carou()
         ></button>
         <button
             type="button"
-            data-bs-target="#daysContainer2"
+            data-bs-target="#carouselExampleIndicators"
             data-bs-slide-to="1"
-            aria-label="Slide 1"
+            aria-label="Slide 2"
         ></button>
     </div>
 
@@ -56,7 +57,7 @@ function carou()
     <button
         class="carousel-control-prev"
         type="button"
-        data-bs-target="#carouselMain"
+        data-bs-target="#carouselExampleIndicators"
         data-bs-slide="prev"
     >
         <span class="carousel-control-prev-icon" aria-hidden="true"></span>
@@ -65,7 +66,7 @@ function carou()
     <button
         class="carousel-control-next"
         type="button"
-        data-bs-target="#carouselMain"
+        data-bs-target="#carouselExampleIndicators"
         data-bs-slide="next"
     >
         <span class="carousel-control-next-icon" aria-hidden="true"></span>
