@@ -180,8 +180,8 @@ function creerHTML()
             verticalElement.appendChild(icone1); //Ajouter icone1 à verticalElement
             verticalElement.appendChild(date); //Ajouter date à verticalElement
             verticalElement.appendChild(tempAjourdhui); //Ajouter tempAujourd'hui à verticalElement
-            verticalElement.appendChild(tempsMax); //Ajouter tempsMax à verticalElement
             verticalElement.appendChild(tempsMin); //Ajouter tempsmin à verticalElement
+            verticalElement.appendChild(tempsMax); //Ajouter tempsMax à verticalElement
             
             center.appendChild(col) //Ajouter col au center
             col.appendChild(verticalElement); //Ajouter verticalElement au col
@@ -380,10 +380,7 @@ console.log(dropdown)
 dropdown.forEach((element, index) => {
     element.addEventListener('click', function() {
         console.log(index)
-        daysContainer.innerHTML = null
-        display.innerHTML = ``
-        today = new Date();
-        today.setHours(0, 0, 0, 0);
+        reset()
         if(index == 0)
         {
             main(3)
@@ -398,3 +395,19 @@ dropdown.forEach((element, index) => {
         }
     })
 })
+
+const aujLink = document.querySelector('#auj');
+
+aujLink.addEventListener('click', function(event) {
+    reset()
+    main(1)
+})
+
+//Vide les données affichées
+function reset()
+{
+    daysContainer.innerHTML = null
+    display.innerHTML = ``
+    today = new Date();
+    today.setHours(0, 0, 0, 0);
+}
