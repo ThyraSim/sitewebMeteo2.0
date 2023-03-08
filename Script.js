@@ -1,6 +1,5 @@
 //Prise en mémoire de la date d'aujourd'hui
-var today = new Date();
-today.setHours(0, 0, 0, 0);
+var today
 
 //Prise en mémoire de la div avec l'id days-countainer
 const display = document.getElementById("display")
@@ -184,8 +183,10 @@ function loadHeader() {
 
 //Load la fonction de header et footer quand ouvre la page
 window.onload = function() {
-    loadHeader();
     loadFooter();
+    today = new Date();
+    today.setHours(0, 0, 0, 0);
+    main(1)
 };
 
 //Choix de la journée de la semaine
@@ -315,5 +316,20 @@ console.log(dropdown)
 dropdown.forEach((element, index) => {
     element.addEventListener('click', function() {
         console.log(index)
+        daysContainer.innerHTML = null
+        today = new Date();
+        today.setHours(0, 0, 0, 0);
+        if(index == 0)
+        {
+            main(3)
+        }
+        else if(index == 1)
+        {
+            main(7)
+        }
+        else if(index == 2)
+        {
+            main(14)
+        }
     })
 })
