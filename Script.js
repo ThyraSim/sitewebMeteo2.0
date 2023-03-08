@@ -5,24 +5,11 @@ var today
 const display = document.getElementById("display")
 var daysContainer = document.createElement("div");
 
+let numCount = 1
+var days = [];
+let newDate = today
 
 var moisEnCours
-
-//Récupération de l'URL en string
-const currentUrl = window.location.href;
-
-//Comparaison du URL pour déterminer les variables numDays et numCount
-/*
-if (currentUrl.includes('3jours')) {
-    numDays = 3;
-}
-else if (currentUrl.includes('7jours')) {
-    numDays = 7;
-}
-else if (currentUrl.includes('14jours')) {
-    numDays = 7;
-    numCount = 2;
-}*/
 
 let liste
 
@@ -35,9 +22,6 @@ function main(nbJour){
             afficherJours(nbJour)
         })
 }
-let numCount = 1
-var days = [];
-let newDate = today
 
 function carou()
 {
@@ -223,33 +207,8 @@ function remplirDonnee(jour, date, tempAjourdhui, tempsMin, tempsMax, icone1)
     }
 }
 
-//Loader le footer dans la div
-function loadFooter() {
-    var xhttp = new XMLHttpRequest();
-    xhttp.onreadystatechange = function() {
-      if (this.readyState == 4 && this.status == 200) {
-        document.getElementById("footer").innerHTML = this.responseText;
-      }
-    };
-    xhttp.open("GET", "footer.html", true);
-    xhttp.send();
-}
-
-//Loader le header dans le div
-function loadHeader() {
-    var xhttp = new XMLHttpRequest();
-    xhttp.onreadystatechange = function() {
-      if (this.readyState == 4 && this.status == 200) {
-        document.getElementById("header").innerHTML = this.responseText;
-      }
-    };
-    xhttp.open("GET", "header.html", true);
-    xhttp.send();
-}
-
 //Load la fonction de header et footer quand ouvre la page
 window.onload = function() {
-    loadFooter();
     today = new Date();
     today.setHours(0, 0, 0, 0);
     main(1)
@@ -399,24 +358,24 @@ aujLink.addEventListener('click', function(event) {
 
 const mensuelLink = document.querySelector('#mens')
 
-function mensuelHtml()
+function mensuelHtml(selectedMonth)
 {
     display.innerHTML = `<select id="ListeMois"
     class="form-select form-select"
     aria-label=".form-select-sm example"
   >
-    <option value ="0">Janvier</option>
-    <option value="1">Février</option>
-    <option value="2">Mars</option>
-    <option value="3">Avril</option>
-    <option value="4">Mai</option>
-    <option value="5">Juin</option>
-    <option value="6">Juillet</option>
-    <option value="7">Août</option>
-    <option value="8">Septembre</option>
-    <option value="9">Octobre</option>
-    <option value="10">Novembre</option>
-    <option value="11">Décembre</option>
+    <option value ="0" ${selectedMonth == 0 ? "selected" : ""}>Janvier</option>
+    <option value="1" ${selectedMonth == 1 ? "selected" : ""}>Février</option>
+    <option value="2" ${selectedMonth == 2 ? "selected" : ""}>Mars</option>
+    <option value="3" ${selectedMonth == 3 ? "selected" : ""}>Avril</option>
+    <option value="4" ${selectedMonth == 4 ? "selected" : ""}>Mai</option>
+    <option value="5" ${selectedMonth == 5 ? "selected" : ""}>Juin</option>
+    <option value="6" ${selectedMonth == 6 ? "selected" : ""}>Juillet</option>
+    <option value="7" ${selectedMonth == 7 ? "selected" : ""}>Août</option>
+    <option value="8" ${selectedMonth == 8 ? "selected" : ""}>Septembre</option>
+    <option value="9" ${selectedMonth == 9 ? "selected" : ""}>Octobre</option>
+    <option value="10" ${selectedMonth == 10 ? "selected" : ""}>Novembre</option>
+    <option value="11" ${selectedMonth == 11 ? "selected" : ""}>Décembre</option>
 
   </select>
   <p>valeur min <span id="min"></span></p>
@@ -441,7 +400,7 @@ function mensuelHtml()
 
 mensuelLink.addEventListener('click', function() {
     reset()
-    mensuelHtml()
+    mensuelHtml(0)
     var ListeMois = document.getElementById("ListeMois"); //  dropdown menu
     moisEnCours = today.getMonth();
     setListener()
@@ -454,8 +413,9 @@ function setListener()
 {
     var ListeMois = document.getElementById("ListeMois"); //  dropdown menu
     ListeMois.addEventListener("change", () => {
+        var selectedMonth = ListeMois.value
         reset()
-        mensuelHtml()
+        mensuelHtml(selectedMonth)
         fetchDataForMonth(ListeMois.value);
     });
 }
@@ -581,10 +541,6 @@ function afficherStatistique(tabTempMois) {
     tableCalendrier.appendChild(row);
   }
 }
-
-
-
-
 
 //Vide les données affichées
 function reset()
