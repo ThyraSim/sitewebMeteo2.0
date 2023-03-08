@@ -1,9 +1,12 @@
-//Prise en mémoire de la date d'aujourd'hui
+//Prise en mémoiremoisEn de la date d'aujourd'hui
 var today
 
 //Prise en mémoire de la div avec l'id days-countainer
 const display = document.getElementById("display")
 var daysContainer = document.createElement("div");
+
+
+var moisEnCours
 
 //Récupération de l'URL en string
 const currentUrl = window.location.href;
@@ -143,7 +146,6 @@ function creerHTML()
         }
         //Pour chaque jour
         days.forEach(day => {
-            console.log(day)
             //Création du div col
             const col = document.createElement("div");
             col.classList.add("col"); //Col du grid layout bootstrap
@@ -211,8 +213,8 @@ function remplirDonnee(jour, date, tempAjourdhui, tempsMin, tempsMax, icone1)
             tempsMin.innerHTML = "MIN\n" + temp.TempMin + "&deg;C" //Formatter Température minimale
             tempsMax.innerHTML = "MAX\n" + temp.TempMax + "&deg;C" //Formatter Température maximale
 
-            chooseIcon(temp.TempDuJour) //Pour l'icône niege, pluie, etc
-            icone1.src = icone
+             //Pour l'icône niege, pluie, etc
+            icone1.src = chooseIcon(temp.TempDuJour)
             icone1.width = "100" //Taille de l'icône
 
             index = liste.length //Fin de la boucle
@@ -340,25 +342,17 @@ function mois(dateJSON)
 }
 
 //Choix de l'icône
-function chooseIcon(temperature)
-{
-    if(temperature <= 0)
-    {
-        icone = "images/neige.png"
+function chooseIcon(temperature) {
+    if (temperature <= 0) {
+      return "images/neige.png";
+    } else if (temperature >= 20) {
+      return "images/soleil.png";
+    } else if (temperature <= 10) {
+      return "images/pluie.png";
+    } else if (temperature < 20) {
+      return "images/nuage.png";
     }
-    else if(temperature >= 20)
-    {
-        icone = "images/soleil.png"
-    }
-    else if(temperature <= 10)
-    {
-        icone = "images/pluie.png"
-    }
-    else if(temperature < 20)
-    {
-        icone = "images/nuage.png"
-    }
-}
+  }
 
 /*const navLinks = document.querySelectorAll('.dropdown-item');
 
@@ -402,6 +396,195 @@ aujLink.addEventListener('click', function(event) {
     reset()
     main(1)
 })
+
+const mensuelLink = document.querySelector('#mens')
+
+function mensuelHtml()
+{
+    display.innerHTML = `<select id="ListeMois"
+    class="form-select form-select"
+    aria-label=".form-select-sm example"
+  >
+    <option value ="0">Janvier</option>
+    <option value="1">Février</option>
+    <option value="2">Mars</option>
+    <option value="3">Avril</option>
+    <option value="4">Mai</option>
+    <option value="5">Juin</option>
+    <option value="6">Juillet</option>
+    <option value="7">Août</option>
+    <option value="8">Septembre</option>
+    <option value="9">Octobre</option>
+    <option value="10">Novembre</option>
+    <option value="11">Décembre</option>
+
+  </select>
+  <p>valeur min <span id="min"></span></p>
+  <p>valeur max <span id="max"></span></p>
+  <p>valeur moyenne <span id="moy" ></span></p>
+            <table class="table">
+                <thead>
+                    <th>Dimanche</th>
+                    <th>lundi</th>
+                    <th>mardi</th>
+                    <th>mercredi</th>
+                    <th>jeudi</th>
+                    <th>vendredi</th>
+                    <th>Samedi</th>
+                    </thead>
+                <tbody id="tableCalendrier">
+                </tbody>
+            </table>`
+
+    setListener()
+}
+
+mensuelLink.addEventListener('click', function() {
+    reset()
+    mensuelHtml()
+    var ListeMois = document.getElementById("ListeMois"); //  dropdown menu
+    moisEnCours = today.getMonth();
+    setListener()
+    ListeMois.value = moisEnCours;
+    fetchDataForMonth(moisEnCours)
+    console.log(mensuelLink)
+})
+
+function setListener()
+{
+    var ListeMois = document.getElementById("ListeMois"); //  dropdown menu
+    ListeMois.addEventListener("change", () => {
+        reset()
+        mensuelHtml()
+        fetchDataForMonth(ListeMois.value);
+    });
+}
+
+function fetchDataForMonth(mois) {
+    fetch("temperatures_2023.json")
+      .then((response) => response.json())
+      .then((data) => {
+        temp = data.temperatures;
+        
+        // RÉCUPÈRE LES DONNES JUSTE POUR LE MOIS DANS tabTempMois
+        tabTempMois = CreerTabTempMois(mois,temp)
+  
+        // CALCUL STATISTIQUE ET AFFICHAGE pour le mois en cours ( MIN, MAX , MOY)
+        afficherStatistique(tabTempMois);
+        console.log(mois)
+  
+        // //GÉNÉRER CALENDRIER selon le mois choisi
+        genereCalendrier(today.getFullYear(), mois, temp)
+  
+      });
+}
+
+function CreerTabTempMois(mois,temp){   //temp = data.temperatures return tabTempMois;
+
+    // récupère les données juste pour le mois
+    var tabTempMois = [];
+    temp.forEach((jour) => {
+      var dateJSON = new Date(jour.DateDuJour);
+      dateJSON.setHours(0, 0, 0, 0);
+      dateJSON.setDate(dateJSON.getDate() + 1);
+
+      if (dateJSON.getMonth() == mois) { // mois = valeur du dropdown menu du html
+        tabTempMois.push(jour.TempDuJour); // rempli la tab avec valeur de température du mois correspondant
+      }
+    });
+
+    return tabTempMois
+}
+
+function afficherStatistique(tabTempMois) {
+    //cible html pour  afficher statistique
+  var min = document.getElementById("min");
+  var max = document.getElementById("max");
+  var moy = document.getElementById("moy");
+    
+    // CALCUL STATISTIQUE ET AFFICHAGE ( MIN, MAX , MOY)
+    max.innerHTML = Math.max(...tabTempMois); // calcul de la valeur max du mois
+    min.innerHTML = Math.min(...tabTempMois); // calcul de la valeur min
+    let sum = 0;
+    let nb = tabTempMois.length;
+    tabTempMois.forEach((jour) => {
+      sum += jour;
+    });
+  
+    moy.innerHTML = Math.round(sum / nb);
+}
+
+  function genereCalendrier(annee, mois, temp) { //temp = data.temperatures;
+  
+
+    // Get a reference to the calendar body
+  const tableCalendrier = document.getElementById("tableCalendrier");
+
+  // Clear the previous contents of the calendar
+  tableCalendrier.innerHTML = "";
+
+  // Get the first day of the month
+  var firstDay = new Date(annee, mois, 1).getDay();
+  // Get the number of days in the month
+  var lastDay = new Date(annee, mois + 1, 0).getDate();
+
+  // Loop through each row of the calendar
+  for (let i = 0; i < 6; i++) {
+    // Create a new row
+    const row = document.createElement("tr");
+
+    // Loop through each column of the row
+    for (let j = 0; j < 7; j++) {
+      // Calcul pour quel jour on commence a remplir la table et quel case
+      const day = i * 7 + j - firstDay + 1; 
+      //exemple mars 2023 first day = 3
+      //0*7+0-3 +1 = -2 avec le if ci-dessous (if (day > 0 && day <= lastDay) )pas d'affichage dans la première case(dimanche) jusqu'à i=3 ( quatrième case = mercredi)
+      // i = 0 et j = 3 -> 0*7+3-3+1 = 1 => day = 1 donc avec cell.innerText =  day + ... => 1 ;
+
+
+      // Create a new cell
+      const cell = document.createElement("td");
+
+      // Add the day number to the cell
+      if (day > 0 && day <= lastDay) {
+        // Find the temperature for this day
+        let temperature = "";
+        for (let k = 0; k < temp.length; k++) {
+          // parcours le tableau "temp" avec toute les données du JSON "temp = data.temperatures;"" si date match on récupère la temperature du jour
+          const dateJSON = new Date(temp[k].DateDuJour);
+          dateJSON.setHours(0, 0, 0, 0);
+          dateJSON.setDate(dateJSON.getDate() + 1);
+
+          if (
+            dateJSON.getFullYear() == annee &&
+            dateJSON.getMonth() == mois &&
+            dateJSON.getDate() == day
+          ) {
+            temperature = temp[k].TempDuJour;
+            break;
+          }
+        }
+
+        cell.innerText =  day + "\n" + temperature;
+        var icone = document.createElement("img");
+         //Pour l'icône niege, pluie, etc
+        icone.src =  chooseIcon(temperature)
+        icone.width = "10"; //Taille de l'icône
+        cell.appendChild(icone);
+      }
+
+      // Add the cell to the row
+      row.appendChild(cell);
+    }
+
+    // Add the row to the calendar body
+    tableCalendrier.appendChild(row);
+  }
+}
+
+
+
+
 
 //Vide les données affichées
 function reset()
