@@ -37,8 +37,8 @@ function fetchDataForMonth(mois) {
     });
 }
 
-// récupère les données juste pour le mois dans tabTempMois
-function CreerTabTempMois(mois,temp){
+// récupère les données juste pour le mois ( en fonction du dropdown menu) dans tabTempMois
+function CreerTabTempMois(mois,temp){   //temp = data.temperatures return tabTempMois;
 
      // récupère les données juste pour le mois
      var tabTempMois = [];
@@ -77,7 +77,7 @@ var moy = document.getElementById("moy");
 }
 
 // //GÉNÉRER CALENDRIER selon le mois choisi
-function genereCalendrier(annee, mois, temp) {
+function genereCalendrier(annee, mois, temp) { //temp = data.temperatures;
   
 
     // Get a reference to the calendar body
