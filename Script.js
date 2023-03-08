@@ -36,30 +36,37 @@ function main(nbJour){
             afficherJours(chat, nbJour)
         })
 }
-    
+let numCount = 1
+var days = [];
+let newDate = today
+
 //Fonction Principale
 function afficherJours(liste, numDays)
 {
     //Nombre de répétition (1 pour les normaux, 2 pour le carroussel)
-    let numCount = 1
+    numCount = 1
 
     //Création du Array 
-    var days = [];
+    days = [];
 
     //Remplissage du Array avec le nombre de jours nécéssaires
     for (let i = 1; i <= numDays; i++) {
         days.push(i);
     }
-    let newDate = today
+    newDate = today
     //Répète une fois pour normal, 2 fois pour carroussel
     if(numDays == 14)
     {
         numDays = 7
         numCount = 2
     }
+    creerHTML(liste)
+}
+
+function creerHTML(liste)
+{
     for(let count = 0; count < numCount; count++)
     {
-        console.log("allo")
         //Création du container (pour carroussel)
         const container = document.createElement("div")
         container.classList.add("container") //Contenir les éléments
@@ -82,7 +89,6 @@ function afficherJours(liste, numDays)
             carousel.appendChild(daysContainer2)
             daysContainer2.appendChild(container)
         }
-
         //Pour chaque jour
         days.forEach(day => {
             //Création du div col
@@ -127,33 +133,38 @@ function afficherJours(liste, numDays)
             center.appendChild(col) //Ajouter col au center
             col.appendChild(verticalElement); //Ajouter verticalElement au col
 
-            for (let index = 0; index < liste.length; index++) {
-                let temp = liste[index] //Contient les données
-                var dateJSON = new Date(temp.DateDuJour) //Création d'un objet date avec la date d'aujourd'hui
-                dateJSON.setDate(dateJSON.getDate() + 1) //
-                dateJSON.setHours(0, 0, 0, 0)
-                newDate.setHours(0, 0, 0, 0)
-                if(dateJSON.getTime() === newDate.getTime())
-                {
-                    dayOfWeek(dateJSON) //Pour Lundi, Mardi, etc
-                    jour.innerHTML = jourSemaine
-
-                    mois(dateJSON) //Pour Janvier, Février, etc
-                    date.innerHTML = moisChoisi
-
-                    tempAjourdhui.innerHTML = temp.TempDuJour + "&deg;C" //Formatter Température d'aujourd'hui
-                    tempsMin.innerHTML = "MIN\n" + temp.TempMin + "&deg;C" //Formatter Température minimale
-                    tempsMax.innerHTML = "MAX\n" + temp.TempMax + "&deg;C" //Formatter Température maximale
-
-                    chooseIcon(temp.TempDuJour) //Pour l'icône niege, pluie, etc
-                    icone1.src = icone
-                    icone1.width = "100" //Taille de l'icône
-
-                    index = liste.length //Fin de la boucle
-                    newDate.setDate(newDate.getDate() + 1) //Avancement de la date
-                }
-            }
+            remplirDonnee(liste, jour, date, tempAjourdhui, tempsMin, tempsMax, icone1)
         })
+    }
+}
+
+function remplirDonnee(liste, jour, date, tempAjourdhui, tempsMin, tempsMax, icone1)
+{
+    for (let index = 0; index < liste.length; index++) {
+        let temp = liste[index] //Contient les données
+        var dateJSON = new Date(temp.DateDuJour) //Création d'un objet date avec la date d'aujourd'hui
+        dateJSON.setDate(dateJSON.getDate() + 1) //
+        dateJSON.setHours(0, 0, 0, 0)
+        newDate.setHours(0, 0, 0, 0)
+        if(dateJSON.getTime() === newDate.getTime())
+        {
+            dayOfWeek(dateJSON) //Pour Lundi, Mardi, etc
+            jour.innerHTML = jourSemaine
+
+            mois(dateJSON) //Pour Janvier, Février, etc
+            date.innerHTML = moisChoisi
+
+            tempAjourdhui.innerHTML = temp.TempDuJour + "&deg;C" //Formatter Température d'aujourd'hui
+            tempsMin.innerHTML = "MIN\n" + temp.TempMin + "&deg;C" //Formatter Température minimale
+            tempsMax.innerHTML = "MAX\n" + temp.TempMax + "&deg;C" //Formatter Température maximale
+
+            chooseIcon(temp.TempDuJour) //Pour l'icône niege, pluie, etc
+            icone1.src = icone
+            icone1.width = "100" //Taille de l'icône
+
+            index = liste.length //Fin de la boucle
+            newDate.setDate(newDate.getDate() + 1) //Avancement de la date
+        }
     }
 }
 
@@ -167,7 +178,7 @@ function loadFooter() {
     };
     xhttp.open("GET", "footer.html", true);
     xhttp.send();
-  }
+}
 
 //Loader le header dans le div
 function loadHeader() {
@@ -179,7 +190,7 @@ function loadHeader() {
     };
     xhttp.open("GET", "header.html", true);
     xhttp.send();
-  }
+}
 
 //Load la fonction de header et footer quand ouvre la page
 window.onload = function() {
