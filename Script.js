@@ -7,6 +7,8 @@ var daysContainer
 var daysContainer2
 var carousel
 var carouselMain
+var mensuMain
+var ListeMois
 
 let numCount = 1
 var days = [];
@@ -358,7 +360,9 @@ const mensuelLink = document.querySelector('#mens')
 
 function mensuelHtml(selectedMonth)
 {
-    display.innerHTML = `<select id="ListeMois"
+    mensuMain = document.createElement("div")
+
+    mensuMain.innerHTML = `<select id="ListeMois"
     class="form-select form-select"
     aria-label=".form-select-sm example"
   >
@@ -392,28 +396,30 @@ function mensuelHtml(selectedMonth)
                 <tbody id="tableCalendrier">
                 </tbody>
             </table>`
-
+    display.appendChild(mensuMain)
+    ListeMois = document.getElementById("ListeMois"); //  dropdown menu
+    console.log(ListeMois)
     setListener()
 }
 
 mensuelLink.addEventListener('click', function() {
-    reset()
     mensuelHtml(0)
-    var ListeMois = document.getElementById("ListeMois"); //  dropdown menu
     moisEnCours = today.getMonth();
-    setListener()
     ListeMois.value = moisEnCours;
     fetchDataForMonth(moisEnCours)
+    reset()
+    display.appendChild(mensuMain)
 })
 
 function setListener()
 {
-    var ListeMois = document.getElementById("ListeMois"); //  dropdown menu
     ListeMois.addEventListener("change", () => {
         var selectedMonth = ListeMois.value
-        reset()
         mensuelHtml(selectedMonth)
         fetchDataForMonth(ListeMois.value);
+        reset()
+        console.log(ListeMois)
+        display.appendChild(mensuMain)
     });
 }
 
