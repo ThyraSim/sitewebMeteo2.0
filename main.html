@@ -59,7 +59,7 @@
             <h1>Montréal, Canada</h1>
           </div>
         </div>
-        
+
       <div class="customContainer">
         <div id="display"></div>
       </div>
@@ -71,39 +71,83 @@
       <div class="container p-4">
         <!--Grid row-->
         <div class="row mt-4">
-          <!--Grid column-->
+          <!--Grid column   MANQUE A METTRE LES IMAGES PLUS VERS LA GAUCHE POUR ALIGNER LES LETTRES ENTRE ELLES-->
           <div class="col-lg-3 col-md-6 mb-4 mb-md-0">
             <h5 class="text-uppercase">Ressources</h5>
-  
-            <ul class="list-unstyled mb-0">
-              <li>
-                <a href="#!" class="text-white"
-                  ><i class="fas fa-book fa-fw fa-sm me-2"></i>Environnement
-                  Canada</a
-                >
+            <ul class="list-unstyled mb-0 justify-content-start pl-0">
+              <li class="align-items-center">
+                <a href="https://meteo.gc.ca/" class="text-white d-flex" target="_blank">
+                  <img src="./images/enviCanadaIcon.png" alt="image1" width="40" height="40">
+                  Environnement Canada
+                </a>
               </li>
-              <li>
-                <a href="#!" class="text-white"
-                  ><i class="fas fa-book fa-fw fa-sm me-2"></i>MétéoMédia</a
-                >
+              <li class="align-items-center">
+                <a href="https://www.meteomedia.com/ca" target="_blank" class="text-white d-flex">
+                  <img src="./images/meteomediaIcon.png" alt="image2" width="40" height="40">
+                  MétéoMédia
+                </a>
               </li>
             </ul>
           </div>
+          
           <!--Grid column-->
   
           <!--Grid column-->
           <div class="col-lg-3 col-md-6 mb-4 mb-md-0">
             <h5 class="text-uppercase">Des questions ?</h5>
-  
             <ul class="list-unstyled">
-              <li>
-                <a href="#!" class="text-white"
-                  ><i class="fas fa-shipping-fast fa-fw fa-sm me-2"></i>Nous
-                  joindre</a
-                >
-              </li>
+                <li>
+                  <a href="#" data-bs-toggle="modal" data-bs-target="#nousJoindreModal">
+                    <i class="fas fa-shipping-fast fa-fw fa-sm me-2"></i>Nous joindre
+                </a>
+                </li>
             </ul>
+        </div>
+        
+        <div class="modal hide" id="nousJoindreModal" aria-hidden="true" aria-labelledby="nousJoindreModalLabel" tabindex="-1">
+          <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h1 class="modal-title fs-5" id="nousJoindreModalLabel">Veuillez remplir le formulaire</h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+              </div>
+              <div class="modal-body">
+                <form>
+                  <div class="row mb-3">
+                    <div class="col">
+                      <div class="input-group mb-3">
+                        <span class="input-group-text" id="inputGroup-sizing-default">Nom:</span>
+                        <input type="text" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default">
+                      </div>
+                      <div class="input-group mb-3">
+                        <span class="input-group-text" id="inputGroup-sizing-default">Prenom:</span>
+                        <input type="text" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default">
+                      </div>
+                      <div class="input-group mb-3">
+                        <span class="input-group-text" id="inputGroup-sizing-default">Email:</span>
+                        <input type="email" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default">
+                      </div>
+                    </div>
+                    <div class="col">
+                      <label for="formFile" class="form-label">Piece jointe:</label>
+                      <input class="form-control" type="file" id="formFile">
+                    </div>
+                  </div>
+                  <!-- Ajouter les autres champs de formulaire ici -->
+                  <div class="mb-3">
+                    <label for="exampleFormControlTextarea1" class="form-label">Commentaire:</label>
+                    <textarea class="form-control" id="exampleFormControlTextarea1" rows="3"></textarea>
+                  </div>
+                  <div class="d-flex justify-content-between">
+                    <button type="button" class="btn btn-secondary btn-lg float-start">Annuler</button>
+                    <button type="button" class="btn btn-primary btn-lg float-end">Soumettre</button>
+                  </div>
+                </form>
+              </div>
+            </div>
           </div>
+        </div>
+
           <!--Grid column-->
   
           <!--Grid column-->
@@ -125,6 +169,7 @@
               </li>
             </ul>
           </div>
+  
           <!--Grid column-->
   
           <!--Grid column-->
@@ -133,12 +178,33 @@
   
             <ul class="list-unstyled">
               <li>
-                <a href="#!" class="text-white"
-                  ><i class="fas fa-at fa-fw fa-sm me-2"></i>À propos</a
-                >
+                <a href="#" data-bs-toggle="modal" data-bs-target="#aPropos">
+                  <i class="fas fa-shipping-fast fa-fw fa-sm me-2"></i>À propos
+              </a>
+                
               </li>
             </ul>
           </div>
+          <div class="modal hide" id="aPropos" aria-hidden="true" aria-labelledby="nousJoindreModalLabel" tabindex="-1">
+            <div class="modal-dialog">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <!--h1 class="modal-title fs-5" id="nousJoindreModalLabel"></h1-->
+                  <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                  <img src="./images/icone.png" style="width: 6vw;"class="float-end" alt="description de votre image">
+                  <p>Bienvenue sur www.MaMétéo.com
+                    nous somme ravis en titi que vous utilisez 
+                    notre site!</p>
+                    
+                  
+                  <p><a href="https://www.youtube.com/shorts/IEdz05-Glw4" target="_blank" data-bs-toggle="tooltip" title="Tooltip">...mon pickup est sous une rafale de 6 pieds !</a></p>
+                </div>
+              </div>
+            </div>
+          </div>
+          
           <!--Grid column-->
         </div>
         <!--Grid row-->
@@ -151,6 +217,7 @@
         <a class="text-white" href="https://mdbootstrap.com/">MaMeteo.com</a>
       </div>
       <!-- Copyright -->
+  
     </footer>
 
     <script src="Script.js"></script>
