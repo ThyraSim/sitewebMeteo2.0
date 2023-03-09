@@ -34,23 +34,6 @@ function carou()
     carouselMain.setAttribute("id", "carouselExampleIndicators")
     carouselMain.setAttribute("class", "carousel carousel-dark slide")
     carouselMain.innerHTML = `
-    <div class="carousel-indicators">
-        <button
-            type="button"
-            data-bs-target="#carouselExampleIndicators"
-            data-bs-slide-to="0"
-            class="active"
-            aria-current="true"
-            aria-label="Slide 1"
-        ></button>
-        <button
-            type="button"
-            data-bs-target="#carouselExampleIndicators"
-            data-bs-slide-to="1"
-            aria-label="Slide 2"
-        ></button>
-    </div>
-
     <div class="carousel-inner mt-4" id="carousel">
         <div class="carousel-item active" id="daysContainer"></div>
         <div class="carousel-item" id="daysContainer2"></div>
@@ -74,6 +57,22 @@ function carou()
         <span class="carousel-control-next-icon" aria-hidden="true"></span>
         <span class="visually-hidden">Next</span>
     </button>
+    <div class="carousel-indicators">
+        <button
+            type="button"
+            data-bs-target="#carouselExampleIndicators"
+            data-bs-slide-to="0"
+            class="active"
+            aria-current="true"
+            aria-label="Slide 1"
+        ></button>
+        <button
+            type="button"
+            data-bs-target="#carouselExampleIndicators"
+            data-bs-slide-to="1"
+            aria-label="Slide 2"
+        ></button>
+    </div>
     `;
     display.appendChild(carouselMain)
     carousel = document.getElementById('carousel')

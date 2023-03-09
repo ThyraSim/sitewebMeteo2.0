@@ -8,3 +8,13 @@
     height: 600px;
     width: 100%;
 }
+
+.carousel{
+    margin-top: -24px;
+}
+
+.carousel-indicators
+{
+    position: relative;
+    margin-top: 10px;
+}
