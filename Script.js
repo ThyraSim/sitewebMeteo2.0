@@ -98,7 +98,7 @@ function afficherJours(numDays)
         days.push(i);
     }
     newDate = today
-    
+    //hgfhgfhgfhgfhhgf
     creerHTML()
 }
 
