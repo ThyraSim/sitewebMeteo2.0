@@ -174,7 +174,7 @@ function loadHeader() {
 //Load la fonction de header et footer quand ouvre la page
 window.onload = function() {
     loadHeader();
-    loadFooter();
+
 };
 
 //Choix de la journée de la semaine

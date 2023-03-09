@@ -3,3 +3,26 @@
     background-color: rgb(88, 88, 88);
 
 }
+
+.list-unstyled i {
+    border-radius: 50%;
+  }
+  .list-unstyled i:first-child {
+    margin-right: 0.5rem;
+  }
+  .list-unstyled li {
+    display: flex;
+    align-items: center;
+  }
+  .list-unstyled li a {
+    display: flex;
+    align-items: center;
+  }
+  .list-unstyled li a img {
+    margin-right: 0.5rem;
+    border-radius: 50%;
+  }
+
+  ul.list-unstyled li a img {
+    margin-right: 10px;
+  }
