@@ -93,6 +93,10 @@ function afficherJours(numDays)
     {
         numDays = 7
         numCount = 2
+        if(carouselMain != null)
+        {
+            carouselMain.innerHTML = null
+        }
         carou()
     }
     //Remplissage du Array avec le nombre de jours nécéssaires
@@ -104,6 +108,7 @@ function afficherJours(numDays)
     reset()
     if(numCount == 2)
     {
+        console.log(carousel)
         carousel.appendChild(daysContainer)
         carousel.appendChild(daysContainer2)
         display.appendChild(carouselMain)
@@ -113,6 +118,7 @@ function afficherJours(numDays)
         daysContainer.setAttribute("class", "")
         display.appendChild(daysContainer)
     }
+    console.log(display)
 }
 
 function creerHTML()
@@ -133,7 +139,7 @@ function creerHTML()
         {
             if(numCount == 1)
             {
-            daysContainer = document.createElement("div")
+                daysContainer = document.createElement("div")
             }else{
                 daysContainer = document.getElementById("daysContainer")
             }
@@ -143,7 +149,6 @@ function creerHTML()
         {
             daysContainer2 = document.getElementById("daysContainer2")
             daysContainer2.appendChild(container)
-            console.log(daysContainer2)
         }
         //Pour chaque jour
         days.forEach(day => {
@@ -191,6 +196,10 @@ function creerHTML()
 
             remplirDonnee(jour, date, tempAjourdhui, tempsMin, tempsMax, icone1)
         })
+        if(count == 1)
+        {
+            console.log(count)
+        }
     }
 }
 
@@ -364,8 +373,7 @@ function mensuelHtml(selectedMonth)
 
     mensuMain.innerHTML = `<select id="ListeMois"
     class="form-select form-select"
-    aria-label=".form-select-sm example"
-  >
+    aria-label=".form-select-sm example">
     <option value ="0" ${selectedMonth == 0 ? "selected" : ""}>Janvier</option>
     <option value="1" ${selectedMonth == 1 ? "selected" : ""}>Février</option>
     <option value="2" ${selectedMonth == 2 ? "selected" : ""}>Mars</option>
@@ -379,26 +387,25 @@ function mensuelHtml(selectedMonth)
     <option value="10" ${selectedMonth == 10 ? "selected" : ""}>Novembre</option>
     <option value="11" ${selectedMonth == 11 ? "selected" : ""}>Décembre</option>
 
-  </select>
-  <p>valeur min <span id="min"></span></p>
-  <p>valeur max <span id="max"></span></p>
-  <p>valeur moyenne <span id="moy" ></span></p>
-            <table class="table">
-                <thead>
-                    <th>Dimanche</th>
-                    <th>lundi</th>
-                    <th>mardi</th>
-                    <th>mercredi</th>
-                    <th>jeudi</th>
-                    <th>vendredi</th>
-                    <th>Samedi</th>
-                    </thead>
-                <tbody id="tableCalendrier">
-                </tbody>
-            </table>`
+    </select>
+    <p>valeur min <span id="min"></span></p>
+    <p>valeur max <span id="max"></span></p>
+    <p>valeur moyenne <span id="moy" ></span></p>
+        <table class="table">
+            <thead>
+                <th>Dimanche</th>
+                <th>lundi</th>
+                <th>mardi</th>
+                <th>mercredi</th>
+                <th>jeudi</th>
+                <th>vendredi</th>
+                <th>Samedi</th>
+            </thead>
+            <tbody id="tableCalendrier">
+            </tbody>
+        </table>`
     display.appendChild(mensuMain)
     ListeMois = document.getElementById("ListeMois"); //  dropdown menu
-    console.log(ListeMois)
     setListener()
 }
 
@@ -414,6 +421,7 @@ mensuelLink.addEventListener('click', function() {
 function setListener()
 {
     ListeMois.addEventListener("change", () => {
+        console.log("sup")
         var selectedMonth = ListeMois.value
         mensuelHtml(selectedMonth)
         fetchDataForMonth(ListeMois.value);
@@ -437,12 +445,10 @@ function fetchDataForMonth(mois) {
   
         // //GÉNÉRER CALENDRIER selon le mois choisi
         genereCalendrier(today.getFullYear(), mois, temp)
-  
       });
 }
 
 function CreerTabTempMois(mois,temp){   //temp = data.temperatures return tabTempMois;
-
     // récupère les données juste pour le mois
     var tabTempMois = [];
     temp.forEach((jour) => {
@@ -454,7 +460,6 @@ function CreerTabTempMois(mois,temp){   //temp = data.temperatures return tabTem
         tabTempMois.push(jour.TempDuJour); // rempli la tab avec valeur de température du mois correspondant
       }
     });
-
     return tabTempMois
 }
 
@@ -472,12 +477,11 @@ function afficherStatistique(tabTempMois) {
     tabTempMois.forEach((jour) => {
       sum += jour;
     });
-  
     moy.innerHTML = Math.round(sum / nb);
 }
 
-  function genereCalendrier(annee, mois, temp) { //temp = data.temperatures;
-  
+
+function genereCalendrier(annee, mois, temp) { //temp = data.temperatures;
 
     // Get a reference to the calendar body
   const tableCalendrier = document.getElementById("tableCalendrier");
