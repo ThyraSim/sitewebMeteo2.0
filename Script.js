@@ -410,6 +410,10 @@ function mensuelHtml(selectedMonth)
 }
 
 mensuelLink.addEventListener('click', function() {
+    if(mensuMain != null)
+    {
+        mensuMain.innerHTML = null
+    }
     mensuelHtml(0)
     moisEnCours = today.getMonth();
     ListeMois.value = moisEnCours;
@@ -421,12 +425,14 @@ mensuelLink.addEventListener('click', function() {
 function setListener()
 {
     ListeMois.addEventListener("change", () => {
-        console.log("sup")
         var selectedMonth = ListeMois.value
+        if(mensuMain != null)
+        {
+            mensuMain.innerHTML = null
+        }
         mensuelHtml(selectedMonth)
         fetchDataForMonth(ListeMois.value);
         reset()
-        console.log(ListeMois)
         display.appendChild(mensuMain)
     });
 }
@@ -480,7 +486,6 @@ function afficherStatistique(tabTempMois) {
     moy.innerHTML = Math.round(sum / nb);
 }
 
-
 function genereCalendrier(annee, mois, temp) { //temp = data.temperatures;
 
     // Get a reference to the calendar body
@@ -532,7 +537,6 @@ function genereCalendrier(annee, mois, temp) { //temp = data.temperatures;
             break;
           }
         }
-
         cell.innerText =  day + "\n" + temperature;
         var icone = document.createElement("img");
          //Pour l'icône niege, pluie, etc
@@ -542,7 +546,15 @@ function genereCalendrier(annee, mois, temp) { //temp = data.temperatures;
       }
 
       // Add the cell to the row
-      row.appendChild(cell);
+      if(cell.innerHTML != "" || day < 28 || j >0)
+      {
+        console.log(cell)
+        console.log(cell.innerText)
+        row.appendChild(cell);
+      }
+      else{
+        j = 7
+      }
     }
 
     // Add the row to the calendar body

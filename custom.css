@@ -4,6 +4,7 @@
 
 }
 
-/*.container{
-    height: 650px;
-}*/
+.customContainer{
+    height: 600px;
+    width: 100%;
+}
