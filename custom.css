@@ -35,8 +35,7 @@
 
  /* body{
     min-width: 1200px;
-
-  }*/
+}*/
 
 
 .customContainer .row{
@@ -48,11 +47,35 @@
     flex: 1;
     min-width: 0;
     overflow-x: auto;
+    overflow-y: hidden;
 }
+
 
 .tableCalendrier{
     table-layout: fixed;
     width: 80vw;
+
+@media only screen
+and (max-width : 992px)
+{
+    .customContainer .carousel-inner{
+        flex: 1;
+        min-width: 0;
+        overflow-x: auto;
+    }
+
 }
 
-    
+::-webkit-scrollbar {
+    width: 10px;
+}
+::-webkit-scrollbar-track {
+  background: #232323; /* Dark background color for the scrollbar track */
+}
+::-webkit-scrollbar-thumb {
+  background: #444; /* Darker background color for the scrollbar thumb */
+  border-radius: 5px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #555; /* Slightly lighter color when hovering over the scrollbar thumb */
+}
