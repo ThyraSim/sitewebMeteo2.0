@@ -1,6 +1,6 @@
 .vertical-element {
     height: 50vh;
-    background-color: rgb(88, 88, 88);
+    background-color: #4F5D73;
 }
 
 .customContainer{
@@ -17,3 +17,24 @@
     position: relative;
     margin-top: 10px;
 }
+
+.list-unstyled img {
+    border-radius: 50%;
+  }
+  img {
+    border-radius: 50%;
+  }
+
+  hr{
+    border: 2px solid rgb(0, 0, 0);
+  }
+
+  .copyrightBG{
+    background-color: rgba(0, 0, 0, 0.2)
+  }
+
+  body{
+    min-width: 1200px;
+
+  }
+    
