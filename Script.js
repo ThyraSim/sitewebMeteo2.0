@@ -390,7 +390,7 @@ function mensuelHtml(selectedMonth)
     <p>valeur min <span id="min"></span></p>
     <p>valeur max <span id="max"></span></p>
     <p>valeur moyenne <span id="moy" ></span></p>
-        <table class="table">
+        <table class="table table-bordered">
             <thead>
                 <th>Dimanche</th>
                 <th>lundi</th>
