@@ -338,7 +338,7 @@ function mensuelHtml(selectedMonth) {
     <p>valeur min <span id="min"></span></p>
     <p>valeur max <span id="max"></span></p>
     <p>valeur moyenne <span id="moy" ></span></p>
-        <table class="table table-bordered">
+        <table class="table table-bordered tableCalendrier">
             <thead>
                 <th>Dimanche</th>
                 <th>Lundi</th>
@@ -438,6 +438,7 @@ function genereCalendrier(annee, mois, temp) {
   // Get a reference to the calendar body
   const tableCalendrier = document.getElementById("tableCalendrier");
 
+
   // Clear the previous contents of the calendar
   tableCalendrier.innerHTML = "";
 
@@ -452,6 +453,7 @@ function genereCalendrier(annee, mois, temp) {
   for (let i = 0; i < 6; i++) {
     // Create a new row
     const row = document.createElement("tr");
+    
 
     // Loop through each column of the row
     for (let j = 0; j < 7; j++) {
@@ -463,6 +465,7 @@ function genereCalendrier(annee, mois, temp) {
 
       // Create a new cell
       const cell = document.createElement("td");
+      
 
       // Add the day number to the cell
       if (day > 0 && day <= lastDay) {
@@ -488,7 +491,7 @@ function genereCalendrier(annee, mois, temp) {
         dayDiv.innerText = day;
         dayDiv.style.textAlign = "right";
         dayDiv.style.fontWeight = "bold";
-        
+
         const tempDiv = document.createElement("div");
         tempDiv.style.display = "flex";
         tempDiv.style.justifyContent = "center";

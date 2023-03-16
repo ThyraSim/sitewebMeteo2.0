@@ -50,5 +50,9 @@
     overflow-x: auto;
 }
 
+.tableCalendrier{
+    table-layout: fixed;
+    width: 80vw;
+}
 
     
