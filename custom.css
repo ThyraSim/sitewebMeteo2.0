@@ -33,8 +33,22 @@
     background-color: rgba(0, 0, 0, 0.2)
   }
 
-  body{
+ /* body{
     min-width: 1200px;
 
-  }
+  }*/
+
+
+.customContainer .row{
+    display: flex;
+    flex-wrap: nowrap;
+}
+
+.customContainer{
+    flex: 1;
+    min-width: 0;
+    overflow-x: auto;
+}
+
+
     

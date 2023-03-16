@@ -371,7 +371,7 @@ function mensuelHtml(selectedMonth)
     mensuMain = document.createElement("div")
 
     mensuMain.innerHTML = `<select id="ListeMois"
-    class="form-select form-select"
+    class="form-select form-select bg-dark"
     aria-label=".form-select-sm example">
     <option value ="0" ${selectedMonth == 0 ? "selected" : ""}>Janvier</option>
     <option value="1" ${selectedMonth == 1 ? "selected" : ""}>Février</option>
