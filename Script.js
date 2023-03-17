@@ -313,44 +313,66 @@ const mensuelLink = document.querySelector("#mens");
 
 function mensuelHtml(selectedMonth) {
   mensuMain = document.createElement("div");
+  mensuMain.classList.add("mensuMain");
 
-  mensuMain.innerHTML = `<select id="ListeMois"
-    class="form-select form-select bg-dark"
-    aria-label=".form-select-sm example">
-    <option value ="0" ${selectedMonth == 0 ? "selected" : ""}>Janvier</option>
-    <option value="1" ${selectedMonth == 1 ? "selected" : ""}>Février</option>
-    <option value="2" ${selectedMonth == 2 ? "selected" : ""}>Mars</option>
-    <option value="3" ${selectedMonth == 3 ? "selected" : ""}>Avril</option>
-    <option value="4" ${selectedMonth == 4 ? "selected" : ""}>Mai</option>
-    <option value="5" ${selectedMonth == 5 ? "selected" : ""}>Juin</option>
-    <option value="6" ${selectedMonth == 6 ? "selected" : ""}>Juillet</option>
-    <option value="7" ${selectedMonth == 7 ? "selected" : ""}>Août</option>
-    <option value="8" ${selectedMonth == 8 ? "selected" : ""}>Septembre</option>
-    <option value="9" ${selectedMonth == 9 ? "selected" : ""}>Octobre</option>
-    <option value="10" ${
-      selectedMonth == 10 ? "selected" : ""
-    }>Novembre</option>
-    <option value="11" ${
-      selectedMonth == 11 ? "selected" : ""
-    }>Décembre</option>
+  mensuMain.innerHTML = ` 
+  <div class="container">
+  <div class="row">
+    <div class="col-md-4">
+      <select id="ListeMois" class="form-select form-select-lg bg-dark text-center text-uppercase " aria-label=".form-select-sm example">
+        <option value ="0" ${
+          selectedMonth == 0 ? "selected" : ""
+        }>Janvier</option>
+        <option value="1" ${
+          selectedMonth == 1 ? "selected" : ""
+        }>Février</option>
+        <option value="2" ${selectedMonth == 2 ? "selected" : ""}>Mars</option>
+        <option value="3" ${selectedMonth == 3 ? "selected" : ""}>Avril</option>
+        <option value="4" ${selectedMonth == 4 ? "selected" : ""}>Mai</option>
+        <option value="5" ${selectedMonth == 5 ? "selected" : ""}>Juin</option>
+        <option value="6" ${
+          selectedMonth == 6 ? "selected" : ""
+        }>Juillet</option>
+        <option value="7" ${selectedMonth == 7 ? "selected" : ""}>Août</option>
+        <option value="8" ${
+          selectedMonth == 8 ? "selected" : ""
+        }>Septembre</option>
+        <option value="9" ${
+          selectedMonth == 9 ? "selected" : ""
+        }>Octobre</option>
+        <option value="10" ${
+          selectedMonth == 10 ? "selected" : ""
+        }>Novembre</option>
+        <option value="11" ${
+          selectedMonth == 11 ? "selected" : ""
+        }>Décembre</option>
+      </select>
+    </div>
+    <div class="col-md-8 text-end">
+      <h4>Valeur Minimale : <span id="min"></span> &deg;C</h4>
+      <h4>Valeur Maximale : <span id="max"></span> &deg;C</h4>
+      <h4>Valeur Moyenne : <span id="moy" ></span> &deg;C</h4>
+    </div>
+  </div>
+  </div>
 
-    </select>
-    <p>valeur min <span id="min"></span></p>
-    <p>valeur max <span id="max"></span></p>
-    <p>valeur moyenne <span id="moy" ></span></p>
-        <table class="table table-bordered tableCalendrier">
-            <thead>
-                <th>Dimanche</th>
-                <th>Lundi</th>
-                <th>Mardi</th>
-                <th>Mercredi</th>
-                <th>Jeudi</th>
-                <th>Vendredi</th>
-                <th>Samedi</th>
-            </thead>
-            <tbody id="tableCalendrier">
-            </tbody>
-        </table>`;
+ 
+      <table class="table table-bordered tableCalendrier">
+        <thead class="text-center ">
+          <th>Dimanche</th>
+          <th>Lundi</th>
+          <th>Mardi</th>
+          <th>Mercredi</th>
+          <th>Jeudi</th>
+          <th>Vendredi</th>
+          <th>Samedi</th>
+        </thead>
+        <tbody id="tableCalendrier">
+        </tbody>
+      </table>
+ 
+  
+        `;
   display.appendChild(mensuMain);
   ListeMois = document.getElementById("ListeMois"); //  dropdown menu
   setListener();
@@ -438,7 +460,6 @@ function genereCalendrier(annee, mois, temp) {
   // Get a reference to the calendar body
   const tableCalendrier = document.getElementById("tableCalendrier");
 
-
   // Clear the previous contents of the calendar
   tableCalendrier.innerHTML = "";
 
@@ -453,7 +474,6 @@ function genereCalendrier(annee, mois, temp) {
   for (let i = 0; i < 6; i++) {
     // Create a new row
     const row = document.createElement("tr");
-    
 
     // Loop through each column of the row
     for (let j = 0; j < 7; j++) {
@@ -465,7 +485,6 @@ function genereCalendrier(annee, mois, temp) {
 
       // Create a new cell
       const cell = document.createElement("td");
-      
 
       // Add the day number to the cell
       if (day > 0 && day <= lastDay) {
@@ -488,24 +507,25 @@ function genereCalendrier(annee, mois, temp) {
         }
         // Create the divs for day and temperature/icon
         const dayDiv = document.createElement("div");
+        dayDiv.classList.add("dayDiv")
         dayDiv.innerText = day;
-        dayDiv.style.textAlign = "right";
-        dayDiv.style.fontWeight = "bold";
+    
+        
 
         const tempDiv = document.createElement("div");
-        tempDiv.style.display = "flex";
-        tempDiv.style.justifyContent = "center";
-        tempDiv.style.flexDirection = "column";
-
+        tempDiv.classList.add("tempDiv")
+        
 
         const icone = document.createElement("img");
         icone.src = chooseIcon(temperature);
-        icone.width = "15";
+        
         tempDiv.appendChild(icone);
 
         const tempSpan = document.createElement("span");
-        tempSpan.style.textAlign = "center";
-        tempSpan.innerHTML = temperature;
+        tempSpan.classList.add("tempSpan")
+       
+        tempSpan.innerHTML = temperature+ "&deg;C";
+       
         tempDiv.appendChild(tempSpan);
 
         // Add the divs to the cell
