@@ -51,9 +51,65 @@
 }
 
 
+/* principal div ajouter à display pour calendrier */
+.mensuMain{
+  background-color: rgb(28, 51, 51);
+  /* marche pas
+  
+  display: flex;
+  flex-wrap: nowrap;
+  min-width: 1000px; */
+
+}
+
+
+/* calendrier */
 .tableCalendrier{
     table-layout: fixed;
-    width: 80vw;
+    width: 100vw;
+    background-color: #4F5D73;
+   
+}
+
+/* Journée de semaine calendrier */
+.tableCalendrier thead{
+  font-size: 1.5em;
+  
+}
+
+
+
+
+/* Jour dans calendrier ( 1 à 31) */
+.tableCalendrier .dayDiv{
+  text-align: right;
+  font-weight: bold;
+  font-size: 1em;
+  
+}
+
+/* div contenant l'icone + temperature du calendrier */
+.tableCalendrier .tempDiv{
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+
+}
+
+/* icone de météo dans calendrier */
+.tableCalendrier img{
+  width: 25px;
+  margin-right: 5px;
+}
+
+/* Temperature dans calendrier */
+.tableCalendrier .tempSpan{
+  text-align: center;
+  flex-grow: 1;
+  font-size: 1em;
+
+}
+
 
 @media only screen
 and (max-width : 992px)
