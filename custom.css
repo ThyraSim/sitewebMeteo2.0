@@ -20,6 +20,10 @@
     margin-top: 10px;
 }
 
+.center{
+  margin:auto;
+}
+
 .list-unstyled img {
     border-radius: 50%;
   }
@@ -67,21 +71,12 @@
 
 /* calendrier */
 .tableCalendrier{
-    table-layout: fixed;
+    table-layout: auto;
 
     width: 100vw;
     background-color: #4F5D73;
    
 }
-
-/* Journée de semaine calendrier */
-.tableCalendrier thead{
-  font-size: 1.5em;
-  
-}
-
-
-
 
 /* Jour dans calendrier ( 1 à 31) */
 .tableCalendrier .dayDiv{
@@ -112,8 +107,6 @@
   font-size: 1em;
 
 }
-
-
 
 @media only screen
 and (max-width : 992px)

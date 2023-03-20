@@ -318,7 +318,7 @@ function mensuelHtml(selectedMonth) {
   mensuMain.innerHTML = ` 
   <div class="container">
   <div class="row">
-    <div class="col-md-4">
+    <div class="col-md-4 w-25">
       <select id="ListeMois" class="form-select form-select-lg bg-dark text-center text-uppercase " aria-label=".form-select-sm example">
         <option value ="0" ${
           selectedMonth == 0 ? "selected" : ""
@@ -348,7 +348,7 @@ function mensuelHtml(selectedMonth) {
         }>Décembre</option>
       </select>
     </div>
-    <div class="col-md-8 text-end">
+    <div class="col-md-3 text-end">
       <h4>Valeur Minimale : <span id="min"></span> &deg;C</h4>
       <h4>Valeur Maximale : <span id="max"></span> &deg;C</h4>
       <h4>Valeur Moyenne : <span id="moy" ></span> &deg;C</h4>
@@ -356,8 +356,7 @@ function mensuelHtml(selectedMonth) {
   </div>
   </div>
 
- 
-      <table class="table table-bordered tableCalendrier">
+      <table class="table table-bordered tableCalendrier w-75 center">
         <thead class="text-center ">
           <th>Dimanche</th>
           <th>Lundi</th>
@@ -370,7 +369,6 @@ function mensuelHtml(selectedMonth) {
         <tbody id="tableCalendrier">
         </tbody>
       </table>
- 
   
         `;
   display.appendChild(mensuMain);
