@@ -24,6 +24,14 @@
   margin:auto;
 }
 
+.val{
+  width: 190px;
+}
+
+.deg{
+  width: 70px;
+}
+
 .list-unstyled img {
     border-radius: 50%;
   }
