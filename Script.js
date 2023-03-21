@@ -279,6 +279,7 @@ function mois(dateJSON) {
 function chooseIcon(temperature) {
   if (temperature <= 0) {
     return "images/neige.png";
+
   } else if (temperature >= 20) {
     return "images/soleil.png";
   } else if (temperature <= 10) {
@@ -287,6 +288,7 @@ function chooseIcon(temperature) {
     return "images/nuage.png";
   }
 }
+
 
 const dropdown = document.getElementsByName("choice");
 
@@ -318,6 +320,8 @@ function mensuelHtml(selectedMonth) {
   mensuMain.innerHTML = ` 
   <div class="container">
   <div class="row">
+  <div class="col-md-4 ">
+  </div>
     <div class="col-md-4 w-25">
       <select id="ListeMois" class="form-select form-select-lg bg-dark text-center text-uppercase " aria-label=".form-select-sm example">
         <option value ="0" ${
@@ -348,7 +352,7 @@ function mensuelHtml(selectedMonth) {
         }>Décembre</option>
       </select>
     </div>
-    <div class="col-md-3 text-end">
+    <div class="col-md-4 ">
       <h4>Valeur Minimale : <span id="min"></span> &deg;C</h4>
       <h4>Valeur Maximale : <span id="max"></span> &deg;C</h4>
       <h4>Valeur Moyenne : <span id="moy" ></span> &deg;C</h4>

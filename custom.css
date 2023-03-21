@@ -1,7 +1,9 @@
 .vertical-element {
     height: 50vh;
+    line-height: 8vh;
     background-color: #4F5D73;
     min-height: 560px;
+    font-size: 35px
 }
 
 .customContainer{
