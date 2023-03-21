@@ -53,6 +53,9 @@
     min-width: 1200px;
 }*/
 
+#degree{
+  margin-right: 10px;
+}
 
 .customContainer .row{
     display: flex;
