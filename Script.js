@@ -325,12 +325,20 @@ dropdown.forEach((element, index) => {
   });
 });
 
+//permet que le aujourdhui et l'image remet la page avec les donnees d'aujourdhui
 const aujLink = document.querySelector("#auj");
-
-aujLink.addEventListener("click", function (event) {
+aujLink.onclick = aujOnClick;
+function aujOnClick() {
+  reset();
+  mainSetter = 1;
   main(mainSetter);
-  mensOrDay = 0;
-});
+}
+
+
+
+
+
+
 
 const mensuelLink = document.querySelector("#mens");
 
