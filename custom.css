@@ -26,6 +26,14 @@
   margin:auto;
 }
 
+.val{
+  width: 200px;
+}
+
+.deg{
+  width: 70px;
+}
+
 .list-unstyled img {
     border-radius: 50%;
   }
@@ -62,6 +70,7 @@
 /* principal div ajouter à display pour calendrier */
 .mensuMain{
   background-color: rgb(28, 51, 51);
+  width: 100vw;
   /* marche pas
   
   display: flex;
@@ -85,7 +94,6 @@
   text-align: right;
   font-weight: bold;
   font-size: 1em;
-  
 }
 
 /* div contenant l'icone + temperature du calendrier */
@@ -93,7 +101,6 @@
   display: flex;
   align-items: center;
   justify-content: flex-start;
-
 }
 
 /* icone de météo dans calendrier */
@@ -107,7 +114,6 @@
   text-align: center;
   flex-grow: 1;
   font-size: 1em;
-
 }
 
 @media only screen

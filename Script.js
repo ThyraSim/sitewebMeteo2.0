@@ -352,10 +352,26 @@ function mensuelHtml(selectedMonth) {
         }>Décembre</option>
       </select>
     </div>
+
     <div class="col-md-4 ">
       <h4>Valeur Minimale : <span id="min"></span> &deg;C</h4>
       <h4>Valeur Maximale : <span id="max"></span> &deg;C</h4>
       <h4>Valeur Moyenne : <span id="moy" ></span> &deg;C</h4>
+
+    <div class="col-md-8">
+      <div class="d-flex align-items-start">
+        <h4 class="val">Valeur Minimale : </h4>
+        <h4 class="text-end deg"><span id="min"></span> &deg;C</h4>
+      </div>
+      <div class="d-flex align-items-start">
+        <h4 class="val">Valeur Maximale : </h4>
+        <h4 class="text-end deg"><span id="max"></span> &deg;C</h4>
+      </div>
+      <div class="d-flex align-items-start">
+        <h4 class="val">Valeur Moyenne : </h4>
+        <h4 class="text-end deg"><span id="moy"></span> &deg;C</h4>
+      </div>
+
     </div>
   </div>
   </div>
