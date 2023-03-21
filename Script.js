@@ -2,17 +2,29 @@
 var today;
 
 //Prise en mémoire de la div avec l'id days-countainer
-const display = document.getElementById("display");
+const display = document.getElementById("display")
+const degChoose = document.getElementById("degree")
 var daysContainer;
 var daysContainer2;
 var carousel;
 var carouselMain;
 var mensuMain;
 var ListeMois;
+var mainSetter = 1;
+
+var tDJ;
+var tMin;
+var tMax;
+var tMoy;
+
+var mensOrDay = 0
 
 let numCount = 1;
 var days = [];
 let newDate = today;
+
+degChoose.innerHTML = "&deg;F"
+var degChoice = "C"
 
 var moisEnCours;
 
@@ -206,9 +218,15 @@ function remplirDonnee(jour, date, tempAjourdhui, tempsMin, tempsMax, icone1) {
       mois(dateJSON); //Pour Janvier, Février, etc
       date.innerHTML = moisChoisi;
 
-      tempAjourdhui.innerHTML = temp.TempDuJour + "&deg;C"; //Formatter Température d'aujourd'hui
-      tempsMin.innerHTML = "MIN\n" + temp.TempMin + "&deg;C"; //Formatter Température minimale
-      tempsMax.innerHTML = "MAX\n" + temp.TempMax + "&deg;C"; //Formatter Température maximale
+      tDJ = temp.TempDuJour
+      tMin = temp.TempMin
+      tMax = temp.TempMax
+
+      changeFahrenheit()
+
+      tempAjourdhui.innerHTML = tDJ + "&deg;" + degChoice; //Formatter Température d'aujourd'hui
+      tempsMin.innerHTML = "MIN\n" + tMin + "&deg;" + degChoice; //Formatter Température minimale
+      tempsMax.innerHTML = "MAX\n" + tMax + "&deg;" + degChoice; //Formatter Température maximale
 
       //Pour l'icône niege, pluie, etc
       icone1.src = chooseIcon(temp.TempDuJour);
@@ -224,7 +242,7 @@ function remplirDonnee(jour, date, tempAjourdhui, tempsMin, tempsMax, icone1) {
 window.onload = function () {
   today = new Date();
   today.setHours(0, 0, 0, 0);
-  main(1);
+  main(mainSetter);
 };
 
 //Choix de la journée de la semaine
@@ -294,19 +312,22 @@ const dropdown = document.getElementsByName("choice");
 dropdown.forEach((element, index) => {
   element.addEventListener("click", function () {
     if (index == 0) {
-      main(3);
+      mainSetter = 3
     } else if (index == 1) {
-      main(7);
+      mainSetter = 7
     } else if (index == 2) {
-      main(14);
+      mainSetter = 14
     }
+    mensOrDay = 0;
+    main(mainSetter)
   });
 });
 
 const aujLink = document.querySelector("#auj");
 
 aujLink.addEventListener("click", function (event) {
-  main(1);
+  main(mainSetter);
+  mensOrDay = 0;
 });
 
 const mensuelLink = document.querySelector("#mens");
@@ -351,15 +372,15 @@ function mensuelHtml(selectedMonth) {
     <div class="col-md-8">
       <div class="d-flex align-items-start">
         <h4 class="val">Valeur Minimale : </h4>
-        <h4 class="text-end deg"><span id="min"></span> &deg;C</h4>
+        <h4 class="text-end deg"><span id="min"></span></h4>
       </div>
       <div class="d-flex align-items-start">
         <h4 class="val">Valeur Maximale : </h4>
-        <h4 class="text-end deg"><span id="max"></span> &deg;C</h4>
+        <h4 class="text-end deg"><span id="max"></span></h4>
       </div>
       <div class="d-flex align-items-start">
         <h4 class="val">Valeur Moyenne : </h4>
-        <h4 class="text-end deg"><span id="moy"></span> &deg;C</h4>
+        <h4 class="text-end deg"><span id="moy"></span></h4>
       </div>
     </div>
   </div>
@@ -395,6 +416,7 @@ mensuelLink.addEventListener("click", function () {
   fetchDataForMonth(moisEnCours);
   reset();
   display.appendChild(mensuMain);
+  mensOrDay = 1
 });
 
 function setListener() {
@@ -450,15 +472,22 @@ function afficherStatistique(tabTempMois) {
   var max = document.getElementById("max");
   var moy = document.getElementById("moy");
 
-  // CALCUL STATISTIQUE ET AFFICHAGE ( MIN, MAX , MOY)
-  max.innerHTML = Math.max(...tabTempMois); // calcul de la valeur max du mois
-  min.innerHTML = Math.min(...tabTempMois); // calcul de la valeur min
+  tMax =  Math.max(...tabTempMois); // calcul de la valeur max du mois
+  tMin = Math.min(...tabTempMois); // calcul de la valeur min
+
   let sum = 0;
   let nb = tabTempMois.length;
   tabTempMois.forEach((jour) => {
     sum += jour;
   });
-  moy.innerHTML = Math.round(sum / nb);
+  tMoy = Math.round(sum / nb);
+
+  changeFahrenheit()
+
+  max.innerHTML = tMax + "&deg;" + degChoice
+  min.innerHTML = tMin + "&deg;" + degChoice
+  
+  moy.innerHTML = tMoy + "&deg;" + degChoice;
 }
 
 function genereCalendrier(annee, mois, temp) {
@@ -531,7 +560,11 @@ function genereCalendrier(annee, mois, temp) {
         const tempSpan = document.createElement("span");
         tempSpan.classList.add("tempSpan")
        
-        tempSpan.innerHTML = temperature+ "&deg;C";
+        tDJ = temperature
+
+        changeFahrenheit()
+
+        tempSpan.innerHTML = tDJ + "&deg;" + degChoice;
        
         tempDiv.appendChild(tempSpan);
 
@@ -561,3 +594,45 @@ function reset() {
   today = new Date();
   today.setHours(0, 0, 0, 0);
 }
+
+degChoose.addEventListener("click", function(){
+  if(degChoice == "C")
+  {
+    degChoose.innerHTML = "&deg;C"
+    degChoice = "F"
+  }
+  else
+  {
+    degChoose.innerHTML = "&deg;F"
+    degChoice = "C"
+  }
+  if(mensOrDay == 0)
+  {
+    main(mainSetter)
+  }
+  else
+  {
+    var selectedMonth = ListeMois.value;
+    if (mensuMain != null) {
+      mensuMain.innerHTML = null;
+    }
+    mensuelHtml(selectedMonth);
+    fetchDataForMonth(ListeMois.value);
+    reset();
+    display.appendChild(mensuMain);
+  }
+})
+
+function changeFahrenheit(){
+  if(degChoice == "F"){
+    tDJ = Math.floor ((tDJ * 9/5)+32)
+    tMin = Math.floor ((tMin * 9/5)+32)
+    tMax = Math.floor ((tMax * 9/5)+32)
+
+    if(mensOrDay == 1)
+    {
+      tMoy = Math.floor ((tMoy * 9/5)+32)
+    }
+  }
+}
+
