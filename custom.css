@@ -3,7 +3,8 @@
     line-height: 8vh;
     background-color: #4F5D73;
     min-height: 560px;
-    font-size: 35px
+    /*font-size: 1.5vw;*/
+    font-size:calc(12px + 1vw);
 }
 
 .customContainer{
@@ -60,6 +61,11 @@
 .customContainer .row-chat{
     display: flex;
     flex-wrap: nowrap;
+}
+
+.customContainer .row{
+  display: flex;
+  flex-wrap: nowrap;
 }
 
 .customContainer{
@@ -153,4 +159,8 @@ body{
 
 .stats {
   margin-left: 25px;
+}
+
+a{
+  color: white;
 }
