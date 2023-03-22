@@ -45,7 +45,7 @@ function main(nbJour) {
 function carou() {
   carouselMain = document.createElement("div");
   carouselMain.setAttribute("id", "carouselExampleIndicators");
-  carouselMain.setAttribute("class", "carousel carousel-dark slide");
+  carouselMain.setAttribute("class", "carousel carousel- slide");
   carouselMain.innerHTML = `
     <div class="carousel-inner mt-4" id="carousel">
         <div class="carousel-item active" id="daysContainer"></div>
@@ -297,7 +297,6 @@ function mois(dateJSON) {
 function chooseIcon(temperature) {
   if (temperature <= 0) {
     return "images/neige.png";
-
   } else if (temperature >= 20) {
     return "images/soleil.png";
   } else if (temperature <= 10) {
@@ -327,10 +326,11 @@ dropdown.forEach((element, index) => {
 
 const aujLink = document.querySelector("#auj");
 
-aujLink.addEventListener("click", function (event) {
+function aujOnClick() {
+  mainSetter = 1;
   main(mainSetter);
   mensOrDay = 0;
-});
+}
 
 const mensuelLink = document.querySelector("#mens");
 
@@ -340,11 +340,11 @@ function mensuelHtml(selectedMonth) {
 
   mensuMain.innerHTML = ` 
   <div class="container">
-  <div class="row">
+  <div class="row-chat">
   <div class="col-md-4 ">
   </div>
     <div class="col-md-4 w-25">
-      <select id="ListeMois" class="form-select form-select-lg bg-dark text-center text-uppercase " aria-label=".form-select-sm example">
+      <select id="ListeMois" class="form-select form-select-lg bg-dark text-center text-uppercase" aria-label=".form-select-sm example">
         <option value ="0" ${
           selectedMonth == 0 ? "selected" : ""
         }>Janvier</option>
@@ -373,16 +373,16 @@ function mensuelHtml(selectedMonth) {
         }>Décembre</option>
       </select>
     </div>
-    <div class="col-md-8">
-      <div class="d-flex align-items-start">
+    <div class="col-md-8 stats">
+      <div class="d-flex align-items-start mmm">
         <h4 class="val">Valeur Minimale : </h4>
         <h4 class="text-end deg"><span id="min"></span></h4>
       </div>
-      <div class="d-flex align-items-start">
+      <div class="d-flex align-items-start mmm">
         <h4 class="val">Valeur Maximale : </h4>
         <h4 class="text-end deg"><span id="max"></span></h4>
       </div>
-      <div class="d-flex align-items-start">
+      <div class="d-flex align-items-start mmm">
         <h4 class="val">Valeur Moyenne : </h4>
         <h4 class="text-end deg"><span id="moy"></span></h4>
       </div>
@@ -639,4 +639,3 @@ function changeFahrenheit(){
     }
   }
 }
-
