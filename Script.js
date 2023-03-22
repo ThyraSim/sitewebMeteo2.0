@@ -335,11 +335,6 @@ function aujOnClick() {
 }
 
 
-
-
-
-
-
 const mensuelLink = document.querySelector("#mens");
 
 function mensuelHtml(selectedMonth) {
