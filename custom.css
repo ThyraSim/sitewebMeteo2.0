@@ -179,3 +179,23 @@ body{
 a{
   color: white;
 }
+
+.backgroundIconeSunny{
+  background-image: url(images/sunnyBg.jpg);
+  background-size: cover;
+}
+
+.backgroundIconeSnowy{
+  background-image: url(images/snowyBg.jpg);
+  background-size: cover;
+}
+
+.backgroundIconeCloudy{
+  background-image: url(images/couldyBg.jpg);
+  background-size: cover;
+}
+
+.backgroundIconeRainy{
+  background-image: url(images/rainyBg.jpg);
+  background-size: cover;
+}
