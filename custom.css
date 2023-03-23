@@ -35,8 +35,14 @@
 }
 
 .list-unstyled img {
-    border-radius: 50%;
-  }
+  width: 40px;
+  height: 40px;
+  position: relative;
+  
+ margin-left: -41px;  /* adjust this value as needed */
+}
+
+
   img {
     border-radius: 50%;
   }
@@ -44,6 +50,15 @@
   hr{
     border: 2px solid rgb(0, 0, 0);
   }
+
+.list-unstyled{
+  margin-left: 80px;
+}
+
+h5{
+  text-align: left;
+  margin-left: 80px;
+}
 
   .copyrightBG{
     background-color: rgba(0, 0, 0, 0.2)
