@@ -3,7 +3,8 @@
     line-height: 8vh;
     background-color: #4F5D73;
     min-height: 560px;
-    font-size: 35px
+    /*font-size: 1.5vw;*/
+    font-size:calc(12px + 1vw);
 }
 
 .customContainer{
@@ -72,9 +73,14 @@ h5{
   margin-right: 10px;
 }
 
-.customContainer .row{
+.customContainer .row-chat{
     display: flex;
     flex-wrap: nowrap;
+}
+
+.customContainer .row{
+  display: flex;
+  flex-wrap: nowrap;
 }
 
 .customContainer{
@@ -86,7 +92,7 @@ h5{
 
 
 /* principal div ajouter à display pour calendrier */
-.mensuMain{
+.customContainer{
   background-color: rgb(28, 51, 51);
   width: 100vw;
   /* marche pas
@@ -142,7 +148,10 @@ and (max-width : 992px)
         min-width: 0;
         overflow-x: auto;
     }
+}
 
+body{
+  overflow-x: hidden;
 }
 
 ::-webkit-scrollbar {
@@ -157,6 +166,14 @@ and (max-width : 992px)
 }
 ::-webkit-scrollbar-thumb:hover {
   background: #555; /* Slightly lighter color when hovering over the scrollbar thumb */
+}
+
+#ListeMois{
+  margin-top: 28px;
+}
+
+.stats {
+  margin-left: 25px;
 }
 
 a{
