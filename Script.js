@@ -324,6 +324,7 @@ dropdown.forEach((element, index) => {
   });
 });
 
+//permet que le aujourdhui et l'image remet la page avec les donnees d'aujourdhui
 const aujLink = document.querySelector("#auj");
 
 function aujOnClick() {
