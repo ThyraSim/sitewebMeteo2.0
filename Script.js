@@ -42,64 +42,14 @@ function main(nbJour) {
     });
 }
 
-function carou() {
-  carouselMain = document.createElement("div");
-  carouselMain.setAttribute("id", "carouselExampleIndicators");
-  carouselMain.setAttribute("class", "carousel carousel-slide");
-  carouselMain.innerHTML = `
-    <div class="carousel-inner mt-4" id="carousel">
-        <div class="carousel-item active" id="daysContainer"></div>
-        <div class="carousel-item" id="daysContainer2"></div>
-    </div>
 
-    <button
-        class="carousel-control-prev"
-        type="button"
-        data-bs-target="#carouselExampleIndicators"
-        data-bs-slide="prev"
-    >
-        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-        <span class="visually-hidden">Previous</span>
-    </button>
-    <button
-        class="carousel-control-next"
-        type="button"
-        data-bs-target="#carouselExampleIndicators"
-        data-bs-slide="next"
-    >
-        <span class="carousel-control-next-icon" aria-hidden="true"></span>
-        <span class="visually-hidden">Next</span>
-    </button>
-    <div class="carousel-indicators">
-        <button
-            type="button"
-            data-bs-target="#carouselExampleIndicators"
-            data-bs-slide-to="0"
-            class="active"
-            aria-current="true"
-            aria-label="Slide 1"
-        ></button>
-        <button
-            type="button"
-            data-bs-target="#carouselExampleIndicators"
-            data-bs-slide-to="1"
-            aria-label="Slide 2"
-        ></button>
-    </div>
-    `;
-  display.appendChild(carouselMain);
-  carousel = document.getElementById("carousel");
-}
 
-//Fonction Principale
+//Module de Gestion d'Affichage
 function afficherJours(numDays) {
   //Nombre de répétition (1 pour les normaux, 2 pour le carroussel)
   numCount = 1;
-
-  //Création du Array
   days = [];
 
-  //Répète une fois pour normal, 2 fois pour carroussel
   if (numDays == 14) {
     numDays = 7;
     numCount = 2;
@@ -108,15 +58,15 @@ function afficherJours(numDays) {
     }
     carou();
   }
-  //Remplissage du Array avec le nombre de jours nécéssaires
+  //Remplissage du Array avec le nombre de jours nécessaires
   for (let i = 1; i <= numDays; i++) {
     days.push(i);
   }
+  //Creation du HTML avant, et remplissage lorsqu'il est prêt à être injecté pour éviter les comportement non-voulus dans l'affichage (latence, sursaut, etc)
   newDate = today;
   creerHTML();
   reset();
   if (numCount == 2) {
-    console.log(carousel);
     carousel.appendChild(daysContainer);
     carousel.appendChild(daysContainer2);
     display.appendChild(carouselMain);
@@ -124,9 +74,9 @@ function afficherJours(numDays) {
     daysContainer.setAttribute("class", "");
     display.appendChild(daysContainer);
   }
-  console.log(display);
 }
 
+//Generation dynamique du HTML en fonction du nombres de jour à afficher
 function creerHTML() {
   for (let count = 0; count < numCount; count++) {
     //Création du container (pour carroussel)
@@ -173,7 +123,7 @@ function creerHTML() {
       //Date du jour
       var date = document.createElement("div");
       date.id = `date${day}`;
-
+      
       //Température du jour
       const tempAjourdhui = document.createElement("div");
       tempAjourdhui.id = `temps${day}`;
@@ -202,6 +152,10 @@ function creerHTML() {
       console.log(count);
     }
   }
+}
+
+function assemblageJour(){
+  
 }
 
 function remplirDonnee(jour, date, tempAjourdhui, tempsMin, tempsMax, icone1, verticalElement) {
@@ -339,6 +293,242 @@ function aujOnClick() {
 
 const mensuelLink = document.querySelector("#mens");
 
+
+mensuelLink.addEventListener("click", function () {
+  if (mensuMain != null) {
+    mensuMain.innerHTML = null;
+  }
+  mensuelHtml(0);
+  moisEnCours = today.getMonth();
+  ListeMois.value = moisEnCours;
+  fetchDataForMonth(moisEnCours);
+  reset();
+  display.appendChild(mensuMain);
+  mensOrDay = 1
+});
+
+
+function setListener() {
+  ListeMois.addEventListener("change", () => {
+    var selectedMonth = ListeMois.value;
+    if (mensuMain != null) {
+      mensuMain.innerHTML = null;
+    }
+    mensuelHtml(selectedMonth);
+    fetchDataForMonth(ListeMois.value);
+    reset();
+    display.appendChild(mensuMain);
+  });
+}
+
+//Fonction composée pour la récupération et l'affichage du module Mensuel
+function fetchDataForMonth(mois) {
+  fetch("temperatures_2023.json")
+    .then((response) => response.json())
+    .then((data) => {
+      temp = data.temperatures;
+
+      // RÉCUPÈRE LES DONNES JUSTE POUR LE MOIS DANS tabTempMois
+      tabTempMois = CreerTabTempMois(mois, temp);
+
+      // CALCUL STATISTIQUE ET AFFICHAGE pour le mois en cours ( MIN, MAX , MOY)
+      afficherStatistique(tabTempMois);
+
+      // //GÉNÉRER CALENDRIER selon le mois choisi
+      genereCalendrier(today.getFullYear(), mois, temp);
+    });
+}
+
+//Creation et remplissage d'un tableau avec les temperature d'un mois donné
+function CreerTabTempMois(mois, temp) {
+  //temp = data.temperatures return tabTempMois;
+  // récupère les données juste pour le mois
+  var tabTempMois = [];
+  temp.forEach((jour) => {
+    var dateJSON = new Date(jour.DateDuJour);
+    dateJSON.setHours(0, 0, 0, 0);
+    dateJSON.setDate(dateJSON.getDate() + 1);
+
+    if (dateJSON.getMonth() == mois) {
+      // mois = valeur du dropdown menu du html
+      tabTempMois.push(jour.TempDuJour); // rempli la tab avec valeur de température du mois correspondant
+    }
+  });
+  return tabTempMois;
+}
+
+  //Calcule et affiche les statistiques mensuelles
+function afficherStatistique(tabTempMois) {
+  var min = document.getElementById("min");
+  var max = document.getElementById("max");
+  var moy = document.getElementById("moy");
+
+  tMax =  Math.max(...tabTempMois); // calcul de la valeur max du mois
+  tMin = Math.min(...tabTempMois); // calcul de la valeur min
+
+  let sum = 0;
+  let nb = tabTempMois.length;
+  tabTempMois.forEach((jour) => {
+    sum += jour;
+  });
+  tMoy = Math.round(sum / nb);
+
+  changeFahrenheit()
+  max.innerHTML = tMax + "&deg;" + degChoice
+  min.innerHTML = tMin + "&deg;" + degChoice
+  moy.innerHTML = tMoy + "&deg;" + degChoice;
+}
+
+//temp = data.temperatures;
+function genereCalendrier(annee, mois, temp) {
+
+  // Get la references
+  const tableCalendrier = document.getElementById("tableCalendrier");
+
+  // Clear le calendrier
+  tableCalendrier.innerHTML = "";
+
+  // get premier jour du mois
+  var firstDay = new Date(annee, mois, 1).getDay();
+
+  // Get le nb de jours du mois
+  var prochainMois = parseInt(mois) + 1;
+  var tempDate = new Date(annee, prochainMois, 0);
+  var lastDay = tempDate.getDate();
+
+  // Loop a travers chaque ligne
+  for (let i = 0; i < 6; i++) {
+    // Create a new row
+    const row = document.createElement("tr");
+
+    // Loop a travers chaque colonnes
+    for (let j = 0; j < 7; j++) {
+      // Calcul pour quel jour on commence a remplir la table et quel case
+      const day = i * 7 + j - firstDay + 1;
+      //exemple mars 2023 first day = 3
+      //0*7+0-3 +1 = -2 avec le if ci-dessous (if (day > 0 && day <= lastDay) )pas d'affichage dans la première case(dimanche) jusqu'à i=3 ( quatrième case = mercredi)
+      // i = 0 et j = 3 -> 0*7+3-3+1 = 1 => day = 1 donc avec cell.innerText =  day + ... => 1 ;
+
+      // Create a new cell
+      const cell = document.createElement("td");
+
+      // Add la date de la journee
+      if (day > 0 && day <= lastDay) {
+        
+        let temperature = "";
+        for (let k = 0; k < temp.length; k++) {
+          // parcours le tableau "temp" avec toute les données du JSON "temp = data.temperatures;"" si date match on récupère la temperature du jour
+          const dateJSON = new Date(temp[k].DateDuJour);
+          dateJSON.setHours(0, 0, 0, 0);
+          dateJSON.setDate(dateJSON.getDate() + 1);
+
+          if (
+            dateJSON.getFullYear() == annee &&
+            dateJSON.getMonth() == mois &&
+            dateJSON.getDate() == day
+          ) {
+            temperature = temp[k].TempDuJour;
+            break;
+          }
+        }
+        //Creation des divs pour les sous-elements des journees
+        const dayDiv = document.createElement("div");
+        dayDiv.classList.add("dayDiv")
+        dayDiv.innerText = day;
+    
+        
+
+        const tempDiv = document.createElement("div");
+        tempDiv.classList.add("tempDiv")
+        
+
+        const icone = document.createElement("img");
+        icone.src = chooseIcon(temperature, cell);
+        
+        tempDiv.appendChild(icone);
+
+        const tempSpan = document.createElement("span");
+        tempSpan.classList.add("tempSpan")
+       
+        tDJ = temperature
+
+        changeFahrenheit()
+
+        tempSpan.innerHTML = tDJ + "&deg;" + degChoice;
+       
+        tempDiv.appendChild(tempSpan);
+
+        // Ajout des divs aux cellules
+        cell.appendChild(dayDiv);
+        cell.appendChild(tempDiv);
+      }
+
+      // Ajout des cellules a la ligne
+      if (cell.innerHTML != "" || day < 28 || j > 0) {
+        console.log(cell);
+        console.log(cell.innerText);
+        row.appendChild(cell);
+      } else {
+        j = 7;
+      }
+    }
+
+    // Ajout des ligne au calendrier
+    tableCalendrier.appendChild(row);
+  }
+}
+
+//Genere la structure bootstrap du carousel
+function carou() {
+  carouselMain = document.createElement("div");
+  carouselMain.setAttribute("id", "carouselExampleIndicators");
+  carouselMain.setAttribute("class", "carousel carousel-slide");
+  carouselMain.innerHTML = `
+    <div class="carousel-inner mt-4" id="carousel">
+        <div class="carousel-item active" id="daysContainer"></div>
+        <div class="carousel-item" id="daysContainer2"></div>
+    </div>
+
+    <button
+        class="carousel-control-prev"
+        type="button"
+        data-bs-target="#carouselExampleIndicators"
+        data-bs-slide="prev"
+    >
+        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+        <span class="visually-hidden">Previous</span>
+    </button>
+    <button
+        class="carousel-control-next"
+        type="button"
+        data-bs-target="#carouselExampleIndicators"
+        data-bs-slide="next"
+    >
+        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+        <span class="visually-hidden">Next</span>
+    </button>
+    <div class="carousel-indicators">
+        <button
+            type="button"
+            data-bs-target="#carouselExampleIndicators"
+            data-bs-slide-to="0"
+            class="active"
+            aria-current="true"
+            aria-label="Slide 1"
+        ></button>
+        <button
+            type="button"
+            data-bs-target="#carouselExampleIndicators"
+            data-bs-slide-to="1"
+            aria-label="Slide 2"
+        ></button>
+    </div>
+    `;
+  display.appendChild(carouselMain);
+  carousel = document.getElementById("carousel");
+}
+
+//Creation de la structure pour l'affichage mensuel
 function mensuelHtml(selectedMonth) {
   mensuMain = document.createElement("div");
   mensuMain.classList.add("mensuMain");
@@ -350,32 +540,18 @@ function mensuelHtml(selectedMonth) {
   </div>
     <div class="col-4 text-start">
       <select id="ListeMois" class="form-select form-select-lg bg-dark text-center text-uppercase" aria-label=".form-select-sm example">
-        <option value ="0" ${
-          selectedMonth == 0 ? "selected" : ""
-        }>Janvier</option>
-        <option value="1" ${
-          selectedMonth == 1 ? "selected" : ""
-        }>Février</option>
+        <option value="0" ${selectedMonth == 0 ? "selected" : ""}>Janvier</option>
+        <option value="1" ${selectedMonth == 1 ? "selected" : ""}>Février</option>
         <option value="2" ${selectedMonth == 2 ? "selected" : ""}>Mars</option>
         <option value="3" ${selectedMonth == 3 ? "selected" : ""}>Avril</option>
         <option value="4" ${selectedMonth == 4 ? "selected" : ""}>Mai</option>
         <option value="5" ${selectedMonth == 5 ? "selected" : ""}>Juin</option>
-        <option value="6" ${
-          selectedMonth == 6 ? "selected" : ""
-        }>Juillet</option>
+        <option value="6" ${selectedMonth == 6 ? "selected" : ""}>Juillet</option>
         <option value="7" ${selectedMonth == 7 ? "selected" : ""}>Août</option>
-        <option value="8" ${
-          selectedMonth == 8 ? "selected" : ""
-        }>Septembre</option>
-        <option value="9" ${
-          selectedMonth == 9 ? "selected" : ""
-        }>Octobre</option>
-        <option value="10" ${
-          selectedMonth == 10 ? "selected" : ""
-        }>Novembre</option>
-        <option value="11" ${
-          selectedMonth == 11 ? "selected" : ""
-        }>Décembre</option>
+        <option value="8" ${selectedMonth == 8 ? "selected" : ""}>Septembre</option>
+        <option value="9" ${selectedMonth == 9 ? "selected" : ""}>Octobre</option>
+        <option value="10" ${selectedMonth == 10 ? "selected" : ""}>Novembre</option>
+        <option value="11" ${selectedMonth == 11 ? "selected" : ""}>Décembre</option>
       </select>
     </div>
     <div class="col-4 stats">
@@ -418,188 +594,6 @@ function mensuelHtml(selectedMonth) {
   setListener();
 }
 
-mensuelLink.addEventListener("click", function () {
-  if (mensuMain != null) {
-    mensuMain.innerHTML = null;
-  }
-  mensuelHtml(0);
-  moisEnCours = today.getMonth();
-  ListeMois.value = moisEnCours;
-  fetchDataForMonth(moisEnCours);
-  reset();
-  display.appendChild(mensuMain);
-  mensOrDay = 1
-});
-
-function setListener() {
-  ListeMois.addEventListener("change", () => {
-    var selectedMonth = ListeMois.value;
-    if (mensuMain != null) {
-      mensuMain.innerHTML = null;
-    }
-    mensuelHtml(selectedMonth);
-    fetchDataForMonth(ListeMois.value);
-    reset();
-    display.appendChild(mensuMain);
-  });
-}
-
-function fetchDataForMonth(mois) {
-  fetch("temperatures_2023.json")
-    .then((response) => response.json())
-    .then((data) => {
-      temp = data.temperatures;
-
-      // RÉCUPÈRE LES DONNES JUSTE POUR LE MOIS DANS tabTempMois
-      tabTempMois = CreerTabTempMois(mois, temp);
-
-      // CALCUL STATISTIQUE ET AFFICHAGE pour le mois en cours ( MIN, MAX , MOY)
-      afficherStatistique(tabTempMois);
-
-      // //GÉNÉRER CALENDRIER selon le mois choisi
-      genereCalendrier(today.getFullYear(), mois, temp);
-    });
-}
-
-function CreerTabTempMois(mois, temp) {
-  //temp = data.temperatures return tabTempMois;
-  // récupère les données juste pour le mois
-  var tabTempMois = [];
-  temp.forEach((jour) => {
-    var dateJSON = new Date(jour.DateDuJour);
-    dateJSON.setHours(0, 0, 0, 0);
-    dateJSON.setDate(dateJSON.getDate() + 1);
-
-    if (dateJSON.getMonth() == mois) {
-      // mois = valeur du dropdown menu du html
-      tabTempMois.push(jour.TempDuJour); // rempli la tab avec valeur de température du mois correspondant
-    }
-  });
-  return tabTempMois;
-}
-
-function afficherStatistique(tabTempMois) {
-  //cible html pour  afficher statistique
-  var min = document.getElementById("min");
-  var max = document.getElementById("max");
-  var moy = document.getElementById("moy");
-
-  tMax =  Math.max(...tabTempMois); // calcul de la valeur max du mois
-  tMin = Math.min(...tabTempMois); // calcul de la valeur min
-
-  let sum = 0;
-  let nb = tabTempMois.length;
-  tabTempMois.forEach((jour) => {
-    sum += jour;
-  });
-  tMoy = Math.round(sum / nb);
-
-  changeFahrenheit()
-
-  max.innerHTML = tMax + "&deg;" + degChoice
-  min.innerHTML = tMin + "&deg;" + degChoice
-  
-  moy.innerHTML = tMoy + "&deg;" + degChoice;
-}
-
-function genereCalendrier(annee, mois, temp) {
-  //temp = data.temperatures;
-
-  // Get a reference to the calendar body
-  const tableCalendrier = document.getElementById("tableCalendrier");
-
-  // Clear the previous contents of the calendar
-  tableCalendrier.innerHTML = "";
-
-  // Get the first day of the month
-  var firstDay = new Date(annee, mois, 1).getDay();
-  // Get the number of days in the month
-  var prochainMois = parseInt(mois) + 1;
-  var tempDate = new Date(annee, prochainMois, 0);
-  var lastDay = tempDate.getDate();
-
-  // Loop through each row of the calendar
-  for (let i = 0; i < 6; i++) {
-    // Create a new row
-    const row = document.createElement("tr");
-
-    // Loop through each column of the row
-    for (let j = 0; j < 7; j++) {
-      // Calcul pour quel jour on commence a remplir la table et quel case
-      const day = i * 7 + j - firstDay + 1;
-      //exemple mars 2023 first day = 3
-      //0*7+0-3 +1 = -2 avec le if ci-dessous (if (day > 0 && day <= lastDay) )pas d'affichage dans la première case(dimanche) jusqu'à i=3 ( quatrième case = mercredi)
-      // i = 0 et j = 3 -> 0*7+3-3+1 = 1 => day = 1 donc avec cell.innerText =  day + ... => 1 ;
-
-      // Create a new cell
-      const cell = document.createElement("td");
-
-      // Add the day number to the cell
-      if (day > 0 && day <= lastDay) {
-        // Find the temperature for this day
-        let temperature = "";
-        for (let k = 0; k < temp.length; k++) {
-          // parcours le tableau "temp" avec toute les données du JSON "temp = data.temperatures;"" si date match on récupère la temperature du jour
-          const dateJSON = new Date(temp[k].DateDuJour);
-          dateJSON.setHours(0, 0, 0, 0);
-          dateJSON.setDate(dateJSON.getDate() + 1);
-
-          if (
-            dateJSON.getFullYear() == annee &&
-            dateJSON.getMonth() == mois &&
-            dateJSON.getDate() == day
-          ) {
-            temperature = temp[k].TempDuJour;
-            break;
-          }
-        }
-        // Create the divs for day and temperature/icon
-        const dayDiv = document.createElement("div");
-        dayDiv.classList.add("dayDiv")
-        dayDiv.innerText = day;
-    
-        
-
-        const tempDiv = document.createElement("div");
-        tempDiv.classList.add("tempDiv")
-        
-
-        const icone = document.createElement("img");
-        icone.src = chooseIcon(temperature, cell);
-        
-        tempDiv.appendChild(icone);
-
-        const tempSpan = document.createElement("span");
-        tempSpan.classList.add("tempSpan")
-       
-        tDJ = temperature
-
-        changeFahrenheit()
-
-        tempSpan.innerHTML = tDJ + "&deg;" + degChoice;
-       
-        tempDiv.appendChild(tempSpan);
-
-        // Add the divs to the cell
-        cell.appendChild(dayDiv);
-        cell.appendChild(tempDiv);
-      }
-
-      // Add the cell to the row
-      if (cell.innerHTML != "" || day < 28 || j > 0) {
-        console.log(cell);
-        console.log(cell.innerText);
-        row.appendChild(cell);
-      } else {
-        j = 7;
-      }
-    }
-
-    // Add the row to the calendar body
-    tableCalendrier.appendChild(row);
-  }
-}
-
 //Vide les données affichées
 function reset() {
   display.innerHTML = null;
@@ -607,6 +601,7 @@ function reset() {
   today.setHours(0, 0, 0, 0);
 }
 
+//Event Listener sur le bouton de conversion
 degChoose.addEventListener("click", function(){
   if(degChoice == "C")
   {
@@ -634,7 +629,7 @@ degChoose.addEventListener("click", function(){
     display.appendChild(mensuMain);
   }
 })
-
+//Fonction de conversion
 function changeFahrenheit(){
   if(degChoice == "F"){
     tDJ = Math.floor ((tDJ * 9/5)+32)
