@@ -28,9 +28,6 @@ let numCount = 1; //Nombre de jour a afficher initialement = 1
 var days = [];
 let newDate = today; //Date d'aujourd'hui
 
-degChoose.innerHTML = "&deg;F"
-var degChoice = "C"
-
 var moisEnCours; //Variable du mois en cours
 
 let liste;
@@ -552,10 +549,15 @@ function reset() {
 //=========================== Fonction de conversion et/ou de calculs ==================================//
 
 function changeFahrenheit(){
-  if(localStorage.getItem("elChoice") == null)
-  {localStorage.setItem("elChoice", "C");}
+  console.log(localStorage.getItem("elChoice"))
+  if(localStorage.getItem("elChoice") == "C")
+  {
+    localStorage.setItem("elChoice", "C");
+    degChoose.innerHTML = "&deg;F"
+  }
   degChoice = localStorage.getItem("elChoice")
   if(degChoice == "F"){
+    degChoose.innerHTML = "&deg;C"
     tDJ = Math.floor ((tDJ * 9/5)+32)
     tMin = Math.floor ((tMin * 9/5)+32)
     tMax = Math.floor ((tMax * 9/5)+32)
