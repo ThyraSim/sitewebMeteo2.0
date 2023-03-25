@@ -8,7 +8,6 @@
 }
 
 .customContainer{
-    height: 53vh;
     min-height: 585px;
     width: 100%;
 }
@@ -214,4 +213,8 @@ a{
 .carousel-control-next,
 .carousel-control-prev {
   filter: invert(1);
+}
+
+td{
+  min-width:calc(100px + 1vh);
 }
