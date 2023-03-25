@@ -93,7 +93,6 @@ h5{
 
 /* principal div ajouter à display pour calendrier */
 .customContainer{
-  background-color: rgb(45, 44, 44);
   width: 100vw;
   /* marche pas
   
@@ -199,9 +198,4 @@ a{
 .backgroundIconeRainy{
   background-image: url(images/rainyBg.jpg);
   background-size: cover;
-}
-.carousel-indicators,
-.carousel-control-next,
-.carousel-control-prev {
-  filter: invert(1);
 }
