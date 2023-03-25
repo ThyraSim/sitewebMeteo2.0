@@ -2,31 +2,31 @@
 var today;
 
 //Prise en mémoire de la div avec l'id days-countainer
-const display = document.getElementById("display")
-const degChoose = document.getElementById("degree")
-var daysContainer;
-var daysContainer2;
-var carousel;
-var carouselMain;
-var mensuMain;
-var ListeMois;
-var mainSetter = 1;
+const display = document.getElementById("display") //Node html utilisée comme zone d'affichage
+const degChoose = document.getElementById("degree") //Bouton de conversion C/F
+var daysContainer; //Variable correspondant à un div contenant maximalement 7 jours. Utilisé dans tous les affichages excepté le mensuel
+var daysContainer2; //Variable servant de deuxieme panel pour le carousel
+var carousel; //
+var carouselMain;//
+var mensuMain;//
+var ListeMois;//
+var mainSetter = 1; //Variable du nombre de jours sur la fonction Main
 
-var tDJ;
-var tMin;
-var tMax;
-var tMoy;
+var tDJ; //Temperature du jour
+var tMin;//Temperature minimum
+var tMax;//Temperature Maximum
+var tMoy;//Temperature Moyenne
 
-var mensOrDay = 0
+var mensOrDay = 0 //Variable d'état 0=affichage de journées, 1=affichage mensuel
 
-let numCount = 1;
+let numCount = 1; //Nombre de jour a afficher initialement = 1
 var days = [];
-let newDate = today;
+let newDate = today; //Date d'aujourd'hui
 
 degChoose.innerHTML = "&deg;F"
 var degChoice = "C"
 
-var moisEnCours;
+var moisEnCours; //Variable du mois en cours
 
 let liste;
 
@@ -43,7 +43,6 @@ function main(nbJour) {
 }
 
 
-
 //Module de Gestion d'Affichage
 function afficherJours(numDays) {
   //Nombre de répétition (1 pour les normaux, 2 pour le carroussel)
@@ -56,6 +55,7 @@ function afficherJours(numDays) {
     if (carouselMain != null) {
       carouselMain.innerHTML = null;
     }
+    //Creation de la structure carousel
     carou();
   }
   //Remplissage du Array avec le nombre de jours nécessaires
@@ -145,7 +145,7 @@ function creerHTML() {
 
       center.appendChild(col); //Ajouter col au center
       col.appendChild(verticalElement); //Ajouter verticalElement au col
-
+      //Remplissage des données dans l'élément jour
       remplirDonnee(jour, date, tempAjourdhui, tempsMin, tempsMax, icone1, verticalElement);
     });
     if (count == 1) {
@@ -154,10 +154,8 @@ function creerHTML() {
   }
 }
 
-function assemblageJour(){
-  
-}
 
+//Remplissage des donnes pour une journée
 function remplirDonnee(jour, date, tempAjourdhui, tempsMin, tempsMax, icone1, verticalElement) {
   for (let index = 0; index < liste.length; index++) {
     let temp = liste[index]; //Contient les données
@@ -293,7 +291,7 @@ function aujOnClick() {
 
 const mensuelLink = document.querySelector("#mens");
 
-
+//event listener sur la navigation pour le mensuel
 mensuelLink.addEventListener("click", function () {
   if (mensuMain != null) {
     mensuMain.innerHTML = null;
@@ -301,13 +299,13 @@ mensuelLink.addEventListener("click", function () {
   mensuelHtml(0);
   moisEnCours = today.getMonth();
   ListeMois.value = moisEnCours;
-  fetchDataForMonth(moisEnCours);
-  reset();
-  display.appendChild(mensuMain);
+  fetchDataForMonth(moisEnCours); //HTML pret pour l'injection
+  reset();                        //Vider le display en operation
+  display.appendChild(mensuMain); //Injection du HTML préparé auparavant
   mensOrDay = 1
 });
 
-
+//Event listener sur le selecteur de mois du module mensuel
 function setListener() {
   ListeMois.addEventListener("change", () => {
     var selectedMonth = ListeMois.value;
@@ -315,13 +313,13 @@ function setListener() {
       mensuMain.innerHTML = null;
     }
     mensuelHtml(selectedMonth);
-    fetchDataForMonth(ListeMois.value);
-    reset();
-    display.appendChild(mensuMain);
+    fetchDataForMonth(ListeMois.value); //HTML pret pour l'injection
+    reset();                            //Vider le display en operation
+    display.appendChild(mensuMain);     //Injection du HTML préparé auparavant
   });
 }
 
-//Fonction composée pour la récupération et l'affichage du module Mensuel
+//Fonction composée pour la récupération du JSON, creation de la structure et l'affichage du module Mensuel
 function fetchDataForMonth(mois) {
   fetch("temperatures_2023.json")
     .then((response) => response.json())
