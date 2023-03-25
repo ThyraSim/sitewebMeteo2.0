@@ -286,7 +286,7 @@ window.onload = function () {
 
 
 
-//========================Fonctions pour Mesuel========================================//
+//========================Fonctions pour Mensuel========================================//
 
 //Fonction composée pour la récupération du JSON, creation de la structure et l'affichage du module Mensuel
 function fetchDataForMonth(mois) {
@@ -428,7 +428,7 @@ function genereCalendrier(annee, mois, temp) {
 function carou() {
   carouselMain = document.createElement("div");
   carouselMain.setAttribute("id", "carouselExampleIndicators");
-  carouselMain.setAttribute("class", "carousel carousel-slide");
+  carouselMain.setAttribute("class", "carousel slide");
   carouselMain.innerHTML = `
     <div class="carousel-inner mt-4" id="carousel">
         <div class="carousel-item active" id="daysContainer"></div>

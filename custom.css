@@ -68,7 +68,6 @@ h5{
  /* body{
     min-width: 1200px;
 }*/
-
 #degree{
   margin-right: 10px;
 }
@@ -87,13 +86,14 @@ h5{
     flex: 1;
     min-width: 0;
     overflow-x: auto;
-    overflow-y: hidden;
+
 }
 
 
 /* principal div ajouter à display pour calendrier */
 .customContainer{
   width: 100vw;
+  height: 75vh;
   /* marche pas
   
   display: flex;
@@ -102,12 +102,13 @@ h5{
 
 }
 
+td{
+  width:calc(100px + 1vh);
+}
 
 /* calendrier */
 .tableCalendrier{
     table-layout: auto;
-
-    width: 100vw;
     width: 50vw;
     background-color: #a4cdd3;
     color: #000000;
@@ -134,6 +135,12 @@ h5{
   align-items: center;
   justify-content: flex-start;
 }
+.deg, .val{
+  font-size:calc(14px + 0.35vw);
+  max-height: 25px;
+  
+}
+
 
 /* icone de météo dans calendrier */
 .tableCalendrier img{
