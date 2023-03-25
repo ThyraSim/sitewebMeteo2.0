@@ -253,12 +253,12 @@ degChoose.addEventListener("click", function(){
   if(degChoice == "C")
   {
     degChoose.innerHTML = "&deg;C"
-    degChoice = "F"
+    localStorage.setItem("elChoice", "F")
   }
   else
   {
     degChoose.innerHTML = "&deg;F"
-    degChoice = "C"
+    localStorage.setItem("elChoice", "C")
   }
   if(mensOrDay == 0)
   {
@@ -552,6 +552,9 @@ function reset() {
 //=========================== Fonction de conversion et/ou de calculs ==================================//
 
 function changeFahrenheit(){
+  if(localStorage.getItem("elChoice") == null)
+  {localStorage.setItem("elChoice", "C");}
+  degChoice = localStorage.getItem("elChoice")
   if(degChoice == "F"){
     tDJ = Math.floor ((tDJ * 9/5)+32)
     tMin = Math.floor ((tMin * 9/5)+32)
