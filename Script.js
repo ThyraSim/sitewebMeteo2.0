@@ -45,7 +45,7 @@ function main(nbJour) {
 function carou() {
   carouselMain = document.createElement("div");
   carouselMain.setAttribute("id", "carouselExampleIndicators");
-  carouselMain.setAttribute("class", "carousel carousel- slide");
+  carouselMain.setAttribute("class", "carousel carousel-slide");
   carouselMain.innerHTML = `
     <div class="carousel-inner mt-4" id="carousel">
         <div class="carousel-item active" id="daysContainer"></div>
@@ -196,7 +196,7 @@ function creerHTML() {
       center.appendChild(col); //Ajouter col au center
       col.appendChild(verticalElement); //Ajouter verticalElement au col
 
-      remplirDonnee(jour, date, tempAjourdhui, tempsMin, tempsMax, icone1);
+      remplirDonnee(jour, date, tempAjourdhui, tempsMin, tempsMax, icone1, verticalElement);
     });
     if (count == 1) {
       console.log(count);
@@ -204,7 +204,7 @@ function creerHTML() {
   }
 }
 
-function remplirDonnee(jour, date, tempAjourdhui, tempsMin, tempsMax, icone1) {
+function remplirDonnee(jour, date, tempAjourdhui, tempsMin, tempsMax, icone1, verticalElement) {
   for (let index = 0; index < liste.length; index++) {
     let temp = liste[index]; //Contient les données
     var dateJSON = new Date(temp.DateDuJour); //Création d'un objet date avec la date d'aujourd'hui
@@ -229,7 +229,7 @@ function remplirDonnee(jour, date, tempAjourdhui, tempsMin, tempsMax, icone1) {
       tempsMax.innerHTML = "MAX\n" + tMax + "&deg;" + degChoice; //Formatter Température maximale
 
       //Pour l'icône niege, pluie, etc
-      icone1.src = chooseIcon(temp.TempDuJour);
+      icone1.src = chooseIcon(temp.TempDuJour, verticalElement);
       icone1.width = "100"; //Taille de l'icône
 
       index = liste.length; //Fin de la boucle
@@ -294,14 +294,18 @@ function mois(dateJSON) {
 }
 
 //Choix de l'icône
-function chooseIcon(temperature) {
+function chooseIcon(temperature, box) {
   if (temperature <= 0) {
+    box.classList.add("backgroundIconeSnowy")
     return "images/neige.png";
   } else if (temperature >= 20) {
+    box.classList.add("backgroundIconeSunny")
     return "images/soleil.png";
   } else if (temperature <= 10) {
+    box.classList.add("backgroundIconeRainy")
     return "images/pluie.png";
   } else if (temperature < 20) {
+    box.classList.add("backgroundIconeCloudy")
     return "images/nuage.png";
   }
 }
@@ -341,10 +345,10 @@ function mensuelHtml(selectedMonth) {
 
   mensuMain.innerHTML = ` 
   <div class="container">
-  <div class="row-chat">
-  <div class="col-md-4 ">
+  <div class="row row-chat">
+  <div class="col-2 ">
   </div>
-    <div class="col-md-4 w-25">
+    <div class="col-4 text-start">
       <select id="ListeMois" class="form-select form-select-lg bg-dark text-center text-uppercase" aria-label=".form-select-sm example">
         <option value ="0" ${
           selectedMonth == 0 ? "selected" : ""
@@ -374,7 +378,7 @@ function mensuelHtml(selectedMonth) {
         }>Décembre</option>
       </select>
     </div>
-    <div class="col-md-8 stats">
+    <div class="col-4 stats">
       <div class="d-flex align-items-start mmm">
         <h4 class="val">Valeur Minimale : </h4>
         <h4 class="text-end deg"><span id="min"></span></h4>
@@ -388,10 +392,12 @@ function mensuelHtml(selectedMonth) {
         <h4 class="text-end deg"><span id="moy"></span></h4>
       </div>
     </div>
+    <div class="col-2"></div>
   </div>
   </div>
-
-      <table class="table table-bordered tableCalendrier w-75 center">
+        <div class="row mx-auto "> 
+        <div class="col-1"></div>
+        <div class="col-10 "><table class="table table-bordered tableCalendrier mx-auto" style=" width:70vw;>
         <thead class="text-center ">
           <th>Dimanche</th>
           <th>Lundi</th>
@@ -403,8 +409,9 @@ function mensuelHtml(selectedMonth) {
         </thead>
         <tbody id="tableCalendrier">
         </tbody>
-      </table>
-  
+      </table></div>
+      <div class="col-1"></div>
+      </div>
         `;
   display.appendChild(mensuMain);
   ListeMois = document.getElementById("ListeMois"); //  dropdown menu
@@ -558,7 +565,7 @@ function genereCalendrier(annee, mois, temp) {
         
 
         const icone = document.createElement("img");
-        icone.src = chooseIcon(temperature);
+        icone.src = chooseIcon(temperature, cell);
         
         tempDiv.appendChild(icone);
 
