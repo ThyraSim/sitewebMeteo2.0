@@ -548,8 +548,7 @@ function reset() {
 
 //=========================== Fonction de conversion et/ou de calculs ==================================//
 
-function changeFahrenheit(){
-  console.log(localStorage.getItem("elChoice"))
+function changeFahrenheit(){ //Utilisation du localStorage pour garder la valeur sélectionner lors de la dernière utilisation de l'utilisateur
   if(localStorage.getItem("elChoice") == "C")
   {
     localStorage.setItem("elChoice", "C");
