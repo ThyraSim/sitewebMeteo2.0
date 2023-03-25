@@ -57,7 +57,7 @@
   margin-right: 10px;
 }
 
-.customContainer .row{
+.customContainer .row-chat{
     display: flex;
     flex-wrap: nowrap;
 }
@@ -71,7 +71,7 @@
 
 
 /* principal div ajouter à display pour calendrier */
-.mensuMain{
+.customContainer{
   background-color: rgb(28, 51, 51);
   width: 100vw;
   /* marche pas
@@ -127,7 +127,10 @@ and (max-width : 992px)
         min-width: 0;
         overflow-x: auto;
     }
+}
 
+body{
+  overflow-x: hidden;
 }
 
 ::-webkit-scrollbar {
@@ -146,4 +149,11 @@ and (max-width : 992px)
 
 a{
   color: white;
+}
+#ListeMois{
+  margin-top: 28px;
+}
+
+.stats {
+  margin-left: 25px;
 }
