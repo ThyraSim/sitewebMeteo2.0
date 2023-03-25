@@ -345,10 +345,10 @@ function mensuelHtml(selectedMonth) {
 
   mensuMain.innerHTML = ` 
   <div class="container">
-  <div class="row-chat">
-  <div class="col-md-4 ">
+  <div class="row row-chat">
+  <div class="col-2 ">
   </div>
-    <div class="col-md-4 w-25">
+    <div class="col-4 text-start">
       <select id="ListeMois" class="form-select form-select-lg bg-dark text-center text-uppercase" aria-label=".form-select-sm example">
         <option value ="0" ${
           selectedMonth == 0 ? "selected" : ""
@@ -378,7 +378,7 @@ function mensuelHtml(selectedMonth) {
         }>Décembre</option>
       </select>
     </div>
-    <div class="col-md-8 stats">
+    <div class="col-4 stats">
       <div class="d-flex align-items-start mmm">
         <h4 class="val">Valeur Minimale : </h4>
         <h4 class="text-end deg"><span id="min"></span></h4>
@@ -392,10 +392,12 @@ function mensuelHtml(selectedMonth) {
         <h4 class="text-end deg"><span id="moy"></span></h4>
       </div>
     </div>
+    <div class="col-2"></div>
   </div>
   </div>
-
-      <table class="table table-bordered tableCalendrier w-75 center">
+        <div class="row mx-auto "> 
+        <div class="col-1"></div>
+        <div class="col-10 "><table class="table table-bordered tableCalendrier mx-auto" style=" width:70vw;>
         <thead class="text-center ">
           <th>Dimanche</th>
           <th>Lundi</th>
@@ -407,8 +409,9 @@ function mensuelHtml(selectedMonth) {
         </thead>
         <tbody id="tableCalendrier">
         </tbody>
-      </table>
-  
+      </table></div>
+      <div class="col-1"></div>
+      </div>
         `;
   display.appendChild(mensuMain);
   ListeMois = document.getElementById("ListeMois"); //  dropdown menu

@@ -62,7 +62,7 @@ h5{
 }
 
   .copyrightBG{
-    background-color: rgba(0, 0, 0, 0.2)
+    background-color: rgba(31, 30, 30, 0.2)
   }
 
  /* body{
@@ -109,7 +109,14 @@ h5{
 
     width: 100vw;
     width: 50vw;
-    background-color: #4F5D73;
+    background-color: #a4cdd3;
+    color: #000000;
+   
+}
+.tableCalendrier th{
+  
+    background-color: #658596;
+
    
 }
 
@@ -118,6 +125,7 @@ h5{
   text-align: right;
   font-weight: bold;
   font-size: 1em;
+  
 }
 
 /* div contenant l'icone + temperature du calendrier */
@@ -129,7 +137,7 @@ h5{
 
 /* icone de météo dans calendrier */
 .tableCalendrier img{
-  width: 25px;
+  width: 3vw;
   margin-right: 5px;
 }
 
@@ -152,6 +160,8 @@ and (max-width : 992px)
 
 body{
   overflow-x: hidden;
+  color: rgb(41, 41, 41);
+  background-color: rgb(36, 45, 52);
 }
 
 ::-webkit-scrollbar {
@@ -198,4 +208,10 @@ a{
 .backgroundIconeRainy{
   background-image: url(images/rainyBg.jpg);
   background-size: cover;
+}
+
+.carousel-indicators,
+.carousel-control-next,
+.carousel-control-prev {
+  filter: invert(1);
 }
