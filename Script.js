@@ -12,6 +12,11 @@ var mensuMain;//
 var ListeMois;//
 var mainSetter = 1; //Variable du nombre de jours sur la fonction Main
 
+//permet que le aujourdhui et l'image remet la page avec les donnees d'aujourdhui
+const aujLink = document.querySelector("#auj");
+const mensuelLink = document.querySelector("#mens");
+const dropdown = document.getElementsByName("choice");
+
 var tDJ; //Temperature du jour
 var tMin;//Temperature minimum
 var tMax;//Temperature Maximum
@@ -30,7 +35,7 @@ var moisEnCours; //Variable du mois en cours
 
 let liste;
 
-//Récupération du fichier JSON et exécution de la fonction
+//Récupération du fichier JSON et exécution du module de gestion d'affichage
 function main(nbJour) {
   fetch("temperatures_2023.json")
     .then((response) => {
@@ -64,9 +69,9 @@ function afficherJours(numDays) {
   }
   //Creation du HTML avant, et remplissage lorsqu'il est prêt à être injecté pour éviter les comportement non-voulus dans l'affichage (latence, sursaut, etc)
   newDate = today;
-  creerHTML();
-  reset();
-  if (numCount == 2) {
+  creerHTML(); //Creation du HTML
+  reset();     //Vider le display en operation
+  if (numCount == 2) { //Injection du HTML en fonction de l'état de l'application
     carousel.appendChild(daysContainer);
     carousel.appendChild(daysContainer2);
     display.appendChild(carouselMain);
@@ -190,80 +195,15 @@ function remplirDonnee(jour, date, tempAjourdhui, tempsMin, tempsMax, icone1, ve
   }
 }
 
-//Load la fonction de header et footer quand ouvre la page
-window.onload = function () {
-  today = new Date();
-  today.setHours(0, 0, 0, 0);
+
+
+//====================Fonction de types "Event Listener"=======================//
+//Attaché "onclick" sur le lien Aujourd'hui
+function aujOnClick() {
+  mainSetter = 1;
   main(mainSetter);
-};
-
-//Choix de la journée de la semaine
-function dayOfWeek(dateJSON) {
-  if (dateJSON.getDay() == 0) {
-    jourSemaine = "Dimanche";
-  } else if (dateJSON.getDay() == 1) {
-    jourSemaine = "Lundi";
-  } else if (dateJSON.getDay() == 2) {
-    jourSemaine = "Mardi";
-  } else if (dateJSON.getDay() == 3) {
-    jourSemaine = "Mercredi";
-  } else if (dateJSON.getDay() == 4) {
-    jourSemaine = "Jeudi";
-  } else if (dateJSON.getDay() == 5) {
-    jourSemaine = "Vendredi";
-  } else if (dateJSON.getDay() == 6) {
-    jourSemaine = "Samedi";
-  }
+  mensOrDay = 0;
 }
-
-//Choix du mois
-function mois(dateJSON) {
-  if (dateJSON.getMonth() == 0) {
-    moisChoisi = dateJSON.getDate() + " janvier";
-  } else if (dateJSON.getMonth() == 1) {
-    moisChoisi = dateJSON.getDate() + " février";
-  } else if (dateJSON.getMonth() == 2) {
-    moisChoisi = dateJSON.getDate() + " mars";
-  } else if (dateJSON.getMonth() == 3) {
-    moisChoisi = dateJSON.getDate() + " avril";
-  } else if (dateJSON.getMonth() == 4) {
-    moisChoisi = dateJSON.getDate() + " mai";
-  } else if (dateJSON.getMonth() == 5) {
-    moisChoisi = dateJSON.getDate() + " juin";
-  } else if (dateJSON.getMonth() == 6) {
-    moisChoisi = dateJSON.getDate() + " juillet";
-  } else if (dateJSON.getMonth() == 7) {
-    moisChoisi = dateJSON.getDate() + " août";
-  } else if (dateJSON.getMonth() == 8) {
-    moisChoisi = dateJSON.getDate() + " septembre";
-  } else if (dateJSON.getMonth() == 9) {
-    moisChoisi = dateJSON.getDate() + " octobre";
-  } else if (dateJSON.getMonth() == 10) {
-    moisChoisi = dateJSON.getDate() + " novembre";
-  } else if (dateJSON.getMonth() == 11) {
-    moisChoisi = dateJSON.getDate() + " décembre";
-  }
-}
-
-//Choix de l'icône
-function chooseIcon(temperature, box) {
-  if (temperature <= 0) {
-    box.classList.add("backgroundIconeSnowy")
-    return "images/neige.png";
-  } else if (temperature >= 20) {
-    box.classList.add("backgroundIconeSunny")
-    return "images/soleil.png";
-  } else if (temperature <= 10) {
-    box.classList.add("backgroundIconeRainy")
-    return "images/pluie.png";
-  } else if (temperature < 20) {
-    box.classList.add("backgroundIconeCloudy")
-    return "images/nuage.png";
-  }
-}
-
-
-const dropdown = document.getElementsByName("choice");
 
 // Add an event listener for the 'click' event
 dropdown.forEach((element, index) => {
@@ -279,17 +219,6 @@ dropdown.forEach((element, index) => {
     main(mainSetter)
   });
 });
-
-//permet que le aujourdhui et l'image remet la page avec les donnees d'aujourdhui
-const aujLink = document.querySelector("#auj");
-
-function aujOnClick() {
-  mainSetter = 1;
-  main(mainSetter);
-  mensOrDay = 0;
-}
-
-const mensuelLink = document.querySelector("#mens");
 
 //event listener sur la navigation pour le mensuel
 mensuelLink.addEventListener("click", function () {
@@ -318,6 +247,46 @@ function setListener() {
     display.appendChild(mensuMain);     //Injection du HTML préparé auparavant
   });
 }
+
+//Event Listener sur le bouton de conversion
+degChoose.addEventListener("click", function(){
+  if(degChoice == "C")
+  {
+    degChoose.innerHTML = "&deg;C"
+    degChoice = "F"
+  }
+  else
+  {
+    degChoose.innerHTML = "&deg;F"
+    degChoice = "C"
+  }
+  if(mensOrDay == 0)
+  {
+    main(mainSetter)
+  }
+  else
+  {
+    var selectedMonth = ListeMois.value;
+    if (mensuMain != null) {
+      mensuMain.innerHTML = null;
+    }
+    mensuelHtml(selectedMonth);
+    fetchDataForMonth(ListeMois.value);
+    reset();
+    display.appendChild(mensuMain);
+  }
+})
+
+//Load la fonction de header et footer quand ouvre la page
+window.onload = function () {
+  today = new Date();
+  today.setHours(0, 0, 0, 0);
+  main(mainSetter);
+};
+
+
+
+//========================Fonctions pour Mesuel========================================//
 
 //Fonction composée pour la récupération du JSON, creation de la structure et l'affichage du module Mensuel
 function fetchDataForMonth(mois) {
@@ -353,28 +322,6 @@ function CreerTabTempMois(mois, temp) {
     }
   });
   return tabTempMois;
-}
-
-  //Calcule et affiche les statistiques mensuelles
-function afficherStatistique(tabTempMois) {
-  var min = document.getElementById("min");
-  var max = document.getElementById("max");
-  var moy = document.getElementById("moy");
-
-  tMax =  Math.max(...tabTempMois); // calcul de la valeur max du mois
-  tMin = Math.min(...tabTempMois); // calcul de la valeur min
-
-  let sum = 0;
-  let nb = tabTempMois.length;
-  tabTempMois.forEach((jour) => {
-    sum += jour;
-  });
-  tMoy = Math.round(sum / nb);
-
-  changeFahrenheit()
-  max.innerHTML = tMax + "&deg;" + degChoice
-  min.innerHTML = tMin + "&deg;" + degChoice
-  moy.innerHTML = tMoy + "&deg;" + degChoice;
 }
 
 //temp = data.temperatures;
@@ -463,8 +410,6 @@ function genereCalendrier(annee, mois, temp) {
 
       // Ajout des cellules a la ligne
       if (cell.innerHTML != "" || day < 28 || j > 0) {
-        console.log(cell);
-        console.log(cell.innerText);
         row.appendChild(cell);
       } else {
         j = 7;
@@ -475,6 +420,9 @@ function genereCalendrier(annee, mois, temp) {
     tableCalendrier.appendChild(row);
   }
 }
+
+
+//==================================Fonctions de structure=====================================//
 
 //Genere la structure bootstrap du carousel
 function carou() {
@@ -599,35 +547,10 @@ function reset() {
   today.setHours(0, 0, 0, 0);
 }
 
-//Event Listener sur le bouton de conversion
-degChoose.addEventListener("click", function(){
-  if(degChoice == "C")
-  {
-    degChoose.innerHTML = "&deg;C"
-    degChoice = "F"
-  }
-  else
-  {
-    degChoose.innerHTML = "&deg;F"
-    degChoice = "C"
-  }
-  if(mensOrDay == 0)
-  {
-    main(mainSetter)
-  }
-  else
-  {
-    var selectedMonth = ListeMois.value;
-    if (mensuMain != null) {
-      mensuMain.innerHTML = null;
-    }
-    mensuelHtml(selectedMonth);
-    fetchDataForMonth(ListeMois.value);
-    reset();
-    display.appendChild(mensuMain);
-  }
-})
-//Fonction de conversion
+
+
+//=========================== Fonction de conversion et/ou de calculs ==================================//
+
 function changeFahrenheit(){
   if(degChoice == "F"){
     tDJ = Math.floor ((tDJ * 9/5)+32)
@@ -638,5 +561,92 @@ function changeFahrenheit(){
     {
       tMoy = Math.floor ((tMoy * 9/5)+32)
     }
+  }
+}
+
+  //Calcule et affiche les statistiques mensuelles
+  function afficherStatistique(tabTempMois) {
+    var min = document.getElementById("min");
+    var max = document.getElementById("max");
+    var moy = document.getElementById("moy");
+  
+    tMax =  Math.max(...tabTempMois); // calcul de la valeur max du mois
+    tMin = Math.min(...tabTempMois); // calcul de la valeur min
+  
+    let sum = 0;
+    let nb = tabTempMois.length;
+    tabTempMois.forEach((jour) => {
+      sum += jour;
+    });
+    tMoy = Math.round(sum / nb);
+  
+    changeFahrenheit()
+    max.innerHTML = tMax + "&deg;" + degChoice
+    min.innerHTML = tMin + "&deg;" + degChoice
+    moy.innerHTML = tMoy + "&deg;" + degChoice;
+  }
+
+//Choix de la journée de la semaine
+function dayOfWeek(dateJSON) {
+  if (dateJSON.getDay() == 0) {
+    jourSemaine = "Dimanche";
+  } else if (dateJSON.getDay() == 1) {
+    jourSemaine = "Lundi";
+  } else if (dateJSON.getDay() == 2) {
+    jourSemaine = "Mardi";
+  } else if (dateJSON.getDay() == 3) {
+    jourSemaine = "Mercredi";
+  } else if (dateJSON.getDay() == 4) {
+    jourSemaine = "Jeudi";
+  } else if (dateJSON.getDay() == 5) {
+    jourSemaine = "Vendredi";
+  } else if (dateJSON.getDay() == 6) {
+    jourSemaine = "Samedi";
+  }
+}
+
+//Choix du mois
+function mois(dateJSON) {
+  if (dateJSON.getMonth() == 0) {
+    moisChoisi = dateJSON.getDate() + " janvier";
+  } else if (dateJSON.getMonth() == 1) {
+    moisChoisi = dateJSON.getDate() + " février";
+  } else if (dateJSON.getMonth() == 2) {
+    moisChoisi = dateJSON.getDate() + " mars";
+  } else if (dateJSON.getMonth() == 3) {
+    moisChoisi = dateJSON.getDate() + " avril";
+  } else if (dateJSON.getMonth() == 4) {
+    moisChoisi = dateJSON.getDate() + " mai";
+  } else if (dateJSON.getMonth() == 5) {
+    moisChoisi = dateJSON.getDate() + " juin";
+  } else if (dateJSON.getMonth() == 6) {
+    moisChoisi = dateJSON.getDate() + " juillet";
+  } else if (dateJSON.getMonth() == 7) {
+    moisChoisi = dateJSON.getDate() + " août";
+  } else if (dateJSON.getMonth() == 8) {
+    moisChoisi = dateJSON.getDate() + " septembre";
+  } else if (dateJSON.getMonth() == 9) {
+    moisChoisi = dateJSON.getDate() + " octobre";
+  } else if (dateJSON.getMonth() == 10) {
+    moisChoisi = dateJSON.getDate() + " novembre";
+  } else if (dateJSON.getMonth() == 11) {
+    moisChoisi = dateJSON.getDate() + " décembre";
+  }
+}
+
+//Choix de l'icône
+function chooseIcon(temperature, box) {
+  if (temperature <= 0) {
+    box.classList.add("backgroundIconeSnowy")
+    return "images/neige.png";
+  } else if (temperature >= 20) {
+    box.classList.add("backgroundIconeSunny")
+    return "images/soleil.png";
+  } else if (temperature <= 10) {
+    box.classList.add("backgroundIconeRainy")
+    return "images/pluie.png";
+  } else if (temperature < 20) {
+    box.classList.add("backgroundIconeCloudy")
+    return "images/nuage.png";
   }
 }
