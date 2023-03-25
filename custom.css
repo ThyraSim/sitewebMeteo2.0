@@ -86,6 +86,7 @@ h5{
     flex: 1;
     min-width: 0;
     overflow-x: auto;
+    overflow-y: auto;
 
 }
 
@@ -109,6 +110,7 @@ td{
 /* calendrier */
 .tableCalendrier{
     table-layout: auto;
+    max-height: 435px;
     width: 50vw;
     background-color: #a4cdd3;
     color: #000000;
