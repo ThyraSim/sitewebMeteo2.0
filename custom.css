@@ -5,10 +5,10 @@
     min-height: 560px;
     /*font-size: 1.5vw;*/
     font-size:calc(12px + 1vw);
+    font-weight: bold;
 }
 
 .customContainer{
-    height: 53vh;
     min-height: 585px;
     width: 100%;
 }
@@ -62,13 +62,12 @@ h5{
 }
 
   .copyrightBG{
-    background-color: rgba(0, 0, 0, 0.2)
+    background-color: rgba(31, 30, 30, 0.2)
   }
 
  /* body{
     min-width: 1200px;
 }*/
-
 #degree{
   margin-right: 10px;
 }
@@ -87,14 +86,15 @@ h5{
     flex: 1;
     min-width: 0;
     overflow-x: auto;
-    overflow-y: hidden;
+    overflow-y: auto;
+
 }
 
 
 /* principal div ajouter à display pour calendrier */
 .customContainer{
-  background-color: rgb(28, 51, 51);
   width: 100vw;
+  height: 75vh;
   /* marche pas
   
   display: flex;
@@ -103,13 +103,23 @@ h5{
 
 }
 
+td{
+  width:calc(100px + 1vh);
+}
 
 /* calendrier */
 .tableCalendrier{
     table-layout: auto;
+    max-height: 435px;
+    width: 50vw;
+    background-color: #a4cdd3;
+    color: #000000;
+   
+}
+.tableCalendrier th{
+  
+    background-color: #658596;
 
-    width: 100vw;
-    background-color: #4F5D73;
    
 }
 
@@ -118,6 +128,7 @@ h5{
   text-align: right;
   font-weight: bold;
   font-size: 1em;
+  
 }
 
 /* div contenant l'icone + temperature du calendrier */
@@ -126,10 +137,16 @@ h5{
   align-items: center;
   justify-content: flex-start;
 }
+.deg, .val{
+  font-size:calc(14px + 0.35vw);
+  max-height: 25px;
+  
+}
+
 
 /* icone de météo dans calendrier */
 .tableCalendrier img{
-  width: 25px;
+  width: 3vw;
   margin-right: 5px;
 }
 
@@ -138,6 +155,7 @@ h5{
   text-align: center;
   flex-grow: 1;
   font-size: 1em;
+  font-weight: bold;
 }
 
 @media only screen
@@ -152,6 +170,8 @@ and (max-width : 992px)
 
 body{
   overflow-x: hidden;
+  color: rgb(41, 41, 41);
+  background-color: rgb(36, 45, 52);
 }
 
 ::-webkit-scrollbar {
@@ -179,3 +199,38 @@ body{
 a{
   color: white;
 }
+
+.backgroundIconeSunny{
+  background-image: url(images/sunnyBg.jpg);
+  background-size: cover;
+}
+
+.backgroundIconeSnowy{
+  background-image: url(images/snowyBg.jpg);
+  background-size: cover;
+}
+
+.backgroundIconeCloudy{
+  background-image: url(images/couldyBg.jpg);
+  background-size: cover;
+}
+
+.backgroundIconeRainy{
+  background-image: url(images/rainyBg.jpg);
+  background-size: cover;
+}
+
+.carousel-indicators,
+.carousel-control-next,
+.carousel-control-prev {
+  filter: invert(1);
+}
+
+td{
+  min-width:calc(100px + 1vh);
+}
+
+.container-fluid{
+  max-width: 1500px;
+}
+
