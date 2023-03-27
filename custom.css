@@ -234,3 +234,19 @@ td{
   max-width: 1500px;
 }
 
+@media only screen
+and (min-width : 866px)
+{
+    .customContainer{
+        overflow-x: hidden;
+    }
+}
+
+@media only screen
+and (max-width : 746px)
+{
+  .tableContainer{
+    padding-right: 770px;
+    box-sizing: border-box;
+  }
+}
