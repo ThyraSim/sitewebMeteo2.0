@@ -83,7 +83,7 @@ function creerHTML() {
   for (let count = 0; count < numCount; count++) {
     //Création du container (pour carroussel)
     const container = document.createElement("div");
-    container.classList.add("container"); //Contenir les éléments
+    container.classList.add("container-fluid"); //Contenir les éléments
 
     //Création de la classe qui centre les éléments
     const center = document.createElement("div");
@@ -477,7 +477,7 @@ function mensuelHtml(selectedMonth) {
   mensuMain.classList.add("mensuMain");
 
   mensuMain.innerHTML = ` 
-  <div class="container">
+  <div class="container-fluid">
   <div class="row row-chat">
   <div class="col-2 ">
   </div>
@@ -514,9 +514,8 @@ function mensuelHtml(selectedMonth) {
     <div class="col-2"></div>
   </div>
   </div>
-        <div class="row mx-auto "> 
-        <div class="col-1"></div>
-        <div class="col-10 "><table class="table table-bordered tableCalendrier mx-auto" style=" width:70vw;>
+        <div class="mx-auto "> 
+        <div style="marging-right: 25px"><table class="table table-bordered tableCalendrier mx-auto" style=" width:70vw;>
         <thead class="text-center ">
           <th>Dimanche</th>
           <th>Lundi</th>
@@ -529,7 +528,6 @@ function mensuelHtml(selectedMonth) {
         <tbody id="tableCalendrier">
         </tbody>
       </table></div>
-      <div class="col-1"></div>
       </div>
         `;
   display.appendChild(mensuMain);

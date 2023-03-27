@@ -5,6 +5,7 @@
     min-height: 560px;
     /*font-size: 1.5vw;*/
     font-size:calc(12px + 1vw);
+    font-weight: bold;
 }
 
 .customContainer{
@@ -154,6 +155,7 @@ td{
   text-align: center;
   flex-grow: 1;
   font-size: 1em;
+  font-weight: bold;
 }
 
 @media only screen
@@ -227,3 +229,8 @@ a{
 td{
   min-width:calc(100px + 1vh);
 }
+
+.container-fluid{
+  max-width: 1500px;
+}
+
