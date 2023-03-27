@@ -1,4 +1,24 @@
-.vertical-element {
+/*-----------------------------Styles Généraux-----------------------*/
+.customContainer{
+  min-height: 585px; /*égalise la taille des pages*/
+  width: 100vw;
+  height: 72vh;
+  /*Créations Scroll Bar*/
+  flex: 1;
+  min-width: 0;
+  overflow-x: auto;
+}
+
+.container-fluid{
+  max-width: 1500px; /*Taille maximale d'affichage (pour garder un effet centré)*/
+}
+
+#degree{ /*Style du bouton de choix d'unité de mesure*/
+  margin-right: 10px;
+}
+
+/*Style Pour Les Différents Jours*/
+.vertical-element{ /*Sytle des rectangles de jours*/
     height: 50vh;
     line-height: 8vh;
     background-color: #4F5D73;
@@ -8,31 +28,122 @@
     font-weight: bold;
 }
 
-.customContainer{
-    min-height: 585px;
-    width: 100%;
+.customContainer .row{
+  display: flex;
+  flex-wrap: nowrap;
 }
 
+/*----------Styles Pour Carroussel----------*/
 .carousel{
     margin-top: -24px;
 }
 
-.carousel-indicators
-{
+.carousel-indicators{
     position: relative;
     margin-top: 10px;
 }
 
-.center{
-  margin:auto;
+.carousel-indicators,
+.carousel-control-next,
+.carousel-control-prev {
+  filter: invert(1); /*Mettre les indicateurs en Blanc*/
 }
 
+/*//----------Styles Pour Mensuel----------//*/
 .val{
   width: 200px;
 }
 
 .deg{
   width: 70px;
+}
+
+td{
+  min-width:calc(100px + 1vh);
+}
+
+.customContainer .row-stats{ /*Style stats + Choix mois*/
+  display: flex;
+  flex-wrap: nowrap;
+}
+
+#ListeMois{ /*Style Bouton Choix Mois*/
+  margin-top: 28px;
+}
+
+.stats { /*Style Stats Mensuelles*/
+  margin-left: 25px;
+}
+.deg, .val{
+  font-size:calc(14px + 0.35vw);
+  max-height: 25px;
+  }
+
+/* calendrier */
+.tableCalendrier{
+  table-layout: auto;
+  max-height: 435px;
+  width: 50vw;
+  background-color: #a4cdd3;
+  color: #000000;
+ 
+}
+.tableCalendrier th{
+  background-color: #658596;
+}
+
+/* Jour dans calendrier ( 1 à 31) */
+.tableCalendrier .dayDiv{
+text-align: right;
+font-weight: bold;
+font-size: 1em;
+}
+
+/* div contenant l'icone + temperature du calendrier */
+.tableCalendrier .tempDiv{
+display: flex;
+align-items: center;
+justify-content: flex-start;
+}
+
+@media only screen
+and (min-width : 1546px)
+{ /*Empêche la table de se redimensionner entre C et F dans les grandes fenêtres*/
+  .table{
+    table-layout: fixed;
+  }
+}
+
+/* icone de météo dans calendrier */
+.tableCalendrier img{
+width: 3vw;
+margin-right: 5px;
+}
+
+/* Temperature dans calendrier */
+.tableCalendrier .tempSpan{
+text-align: center;
+flex-grow: 1;
+font-size: 1em;
+font-weight: bold;
+}
+
+@media only screen
+and (max-width : 746px)
+{ /*Prévient la coupure de la table lors de la réduction de la taille de la fenêtre*/
+  .tableContainer{
+    padding-right: 770px;
+    box-sizing: border-box;
+  }
+}
+
+td{
+  width:calc(100px + 1vh); /*Tailles des cellules*/
+}
+
+/*//----------Styles Pour Footer----------//*/
+hr{ /*Style des barres de division*/
+  border: 2px solid rgb(0, 0, 0);
 }
 
 .list-unstyled img {
@@ -43,119 +154,25 @@
  margin-left: -41px;  /* adjust this value as needed */
 }
 
-
-  img {
-    border-radius: 50%;
-  }
-
-  hr{
-    border: 2px solid rgb(0, 0, 0);
-  }
-
-.list-unstyled{
-  margin-left: 80px;
+img {
+  border-radius: 50%; /*Arrondi les logos du footer*/
 }
 
-h5{
+h5{ /*Tites footer*/
   text-align: left;
   margin-left: 80px;
 }
 
-  .copyrightBG{
-    background-color: rgba(31, 30, 30, 0.2)
-  }
-
- /* body{
-    min-width: 1200px;
-}*/
-#degree{
-  margin-right: 10px;
+.list-unstyled{ /*Intérieur footer*/
+  margin-left: 80px;
 }
 
-.customContainer .row-chat{
-    display: flex;
-    flex-wrap: nowrap;
+.copyrightBG{ /*Couleur de la barre du bas (pour copyrights)*/
+  background-color: rgba(31, 30, 30, 0.2)
 }
 
-.customContainer .row{
-  display: flex;
-  flex-wrap: nowrap;
-}
-
-.customContainer{
-    flex: 1;
-    min-width: 0;
-    overflow-x: auto;
-    overflow-y: auto;
-
-}
-
-
-/* principal div ajouter à display pour calendrier */
-.customContainer{
-  width: 100vw;
-  height: 75vh;
-  /* marche pas
-  
-  display: flex;
-  flex-wrap: nowrap;
-  min-width: 1000px; */
-
-}
-
-td{
-  width:calc(100px + 1vh);
-}
-
-/* calendrier */
-.tableCalendrier{
-    table-layout: auto;
-    max-height: 435px;
-    width: 50vw;
-    background-color: #a4cdd3;
-    color: #000000;
-   
-}
-.tableCalendrier th{
-  
-    background-color: #658596;
-
-   
-}
-
-/* Jour dans calendrier ( 1 à 31) */
-.tableCalendrier .dayDiv{
-  text-align: right;
-  font-weight: bold;
-  font-size: 1em;
-  
-}
-
-/* div contenant l'icone + temperature du calendrier */
-.tableCalendrier .tempDiv{
-  display: flex;
-  align-items: center;
-  justify-content: flex-start;
-}
-.deg, .val{
-  font-size:calc(14px + 0.35vw);
-  max-height: 25px;
-  
-}
-
-
-/* icone de météo dans calendrier */
-.tableCalendrier img{
-  width: 3vw;
-  margin-right: 5px;
-}
-
-/* Temperature dans calendrier */
-.tableCalendrier .tempSpan{
-  text-align: center;
-  flex-grow: 1;
-  font-size: 1em;
-  font-weight: bold;
+a{ /*Assure la couleur blance des liens du footer*/
+  color: white;
 }
 
 @media only screen
@@ -169,37 +186,12 @@ and (max-width : 992px)
 }
 
 body{
-  overflow-x: hidden;
+  overflow-x: hidden; /*Pas de scroll horizontal sur toute le page*/
   color: rgb(41, 41, 41);
   background-color: rgb(36, 45, 52);
 }
 
-::-webkit-scrollbar {
-    width: 10px;
-}
-::-webkit-scrollbar-track {
-  background: #232323; /* Dark background color for the scrollbar track */
-}
-::-webkit-scrollbar-thumb {
-  background: #444; /* Darker background color for the scrollbar thumb */
-  border-radius: 5px;
-}
-::-webkit-scrollbar-thumb:hover {
-  background: #555; /* Slightly lighter color when hovering over the scrollbar thumb */
-}
-
-#ListeMois{
-  margin-top: 28px;
-}
-
-.stats {
-  margin-left: 25px;
-}
-
-a{
-  color: white;
-}
-
+/*----------------Backgrounds----------------*/
 .backgroundIconeSunny{
   background-image: url(images/sunnyBg.jpg);
   background-size: cover;
@@ -220,33 +212,26 @@ a{
   background-size: cover;
 }
 
-.carousel-indicators,
-.carousel-control-next,
-.carousel-control-prev {
-  filter: invert(1);
+/*----------------Style Scrollbar----------------*/
+::-webkit-scrollbar {
+  width: 10px;
 }
-
-td{
-  min-width:calc(100px + 1vh);
+::-webkit-scrollbar-track {
+background: #232323;
 }
-
-.container-fluid{
-  max-width: 1500px;
+::-webkit-scrollbar-thumb {
+background: #444;
+border-radius: 5px;
+}
+::-webkit-scrollbar-thumb:hover {
+background: #555;
 }
 
 @media only screen
 and (min-width : 866px)
 {
     .customContainer{
-        overflow-x: hidden;
+        overflow-x: hidden; /*Empêche la barre horizontal d'apparaître trop tôt*/
     }
 }
 
-@media only screen
-and (max-width : 746px)
-{
-  .tableContainer{
-    padding-right: 770px;
-    box-sizing: border-box;
-  }
-}

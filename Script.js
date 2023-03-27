@@ -478,7 +478,7 @@ function mensuelHtml(selectedMonth) {
 
   mensuMain.innerHTML = ` 
   <div class="container-fluid">
-  <div class="row row-chat">
+  <div class="row row-stats">
   <div class="col-2 ">
   </div>
     <div class="col-4 text-start">
