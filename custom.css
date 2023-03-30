@@ -2,7 +2,6 @@
 .customContainer{
   min-height: 585px; /*égalise la taille des pages*/
   width: 100vw;
-  height: 72vh;
   /*Créations Scroll Bar*/
   flex: 1;
   min-width: 0;
