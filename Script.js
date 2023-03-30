@@ -44,7 +44,6 @@ function main(nbJour) {
     });
 }
 
-
 //Module de Gestion d'Affichage
 function afficherJours(numDays) {
   //Nombre de répétition (1 pour les normaux, 2 pour le carroussel)

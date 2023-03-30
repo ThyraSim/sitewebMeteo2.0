@@ -63,6 +63,7 @@ td{
 }
 
 .customContainer .row-stats{ /*Style stats + Choix mois*/
+
   display: flex;
   flex-wrap: nowrap;
 }
@@ -200,7 +201,6 @@ body{
 .backgroundIconeSnowy{
   background-image: url(images/snowyBg.jpg);
   background-size: cover;
-}
 
 .backgroundIconeCloudy{
   background-image: url(images/couldyBg.jpg);
@@ -234,4 +234,3 @@ and (min-width : 866px)
         overflow-x: hidden; /*Empêche la barre horizontal d'apparaître trop tôt*/
     }
 }
-
