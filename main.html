@@ -3,7 +3,7 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>Bootstrap demo</title>
+    <title>MétéoTurbo</title>
     <link
       href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css"
       rel="stylesheet"
@@ -19,7 +19,7 @@
   <body data-bs-theme="dark">
       <nav class="navbar navbar-expand-lg bg-body-tertiary">
           <div class="container-fluid">
-              <a class="navbar-brand" onclick="aujOnClick()" href="#"><img src="./images/icone.png" style="width: 6vw;"></a>
+              <a class="navbar-brand text-center" onclick="aujOnClick()" href="#" ><div style="height: 5.7vw; width:5.7vw; border-radius: 50%; overflow: hidden; position: relative;"><img src="./images/icone.png" style="width: 6vw; position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); "></div></a>
               <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
                   data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false"
                   aria-label="Toggle navigation">
@@ -61,10 +61,9 @@
       <div class="customContainer">
         <div id="display"></div>
       </div>
-
     <hr>
 
-    <footer class="bg-dark text-center text-lg-start text-white">
+    <footer class="bg-dark text-white">
       <!-- Grid container -->
       <div class="container p-4">
         <!--Grid row-->
@@ -72,17 +71,15 @@
           <!--Grid column   MANQUE A METTRE LES IMAGES PLUS VERS LA GAUCHE POUR ALIGNER LES LETTRES ENTRE ELLES-->
           <div class="col-lg-3 col-md-6 mb-4 mb-md-0">
             <h5 class="text-uppercase">Ressources</h5>
-            <ul class="list-unstyled mb-0 justify-content-start pl-0">
-              <li class="align-items-center">
+            <ul class="list-unstyled mb-0 justify-content-start pl-0  text-start">
+              <li class="align-items-center ">
                 <a href="https://meteo.gc.ca/" class="text-white " target="_blank">
-                  <img src="./images/enviCanadaIcon.png" alt="image1" width="40" height="40">
-                  Environnement Canada
+                  <img src="./images/enviCanadaIcon.png" alt="image1" >Environnement Canada
                 </a>
               </li>
               <li class="align-items-center">
                 <a href="https://www.meteomedia.com/ca" target="_blank" class="text-white ">
-                  <img src="./images/meteomediaIcon.png" alt="image2" width="40" height="40">
-                  MétéoMédia
+                  <img src="./images/meteomediaIcon.png" alt="image2">MétéoMédia
                 </a>
               </li>
             </ul>
@@ -93,58 +90,16 @@
           <!--Grid column-->
           <div class="col-lg-3 col-md-6 mb-4 mb-md-0">
             <h5 class="text-uppercase">Des questions ?</h5>
-            <ul class="list-unstyled">
+            <ul class="list-unstyled text-start">
                 <li>
                   <a href="#" data-bs-toggle="modal" data-bs-target="#nousJoindreModal">
-                    <i class="fas fa-shipping-fast fa-fw fa-sm me-2"></i>Nous joindre
+                    Nous joindre
                 </a>
                 </li>
             </ul>
         </div>
         
-        <div class="modal hide" id="nousJoindreModal" aria-hidden="true" aria-labelledby="nousJoindreModalLabel" tabindex="-1">
-          <div class="modal-dialog modal-lg">
-            <div class="modal-content">
-              <div class="modal-header">
-                <h1 class="modal-title fs-5" id="nousJoindreModalLabel">Veuillez remplir le formulaire</h1>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-              </div>
-              <div class="modal-body">
-                <form>
-                  <div class="row mb-3">
-                    <div class="col">
-                      <div class="input-group mb-3">
-                        <span class="input-group-text" id="inputGroup-sizing-default">Nom:</span>
-                        <input type="text" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default">
-                      </div>
-                      <div class="input-group mb-3">
-                        <span class="input-group-text" id="inputGroup-sizing-default">Prenom:</span>
-                        <input type="text" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default">
-                      </div>
-                      <div class="input-group mb-3">
-                        <span class="input-group-text" id="inputGroup-sizing-default">Email:</span>
-                        <input type="email" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default">
-                      </div>
-                    </div>
-                    <div class="col">
-                      <label for="formFile" class="form-label">Piece jointe:</label>
-                      <input class="form-control" type="file" id="formFile">
-                    </div>
-                  </div>
-                  <!-- Ajouter les autres champs de formulaire ici -->
-                  <div class="mb-3">
-                    <label for="exampleFormControlTextarea1" class="form-label">Commentaire:</label>
-                    <textarea class="form-control" id="exampleFormControlTextarea1" rows="3"></textarea>
-                  </div>
-                  <div class="d-flex justify-content-between">
-                    <button type="button" class="btn btn-secondary btn-lg float-start">Annuler</button>
-                    <button type="button" class="btn btn-primary btn-lg float-end">Soumettre</button>
-                  </div>
-                </form>
-              </div>
-            </div>
-          </div>
-        </div>
+        
 
           <!--Grid column-->
   
@@ -152,7 +107,7 @@
           <div class="col-lg-3 col-md-6 mb-4 mb-md-0">
             <h5 class="text-uppercase">Notre équipe</h5>
   
-            <ul class="list-unstyled">
+            <ul class="list-unstyled  text-start">
               <li>
                 <a href="https://www.linkedin.com/in/simon-beaudry-b5446b177/" class="text-white">Simon Beaudry</a>
               </li>
@@ -160,10 +115,10 @@
                 <a href="https://www.linkedin.com/in/francis-mercier-19b448238/" class="text-white">Francis Mercier</a>
               </li>
               <li>
-                <a href="#!" class="text-white">Jean-Daniel Laplante</a>
+                <a href="https://www.linkedin.com/in/jean-daniel-laplante-416382b2/" class="text-white">Jean-Daniel Laplante</a>
               </li>
               <li>
-                <a href="https://www.linkedin.com/mwlite/in/timothé-b-7a693b25a" class="text-white">Timothé Bélanger</a>
+                <a href="https://www.linkedin.com/in/timothé-b-7a693b25a" class="text-white">Timothé Bélanger</a>
               </li>
             </ul>
           </div>
@@ -171,13 +126,12 @@
           <!--Grid column-->
   
           <!--Grid column-->
-          <div class="col-lg-3 col-md-6 mb-4 mb-md-0">
+          <div class="col-lg-3 col-md-6 mb-4 mb-md-0 ">
             <h5 class="text-uppercase">Autre</h5>
   
-            <ul class="list-unstyled">
+            <ul class="list-unstyled  text-start">
               <li>
-                <a href="#" data-bs-toggle="modal" data-bs-target="#aPropos" >
-                  <i class="fas fa-shipping-fast fa-fw fa-sm me-2"></i>À propos
+                <a href="#" data-bs-toggle="modal" data-bs-target="#aPropos" >À propos
               </a>
                 
               </li>
@@ -207,16 +161,62 @@
         </div>
         <!--Grid row-->
       </div>
+    
       <!-- Grid container -->
   
       <!-- Copyright -->
       <div class="copyrightBG text-center p-3">
-        © 2021 Copyright:
-        <a class="text-white" href="https://mdbootstrap.com/">MaMeteo.com</a>
+        © 2023 Copyright:
+        <a class="text-white">MaMeteo.com</a>
       </div>
       <!-- Copyright -->
   
     </footer>
+
+    <!--Formulaire de nous joindre-->
+    <div class="modal hide" id="nousJoindreModal" aria-hidden="true" aria-labelledby="nousJoindreModalLabel" tabindex="-1">
+      <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h1 class="modal-title fs-5" id="nousJoindreModalLabel">Veuillez remplir le formulaire</h1>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+          <div class="modal-body">
+            <form>
+              <div class="row mb-3">
+                <div class="col">
+                  <div class="input-group mb-3">
+                    <span class="input-group-text" id="inputGroup-sizing-default">Nom:</span>
+                    <input type="text" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default">
+                  </div>
+                  <div class="input-group mb-3">
+                    <span class="input-group-text" id="inputGroup-sizing-default">Prenom:</span>
+                    <input type="text" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default">
+                  </div>
+                  <div class="input-group mb-3">
+                    <span class="input-group-text" id="inputGroup-sizing-default">Email:</span>
+                    <input type="email" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default">
+                  </div>
+                </div>
+                <div class="col">
+                  <label for="formFile" class="form-label">Piece jointe:</label>
+                  <input class="form-control" type="file" id="formFile">
+                </div>
+              </div>
+              <!-- Ajouter les autres champs de formulaire ici -->
+              <div class="mb-3">
+                <label for="exampleFormControlTextarea1" class="form-label">Commentaire:</label>
+                <textarea class="form-control" id="exampleFormControlTextarea1" rows="3"></textarea>
+              </div>
+              <div class="d-flex justify-content-between">
+                <button type="button" class="btn btn-secondary btn-lg float-start" data-bs-dismiss="modal">Annuler</button>
+                <button type="button" class="btn btn-primary btn-lg float-end" data-bs-dismiss="modal">Soumettre</button>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
 
     <script src="Script.js"></script>
     <script
