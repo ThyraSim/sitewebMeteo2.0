@@ -201,6 +201,7 @@ body{
 .backgroundIconeSnowy{
   background-image: url(images/snowyBg.jpg);
   background-size: cover;
+}
 
 .backgroundIconeCloudy{
   background-image: url(images/couldyBg.jpg);
