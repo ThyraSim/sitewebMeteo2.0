@@ -3,7 +3,7 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>MétéoTurbo</title>
+    <title>M&eacute;t&eacute;oTurbo</title>
     <link
       href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css"
       rel="stylesheet"
@@ -19,7 +19,7 @@
   <body data-bs-theme="dark">
       <nav class="navbar navbar-expand-lg bg-body-tertiary">
           <div class="container-fluid">
-              <a class="navbar-brand text-center" onclick="aujOnClick()" href="#" ><div style="height: 5.7vw; width:5.7vw; border-radius: 50%; overflow: hidden; position: relative;"><img src="./images/icone.png" style="width: 6vw; position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); "></div></a>
+              <a class="navbar-brand text-center" onclick="aujOnClick()" href="#" ><div style="height: 5.7vw; width:5.7vw; border-radius: 50%; overflow: hidden; position: relative;"><img src="./images/icone.png" style="width: 6vw; position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);" alt="Logo"></div></a>
               <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
                   data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false"
                   aria-label="Toggle navigation">
@@ -34,16 +34,16 @@
                       <li class="nav-item dropdown">
                           <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
                               aria-expanded="false">
-                              Prévisions Météo
+                              Pr&eacute;visions M&eacute;t&eacute;o
                           </a>
                           <ul class="dropdown-menu">
-                              <li><a class="dropdown-item" name="choice" value="3" href="#3j">3 Jours</a></li>
-                              <li><a class="dropdown-item" name="choice" value="7" href="#7j">7 Jours</a></li>
-                              <li><a class="dropdown-item" name="choice" value="14" href="#14j">14 Jours</a></li>
+                              <li><a class="dropdown-item" name="choice" href="#3j">3 Jours</a></li>
+                              <li><a class="dropdown-item" name="choice" href="#7j">7 Jours</a></li>
+                              <li><a class="dropdown-item" name="choice" href="#14j">14 Jours</a></li>
                               <li>
                                   <hr class="dropdown-divider">
                               </li>
-                              <li><a id="mens" class="dropdown-item" href="#mensuel">Prévisions Mensuelles</a></li>
+                              <li><a id="mens" class="dropdown-item" href="#mensuel">Pr&eacute;visions Mensuelles</a></li>
                           </ul>
                       </li>
                   </ul>
@@ -53,7 +53,7 @@
       </nav>
   
       <div class="d-flex align-items-center justify-content-center">
-        <h1 class="me-3">Montréal, Canada</h1>
+        <h1 class="me-3">Montr&eacute;al, Canada</h1>
         <button class="btn btn-secondary" id="degree"></button>
       </div>
 
@@ -79,7 +79,7 @@
               </li>
               <li class="align-items-center">
                 <a href="https://www.meteomedia.com/ca" target="_blank" class="text-white ">
-                  <img src="./images/meteomediaIcon.png" alt="image2">MétéoMédia
+                  <img src="./images/meteomediaIcon.png" alt="image2">M&eacute;t&eacute;oM&eacute;dia
                 </a>
               </li>
             </ul>
@@ -105,7 +105,7 @@
   
           <!--Grid column-->
           <div class="col-lg-3 col-md-6 mb-4 mb-md-0">
-            <h5 class="text-uppercase">Notre équipe</h5>
+            <h5 class="text-uppercase">Notre &eacute;quipe</h5>
   
             <ul class="list-unstyled  text-start">
               <li>
@@ -118,7 +118,7 @@
                 <a href="https://www.linkedin.com/in/jean-daniel-laplante-416382b2/" class="text-white">Jean-Daniel Laplante</a>
               </li>
               <li>
-                <a href="https://www.linkedin.com/in/timothé-b-7a693b25a" class="text-white">Timothé Bélanger</a>
+                <a href="https://www.linkedin.com/in/timoth&eacute;-b-7a693b25a" class="text-white">Timoth&eacute; B&eacute;langer</a>
               </li>
             </ul>
           </div>
@@ -131,7 +131,7 @@
   
             <ul class="list-unstyled  text-start">
               <li>
-                <a href="#" data-bs-toggle="modal" data-bs-target="#aPropos" >À propos
+                <a href="#" data-bs-toggle="modal" data-bs-target="#aPropos" >&Agrave; propos
               </a>
                 
               </li>
@@ -145,8 +145,8 @@
                   <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
-                  <img src="./images/icone.png" style="width: 6vw;"class="float-end" alt="description de votre image">
-                  <p>Bienvenue sur www.MaMétéo.com
+                  <img src="./images/icone.png" style="width: 6vw;" class="float-end" alt="description de votre image">
+                  <p>Bienvenue sur www.MaM&eacute;t&eacute;o.com
                     nous somme ravis en titi que vous utilisez 
                     notre site!</p>
                     
@@ -166,7 +166,7 @@
   
       <!-- Copyright -->
       <div class="copyrightBG text-center p-3">
-        © 2023 Copyright:
+        &#64; 2023 Copyright:
         <a class="text-white">MaMeteo.com</a>
       </div>
       <!-- Copyright -->
@@ -190,11 +190,11 @@
                     <input type="text" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default">
                   </div>
                   <div class="input-group mb-3">
-                    <span class="input-group-text" id="inputGroup-sizing-default">Prenom:</span>
+                    <span class="input-group-text" id="inputGroup-sizing-default1">Pr&eacute;nom:</span>
                     <input type="text" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default">
                   </div>
                   <div class="input-group mb-3">
-                    <span class="input-group-text" id="inputGroup-sizing-default">Email:</span>
+                    <span class="input-group-text" id="inputGroup-sizing-default2">Email:</span>
                     <input type="email" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default">
                   </div>
                 </div>
