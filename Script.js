@@ -483,7 +483,7 @@ function mensuelHtml(selectedMonth) {
     <div class="col-4 text-start">
       <select id="ListeMois" class="form-select form-select-lg bg-dark text-center text-uppercase" aria-label=".form-select-sm example">
         <option value="0" ${selectedMonth == 0 ? "selected" : ""}>Janvier</option>
-        <option value="1" ${selectedMonth == 1 ? "selected" : ""}>Février</option>
+        <option value="1" ${selectedMonth == 1 ? "selected" : ""}>F&eacute;vrier</option>
         <option value="2" ${selectedMonth == 2 ? "selected" : ""}>Mars</option>
         <option value="3" ${selectedMonth == 3 ? "selected" : ""}>Avril</option>
         <option value="4" ${selectedMonth == 4 ? "selected" : ""}>Mai</option>
@@ -493,7 +493,7 @@ function mensuelHtml(selectedMonth) {
         <option value="8" ${selectedMonth == 8 ? "selected" : ""}>Septembre</option>
         <option value="9" ${selectedMonth == 9 ? "selected" : ""}>Octobre</option>
         <option value="10" ${selectedMonth == 10 ? "selected" : ""}>Novembre</option>
-        <option value="11" ${selectedMonth == 11 ? "selected" : ""}>Décembre</option>
+        <option value="11" ${selectedMonth == 11 ? "selected" : ""}>D&eacute;cembre</option>
       </select>
     </div>
     <div class="col-4 stats">
@@ -615,7 +615,7 @@ function mois(dateJSON) {
   if (dateJSON.getMonth() == 0) {
     moisChoisi = dateJSON.getDate() + " janvier";
   } else if (dateJSON.getMonth() == 1) {
-    moisChoisi = dateJSON.getDate() + " février";
+    moisChoisi = dateJSON.getDate() + " f&eacute;vrier";
   } else if (dateJSON.getMonth() == 2) {
     moisChoisi = dateJSON.getDate() + " mars";
   } else if (dateJSON.getMonth() == 3) {
@@ -635,7 +635,7 @@ function mois(dateJSON) {
   } else if (dateJSON.getMonth() == 10) {
     moisChoisi = dateJSON.getDate() + " novembre";
   } else if (dateJSON.getMonth() == 11) {
-    moisChoisi = dateJSON.getDate() + " décembre";
+    moisChoisi = dateJSON.getDate() + " d&eacute;cembre";
   }
 }
 
